@@ -64,7 +64,7 @@ export function HomeAnalytics({ engagements }: { engagements: Engagements }) {
   ];
 
   return (
-    <AnalyticsSectionWrapper className='rounded-[20px] gap-1 flex flex-col'>
+    <AnalyticsSectionWrapper className='rounded-[20px] gap-1 flex flex-col w-full'>
       <Link
         href='/analytics/engagement'
         className='flex items-center justify-between group hover:opacity-80 transition-opacity py-2 pr-2 pl-3'

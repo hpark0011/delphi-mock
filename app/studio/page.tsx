@@ -23,7 +23,7 @@ export default function AnalyticsPage() {
   // const highlights = [];
 
   return (
-    <div className='space-y-4 px-13'>
+    <div className='space-y-4 px-13 max-w-4xl mx-auto'>
       {/* Header Section */}
       <div>
         <h1 className='text-[24px] leading-[1.2] font-medium mb-2 text-[#21201C] dark:text-[#EEEEEC] px-3'>
@@ -78,33 +78,13 @@ export default function AnalyticsPage() {
             </div>
           </AnalyticsSectionWrapper>
 
-          <AnalyticsSectionWrapper className='p-4 py-3 rounded-[20px] flex gap-3 flex-row items-center justify-between'>
-            {/* Bottom Section - Next Actions */}
-            <div className='flex items-center gap-2'>
-              <div className='flex items-center gap-2 size-8 bg-[#F1F0EF] dark:bg-light rounded-full justify-center'>
-                <span className='text-[#8D8D86] dark:text-neutral-500'>▶</span>
-              </div>
-              <div className='text-[#8D8D86]'>Next up</div>
-            </div>
-            <div className='text-[#8D8D86] pr-2'>Test your Delphi</div>
-          </AnalyticsSectionWrapper>
-        </div>
-
-        <div className='flex flex-col space-y-2 w-full max-w-[360px]'>
-          {/*  */}
           <MindWidgetLargeRect />
-
-          {/* Mind Score Card */}
-          {/* <MindWidgetLarge /> */}
 
           {/* Analytics Section */}
           <HomeAnalytics engagements={engagements} />
 
           {/* Highlights Section */}
           <HomeHighlights highlights={highlights} />
-
-          {/* Upgrade Broadcast Section */}
-          {/* <UpgradeBroadcast /> */}
         </div>
       </div>
     </div>
