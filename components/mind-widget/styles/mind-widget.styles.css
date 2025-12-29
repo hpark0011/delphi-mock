@@ -1,0 +1,5 @@
+.mind-widget-bubble {
+  border-radius: 80px;
+  /* @ts-expect-error - cornerShape is a new CSS property */
+  corner-shape: superellipse(1.02);
+}

@@ -3,6 +3,7 @@
 import { StudioAnalytics } from "@/app/studio/_components/studio-analytics";
 import { StudioHighlights } from "@/app/studio/_components/studio-highlights";
 import { StudioGreeting } from "@/app/studio/_components/studio-greeting";
+import { StudioHeader } from "@/app/studio/_components/studio-header";
 import { StudioTasks } from "@/app/studio/_components/studio-tasks";
 import type {
   Engagements,
@@ -22,16 +23,20 @@ export function StudioView({
   trainingCards,
 }: StudioViewProps) {
   return (
-    <div className='space-y-4 px-13 max-w-3xl mx-auto pt-20 pb-20'>
-      <StudioGreeting />
+    <div className='px-13 max-w-3xl relative mx-auto'>
+      <StudioHeader />
 
-      <div className='flex gap-2'>
-        <div className='w-full flex flex-col gap-2'>
-          <StudioTasks trainingCards={trainingCards} />
+      <div className='relative z-10 py-20'>
+        <StudioGreeting />
 
-          <StudioAnalytics engagements={engagements} />
+        <div className='flex gap-2'>
+          <div className='w-full flex flex-col gap-2'>
+            <StudioTasks trainingCards={trainingCards} />
 
-          <StudioHighlights highlights={highlights} />
+            <StudioAnalytics engagements={engagements} />
+
+            <StudioHighlights highlights={highlights} />
+          </div>
         </div>
       </div>
     </div>

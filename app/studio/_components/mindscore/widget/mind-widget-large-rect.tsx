@@ -4,7 +4,7 @@ import {
   generateShadowString,
 } from "@/app/onboarding/_utils/widget-config";
 import { cn } from "@/lib/utils";
-import { AnalyticsSectionWrapper } from "@/components/analytics/dashboard-ui";
+import { StudioSectionWrapper } from "@/components/analytics/dashboard-ui";
 import {
   MindDialog,
   useMindDialog,
@@ -203,7 +203,7 @@ export function MindWidgetLargeRect() {
   }, [queueStatus, hasUserReviewed, finishedCount, totalCount, queue]);
 
   return (
-    <AnalyticsSectionWrapper
+    <StudioSectionWrapper
       className={cn(
         "w-full p-0.5 mind-area-section flex flex-col items-center bg-linear-to-b from-sand-6 to-sand-3 cursor-default bg-amber-50/12 backdrop-blur-[20px] overflow-hidden transition-all duration-200 text-left opacity-100 hover:bg-amber-50/18 shadow-[0_1px_0.908px_0_rgba(255,255,255,0.15)_inset,0_-1px_0.908px_0_rgba(255,255,255,0.05)_inset]"
       )}
@@ -218,6 +218,6 @@ export function MindWidgetLargeRect() {
           queue={queue}
         />
       </MindDialog>
-    </AnalyticsSectionWrapper>
+    </StudioSectionWrapper>
   );
 }

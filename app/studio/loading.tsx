@@ -1,5 +1,5 @@
 "use client";
-import { AnalyticsSectionWrapper } from "@/components/analytics/dashboard-ui";
+import { StudioSectionWrapper } from "@/app/studio/_components/studio-section-wrapper";
 import { usePathname } from "next/navigation";
 
 import EngagementLoading from "@/app/analytics/engagement/loading";
@@ -25,7 +25,7 @@ export default function AnalyticsLoading() {
         <div className='flex gap-2'>
           <div className='w-full flex flex-col gap-2'>
             {/* Train your Delphi Section */}
-            <AnalyticsSectionWrapper className='w-full p-2 rounded-[20px]'>
+            <StudioSectionWrapper className='w-full p-2 rounded-[20px]'>
               {/* Header */}
               <div className='space-y-2 w-full'>
                 <div className='flex items-center justify-between'>
@@ -50,9 +50,9 @@ export default function AnalyticsLoading() {
                   ))}
                 </div>
               </div>
-            </AnalyticsSectionWrapper>
+            </StudioSectionWrapper>
 
-            <AnalyticsSectionWrapper className='p-4 py-3 rounded-[20px] flex gap-3 flex-row items-center justify-between'>
+            <StudioSectionWrapper className='p-4 py-3 rounded-[20px] flex gap-3 flex-row items-center justify-between'>
               {/* Bottom Section - Next Actions */}
               <div className='flex items-center gap-2'>
                 <div className='flex items-center gap-2 size-8 bg-[#F1F0EF] dark:bg-light rounded-full justify-center'>
@@ -63,16 +63,16 @@ export default function AnalyticsLoading() {
                 <div className='text-[#8D8D86]'>Next up</div>
               </div>
               <div className='text-[#8D8D86] pr-2'>Test your Delphi</div>
-            </AnalyticsSectionWrapper>
+            </StudioSectionWrapper>
           </div>
 
           <div className='flex flex-col space-y-2 w-full max-w-[360px]'>
-            <AnalyticsSectionWrapper className='p-4 py-3 rounded-[20px] flex gap-3 flex-row items-center justify-between'>
+            <StudioSectionWrapper className='p-4 py-3 rounded-[20px] flex gap-3 flex-row items-center justify-between'>
               <div className='flex w-full h-[222px]' />
-            </AnalyticsSectionWrapper>
-            <AnalyticsSectionWrapper className='p-4 py-3 rounded-[20px] flex gap-3 flex-row items-center justify-between'>
+            </StudioSectionWrapper>
+            <StudioSectionWrapper className='p-4 py-3 rounded-[20px] flex gap-3 flex-row items-center justify-between'>
               <div className='flex w-full h-[166px]' />
-            </AnalyticsSectionWrapper>
+            </StudioSectionWrapper>
           </div>
         </div>
       </div>

@@ -5,7 +5,7 @@ import { BroadcastMetricCard } from "@/components/analytics/broadcast-metric-car
 import { AreaChartComponent } from "@/components/analytics/charts/area-chart";
 import { StackedQuestionsChart } from "@/components/analytics/charts/stacked-questions-chart";
 import {
-  AnalyticsSectionWrapper,
+  StudioSectionWrapper,
   Divider,
 } from "@/components/analytics/dashboard-ui";
 import { KPICard } from "@/components/analytics/kpi-card";
@@ -92,7 +92,7 @@ export function EngagementTab({
 
   return (
     <div className='flex flex-col w-full gap-4'>
-      <AnalyticsSectionWrapper>
+      <StudioSectionWrapper>
         <Tabs
           value={activeTab}
           onValueChange={setActiveTab}
@@ -170,10 +170,10 @@ export function EngagementTab({
             />
           </TabsContent>
         </Tabs>
-      </AnalyticsSectionWrapper>
+      </StudioSectionWrapper>
 
       {upgradeClicked ? (
-        <AnalyticsSectionWrapper>
+        <StudioSectionWrapper>
           <div className='p-4 py-3 flex flex-col gap-1 mb-1'>
             <div className='text-sm font-medium text-[#8D8D86] dark:text-neutral-400'>
               Latest Broadcast
@@ -225,7 +225,7 @@ export function EngagementTab({
               />
             </div>
           </ModuleCard>
-        </AnalyticsSectionWrapper>
+        </StudioSectionWrapper>
       ) : (
         <UpgradeBroadcast
           setUpgradeClicked={setUpgradeClicked}

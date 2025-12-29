@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { AnalyticsSectionWrapper } from "@/components/analytics/dashboard-ui";
+import { StudioSectionWrapper } from "@/components/analytics/dashboard-ui";
 import { LanguageChart } from "@/components/analytics/charts/language-chart";
 import {
   ModuleCard,
@@ -138,7 +138,7 @@ export function AudienceTab() {
 
   return (
     <div className='flex flex-col gap-6 w-full'>
-      <AnalyticsSectionWrapper>
+      <StudioSectionWrapper>
         {/* <div className='flex items-center justify-between px-4 py-3'>
           <p className='font-medium text-[#8D8D86] leading-[1.4] text-sm'>
             Audience
@@ -242,7 +242,7 @@ export function AudienceTab() {
             </ModuleCardContent>
           </ModuleCard>
         </div>
-      </AnalyticsSectionWrapper>
+      </StudioSectionWrapper>
 
       {/* Dialogs */}
       <ActiveUsersDialog
