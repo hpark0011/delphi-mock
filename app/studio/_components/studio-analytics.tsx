@@ -26,7 +26,7 @@ function MetricCard({
       className='bg-card p-3.5 py-3 pr-3 hover:bg-[#f2f2f2] dark:hover:bg-white/10 transition-all cursor-pointer'
     >
       <div className='flex w-full flex-col gap-2'>
-        <p className='text-[13px] text-[#63635E] dark:text-neutral-400 leading-[1.2] w-full text-start'>
+        <p className='text-[14px] text-[#63635E] dark:text-neutral-400 leading-[1.2] w-full text-start'>
           {label}
         </p>
         <div className='flex items-center justify-between'>
@@ -49,7 +49,7 @@ function MetricCard({
   );
 }
 
-export function HomeAnalytics({ engagements }: { engagements: Engagements }) {
+export function StudioAnalytics({ engagements }: { engagements: Engagements }) {
   const metrics = [
     {
       label: "Active Users",
@@ -69,7 +69,7 @@ export function HomeAnalytics({ engagements }: { engagements: Engagements }) {
         href='/analytics/engagement'
         className='flex items-center justify-between group hover:opacity-80 transition-opacity py-2 pr-2 pl-3'
       >
-        <p className='text-sm font-medium text-[#8D8D86] dark:text-neutral-400'>
+        <p className='font-medium text-[#8D8D86] dark:text-neutral-400'>
           Analytics this week
         </p>
         <ChevronRight className='size-4 text-[#8D8D86] dark:text-neutral-500 group-hover:translate-x-1 transition-transform' />
