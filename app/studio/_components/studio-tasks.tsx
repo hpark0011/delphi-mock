@@ -1,6 +1,6 @@
-import { AnalyticsSectionWrapper } from "@/components/analytics/dashboard-ui";
 import { Icon } from "@/components/ui/icon";
 import { TrainingCard } from "../_lib/mock-studio-data";
+import { StudioSectionWrapper } from "./studio-section-wrapper";
 import { StudioTaskCard } from "./studio-task-card";
 
 interface StudioTasksProps {
@@ -11,7 +11,7 @@ export function StudioTasks({ trainingCards }: StudioTasksProps) {
   const displayCards = trainingCards.slice(0, 2);
 
   return (
-    <AnalyticsSectionWrapper className='w-full p-2 rounded-[20px]'>
+    <StudioSectionWrapper className='w-full p-1.5 rounded-[24px]'>
       <div className='space-y-2 w-full'>
         <div className='flex items-center justify-between'>
           <div className='flex items-center gap-2.5 p-2'>
@@ -28,6 +28,6 @@ export function StudioTasks({ trainingCards }: StudioTasksProps) {
           ))}
         </div>
       </div>
-    </AnalyticsSectionWrapper>
+    </StudioSectionWrapper>
   );
 }

@@ -2,8 +2,8 @@ import { Engagements } from "@/app/studio/_lib/mock-studio-data";
 import { cn } from "@/lib/utils";
 import { ChevronRight } from "lucide-react";
 import Link from "next/link";
-import { AnalyticsSectionWrapper } from "../dashboard-ui";
 import { Fragment } from "react";
+import { StudioSectionWrapper } from "@/app/studio/_components/studio-section-wrapper";
 
 interface MetricCardProps {
   href: string;
@@ -64,7 +64,7 @@ export function HomeAnalytics({ engagements }: { engagements: Engagements }) {
   ];
 
   return (
-    <AnalyticsSectionWrapper className='rounded-[20px] gap-1 flex flex-col w-full'>
+    <StudioSectionWrapper className='rounded-[20px] gap-1 flex flex-col w-full'>
       <Link
         href='/analytics/engagement'
         className='flex items-center justify-between group hover:opacity-80 transition-opacity py-2 pr-2 pl-3'
@@ -92,6 +92,6 @@ export function HomeAnalytics({ engagements }: { engagements: Engagements }) {
           </Fragment>
         ))}
       </div>
-    </AnalyticsSectionWrapper>
+    </StudioSectionWrapper>
   );
 }
