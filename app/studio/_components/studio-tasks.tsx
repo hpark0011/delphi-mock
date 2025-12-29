@@ -1,0 +1,33 @@
+import { AnalyticsSectionWrapper } from "@/components/analytics/dashboard-ui";
+import { Icon } from "@/components/ui/icon";
+import { TrainingCard } from "../_lib/mock-studio-data";
+import { StudioTaskCard } from "./studio-task-card";
+
+interface StudioTasksProps {
+  trainingCards: TrainingCard[];
+}
+
+export function StudioTasks({ trainingCards }: StudioTasksProps) {
+  const displayCards = trainingCards.slice(0, 2);
+
+  return (
+    <AnalyticsSectionWrapper className='w-full p-2 rounded-[20px]'>
+      <div className='space-y-2 w-full'>
+        <div className='flex items-center justify-between'>
+          <div className='flex items-center gap-2.5 p-2'>
+            <div className='w-8 h-8 bg-[#FF8D28]/10 rounded-lg flex items-center justify-center'>
+              <Icon name='ChecklistIcon' className='size-6 text-[#FF8D28]' />
+            </div>
+            <h2 className='text-lg font-medium'>Today&apos;s Tasks</h2>
+          </div>
+        </div>
+
+        <div className='grid grid-cols-2 gap-2'>
+          {displayCards.map((card, index) => (
+            <StudioTaskCard key={index} card={card} />
+          ))}
+        </div>
+      </div>
+    </AnalyticsSectionWrapper>
+  );
+}
