@@ -18,12 +18,12 @@ function HighlightCard({ href, label, value }: HighlightCardProps) {
       className='bg-card p-3.5 py-3 pr-3 hover:bg-[#f2f2f2] dark:hover:bg-white/10 transition-all cursor-pointer'
     >
       <div className='flex w-full items-center justify-between'>
-        <p className='text-[14px] text-[#63635E] dark:text-neutral-400 leading-[1.2]'>
+        <p className='text-[15px] text-[#63635E] dark:text-neutral-400 leading-[1.2]'>
           {label}
         </p>
         <p
           className={cn(
-            "font-semibold text-[#EF5F28] bg-[#EF5F28]/10 rounded-full flex text-center items-center justify-center px-2 py-0.5 w-fit text-xs"
+            "font-semibold text-[#EF5F28] bg-[#EF5F28]/10 rounded-full flex text-center items-center justify-center px-2 py-0.5 w-fit text-sm"
           )}
         >
           {value}
