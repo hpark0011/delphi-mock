@@ -1,6 +1,6 @@
 "use client";
 
-import { mockTrainingItems } from "@/app/studio/_lib/mock-training-items";
+import { mockTrainingItems } from "@/app/studio/_libs/mock-training-items";
 import {
   formatDateLabel,
   getStatusIcon,

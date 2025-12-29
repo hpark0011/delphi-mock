@@ -1,5 +1,5 @@
 import { Icon } from "@/components/ui/icon";
-import { TrainingCard } from "../_lib/mock-studio-data";
+import { TrainingCard } from "../_libs/mock-studio-data";
 import { StudioSectionWrapper } from "./studio-section-wrapper";
 import { StudioTaskCard } from "./studio-task-card";
 

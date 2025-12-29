@@ -1,5 +1,5 @@
 import { CircleDashedIcon } from "lucide-react";
-import { TrainingCard } from "../_lib/mock-studio-data";
+import { TrainingCard } from "../_libs/mock-studio-data";
 
 interface StudioTaskCardProps {
   card: TrainingCard;
