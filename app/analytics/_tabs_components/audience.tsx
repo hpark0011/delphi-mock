@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { StudioSectionWrapper } from "@/components/analytics/dashboard-ui";
+import { StudioSectionWrapper } from "@/app/studio/_components/studio-section-wrapper";
 import { LanguageChart } from "@/components/analytics/charts/language-chart";
 import {
   ModuleCard,

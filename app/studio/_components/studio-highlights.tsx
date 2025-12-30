@@ -58,7 +58,7 @@ export function StudioHighlights({ highlights }: { highlights: Highlights }) {
   ];
 
   return (
-    <StudioSectionWrapper className='rounded-[20px] gap-1 flex flex-col'>
+    <StudioSectionWrapper className='rounded-[20px] gap-1 flex flex-col w-full'>
       <Link
         href='/analytics/highlights'
         className='flex items-center justify-between group hover:opacity-80 transition-opacity py-2 pr-2 pl-3'

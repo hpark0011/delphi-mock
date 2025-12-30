@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { PodcastIcon } from "lucide-react";
-import { StudioSectionWrapper } from "../dashboard-ui";
+import { StudioSectionWrapper } from "@/app/studio/_components/studio-section-wrapper";
 import { cn } from "@/lib/utils";
 
 export function UpgradeBroadcast({

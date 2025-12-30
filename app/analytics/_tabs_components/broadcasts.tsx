@@ -3,10 +3,8 @@
 import type { BroadcastData } from "@/app/analytics/types/broadcast";
 import { BroadcastMetricCard } from "@/components/analytics/broadcast-metric-card";
 import { FunnelChart } from "@/components/analytics/charts/funnel-chart";
-import {
-  StudioSectionWrapper,
-  Divider,
-} from "@/components/analytics/dashboard-ui";
+import { StudioSectionWrapper } from "@/app/studio/_components/studio-section-wrapper";
+import { Divider } from "@/components/analytics/dashboard-ui";
 import { ModuleCard } from "@/components/analytics/module-ui";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import * as React from "react";

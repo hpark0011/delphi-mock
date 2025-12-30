@@ -1,7 +1,5 @@
-import {
-  StudioSectionWrapper,
-  Divider,
-} from "@/components/analytics/dashboard-ui";
+import { Divider } from "@/components/analytics/dashboard-ui";
+import { StudioSectionWrapper } from "@/app/studio/_components/studio-section-wrapper";
 
 import * as React from "react";
 

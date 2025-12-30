@@ -1,6 +1,6 @@
 "use client";
 import { CalendarListItem } from "@/components/analytics/calendar-list-item";
-import { StudioSectionWrapper } from "@/components/analytics/dashboard-ui";
+import { StudioSectionWrapper } from "@/app/studio/_components/studio-section-wrapper";
 import { InsightCard } from "@/components/analytics/insight-card";
 import { ModuleCard, ModuleCardHeader } from "@/components/analytics/module-ui";
 import { QuestionsStack } from "@/components/analytics/questions-stack";

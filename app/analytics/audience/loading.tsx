@@ -1,4 +1,4 @@
-import { StudioSectionWrapper } from "@/components/analytics/dashboard-ui";
+import { StudioSectionWrapper } from "@/app/studio/_components/studio-section-wrapper";
 import * as React from "react";
 
 export default function AudienceLoading() {

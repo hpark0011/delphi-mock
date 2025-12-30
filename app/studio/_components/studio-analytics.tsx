@@ -23,9 +23,9 @@ function MetricCard({
   return (
     <Link
       href={href}
-      className='bg-card p-3.5 py-3 pr-3 hover:bg-[#f2f2f2] dark:hover:bg-white/10 transition-all cursor-pointer'
+      className='bg-card p-3.5 py-3 pr-3 hover:bg-[#f2f2f2] dark:hover:bg-white/10 transition-all cursor-pointer h-full'
     >
-      <div className='flex w-full flex-col gap-2'>
+      <div className='flex w-full flex-col gap-2 h-full justify-between'>
         <p className='text-[15px] text-[#63635E] dark:text-neutral-400 leading-[1.2] w-full text-start'>
           {label}
         </p>
@@ -75,7 +75,7 @@ export function StudioAnalytics({ engagements }: { engagements: Engagements }) {
         <ChevronRight className='size-4 text-[#8D8D86] dark:text-neutral-500 group-hover:translate-x-1 transition-transform' />
       </Link>
 
-      <div className='flex flex-col rounded-[18px] overflow-hidden shadow-card-primary bg-card'>
+      <div className='flex flex-col rounded-[18px] overflow-hidden shadow-card-primary bg-card h-full'>
         {metrics.map((metric, index) => (
           <Fragment key={metric.label}>
             <MetricCard

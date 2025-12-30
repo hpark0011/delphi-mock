@@ -23,7 +23,7 @@ export function StudioView({
   trainingCards,
 }: StudioViewProps) {
   return (
-    <div className='px-13 max-w-3xl relative mx-auto'>
+    <div className='px-4 max-w-2xl relative mx-auto'>
       <StudioHeader />
 
       <div className='relative z-10 py-20'>
@@ -33,9 +33,11 @@ export function StudioView({
           <div className='w-full flex flex-col gap-2'>
             <StudioTasks trainingCards={trainingCards} />
 
-            <StudioAnalytics engagements={engagements} />
+            <div className='flex gap-2'>
+              <StudioAnalytics engagements={engagements} />
 
-            <StudioHighlights highlights={highlights} />
+              <StudioHighlights highlights={highlights} />
+            </div>
           </div>
         </div>
       </div>
