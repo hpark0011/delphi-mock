@@ -1,22 +1,15 @@
 "use client";
 
 import { useMindDialog, type TrainingDocType } from "@/features/mind-dialog";
-import { MindStatusIcon } from "@/components/mind-status-notification";
-import { Icon } from "@/components/ui/icon";
 import { useTrainingQueue } from "@/hooks/use-training-queue";
 import { useTrainingStatus } from "@/hooks/use-training-status";
-import { getDocTypeIcon } from "@/utils/doc-type-helpers";
 import { TrainingResultBadges } from "@/components/mind-widget/training-result-badges";
-import { AnimatePresence, motion, type Transition } from "framer-motion";
-import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
+import { MindWidgetStatusIcon } from "./mind-widget-status-icon";
+import { MindWidgetStatusLabel } from "./mind-widget-status-label";
 
 type BadgeState = "loading" | "newItem" | "finished";
-
-const SPRING_CONFIG: Transition = {
-  type: "spring",
-  stiffness: 600,
-  damping: 30,
-};
 
 const NEW_ITEM_DISPLAY_DURATION = 2000;
 const FINISHED_DISPLAY_DURATION = 2000;
@@ -28,107 +21,6 @@ const SLIDE_ANIMATION = {
   exit: { y: -20, opacity: 0, filter: "blur(10px)" },
   transition: { duration: 0.2, ease: "easeInOut" as const },
 };
-
-function StatusIcon({
-  state,
-  docType,
-}: {
-  state: "loading" | "newItem";
-  docType?: TrainingDocType;
-}) {
-  return (
-    <span className="relative flex items-center justify-center size-4">
-      <AnimatePresence mode="sync">
-        <motion.span
-          key={state}
-          className="absolute left-0 top-0"
-          initial={{ y: -20, scale: 0.5, filter: "blur(6px)" }}
-          animate={{ y: 0, scale: 1, filter: "blur(0px)" }}
-          exit={{ y: 20, scale: 0.5, filter: "blur(6px)" }}
-          transition={{ duration: 0.15, ease: "easeInOut" }}
-        >
-          {state === "loading" && <MindStatusIcon status="active" />}
-          {state === "newItem" && (
-            <Icon
-              name={docType ? getDocTypeIcon(docType) : "DocFillIcon"}
-              className="size-4.5"
-            />
-          )}
-        </motion.span>
-      </AnimatePresence>
-    </span>
-  );
-}
-
-interface StatusLabelProps {
-  state: "loading" | "newItem";
-  activeCount: number;
-  newItemName: string;
-}
-
-function StatusLabel({ state, activeCount, newItemName }: StatusLabelProps) {
-  const [labelWidth, setLabelWidth] = useState<number | "auto">("auto");
-  const measureRef = useRef<HTMLDivElement>(null);
-
-  const labelText =
-    state === "loading" ? `Learning ${activeCount}` : newItemName;
-
-  const isNewItem = state === "newItem";
-
-  useLayoutEffect(() => {
-    if (measureRef.current) {
-      const { width } = measureRef.current.getBoundingClientRect();
-      setLabelWidth(isNewItem ? Math.min(width, 100) : width);
-    }
-  }, [labelText, isNewItem]);
-
-  return (
-    <>
-      {/* Hidden copy to measure width */}
-      <div
-        ref={measureRef}
-        className="absolute invisible whitespace-nowrap text-[12px]"
-      >
-        {labelText}
-      </div>
-
-      <motion.span
-        className="relative overflow-hidden"
-        initial={false}
-        animate={{ width: labelWidth }}
-        transition={SPRING_CONFIG}
-      >
-        <AnimatePresence mode="sync" initial={false}>
-          <motion.div
-            key={state + labelText}
-            className={`text-[12px] text-white/70 ${isNewItem ? "max-w-[100px] truncate" : "whitespace-nowrap"}`}
-            initial={{
-              y: -20,
-              opacity: 0,
-              filter: "blur(10px)",
-              position: "absolute",
-            }}
-            animate={{
-              y: 0,
-              opacity: 1,
-              filter: "blur(0px)",
-              position: "relative",
-            }}
-            exit={{
-              y: 20,
-              opacity: 0,
-              filter: "blur(10px)",
-              position: "absolute",
-            }}
-            transition={{ duration: 0.2, ease: "easeInOut" }}
-          >
-            {labelText}
-          </motion.div>
-        </AnimatePresence>
-      </motion.span>
-    </>
-  );
-}
 
 interface MindWidgetTrainingStatusProps {
   onDismiss?: () => void;
@@ -225,24 +117,24 @@ export function MindWidgetTrainingStatus({
   // Height-based animation for vertical layout
   return (
     <motion.div
-      className="overflow-hidden"
+      className='overflow-hidden'
       initial={{ height: 0, opacity: 0 }}
       animate={{ height: "auto", opacity: 1 }}
       exit={{ height: 0, opacity: 0 }}
       transition={{ duration: 0.25, ease: "easeInOut" }}
     >
       <div
-        className="flex items-center justify-center gap-1 pt-1.5 cursor-pointer"
+        className='flex items-center justify-center gap-1 pt-1.5 cursor-pointer'
         onClick={handleClick}
       >
-        <AnimatePresence mode="wait">
+        <AnimatePresence mode='wait'>
           {displayState === "finished" ? (
             <motion.div
-              key="finished-badges"
+              key='finished-badges'
               {...SLIDE_ANIMATION}
-              className="flex items-center gap-1"
+              className='flex items-center gap-1'
             >
-              <span className="text-[12px] font-medium text-white/70">
+              <span className='text-[12px] font-medium text-white/70'>
                 Completed!
               </span>
               <TrainingResultBadges
@@ -253,29 +145,29 @@ export function MindWidgetTrainingStatus({
                 }
                 onFailedClick={() => openWithTab("training-status", "failed")}
                 disableTooltips
-                countTextSize="text-[11px]"
+                countTextSize='text-[11px]'
               />
             </motion.div>
           ) : (
             <motion.div
-              key="status-content"
+              key='status-content'
               {...SLIDE_ANIMATION}
-              className="flex items-center gap-1"
+              className='flex items-center gap-1'
             >
-              <StatusIcon
+              <MindWidgetStatusIcon
                 state={displayState}
                 docType={newItemOverride?.docType}
               />
-              <StatusLabel
+              <MindWidgetStatusLabel
                 state={displayState}
                 activeCount={activeCount}
                 newItemName={newItemOverride?.name ?? ""}
               />
               {(completedCount > 0 || failedCount > 0) && (
-                <div className="ml-0.5">
+                <div className='ml-0.5'>
                   <TrainingResultBadges
-                    className="gap-0.5"
-                    countTextSize="text-[11px]"
+                    className='gap-0.5'
+                    countTextSize='text-[11px]'
                     completedCount={completedCount}
                     failedCount={failedCount}
                     onCompletedClick={() =>
