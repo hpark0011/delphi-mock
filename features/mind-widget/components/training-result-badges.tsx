@@ -40,7 +40,7 @@ function TrainingResultBadge({
       onClick={onClick}
     >
       <Icon name={iconName} className={iconSize} />
-      <span className='text-[13px] font-medium'>{count}</span>
+      <span className='text-[14px] font-medium -ml-[1px]'>{count}</span>
     </div>
   );
 }
@@ -77,7 +77,7 @@ export function TrainingResultBadges({
     <TrainingResultBadge
       count={failedCount}
       iconName='ExclamationmarkTriangleFillIcon'
-      iconSize='size-4.5'
+      iconSize='size-5'
       color='orange'
       label='Failed'
       onClick={onFailedClick}
@@ -98,7 +98,7 @@ export function TrainingResultBadges({
   };
 
   return (
-    <div className={cn("flex items-center gap-1", className)}>
+    <div className={cn("flex items-center gap-0.5")}>
       {completedCount > 0 &&
         renderBadgeWithTooltip(completedBadge, "Completed")}
       {failedCount > 0 && renderBadgeWithTooltip(failedBadge, "Failed")}

@@ -30,7 +30,7 @@ export function MindWidgetStatusIcon({
           {state === "newItem" && (
             <Icon
               name={docType ? getDocTypeIcon(docType) : "DocFillIcon"}
-              className='size-4.5'
+              className='size-5'
             />
           )}
         </motion.span>
