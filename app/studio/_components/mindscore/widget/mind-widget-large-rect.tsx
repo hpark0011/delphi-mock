@@ -4,11 +4,11 @@ import {
   generateShadowString,
 } from "@/app/onboarding/_utils/widget-config";
 import { cn } from "@/lib/utils";
-import { StudioSectionWrapper } from "@/components/analytics/dashboard-ui";
+import { StudioSectionWrapper } from "@/app/studio/_components/studio-section-wrapper";
 import {
   MindDialog,
   useMindDialog,
-} from "@/components/mind-dialog/mind-dialog-2";
+} from "@/components/mind-dialog/mind-dialog";
 import { MindProgressBar } from "@/app/studio/_components/mindscore/mind-progress-bar";
 import { TrainingCompletedStatus } from "@/app/studio/_components/mindscore/widget/training-completed-status";
 import { QueueItem, useTrainingQueue } from "@/hooks/use-training-queue";

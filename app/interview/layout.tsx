@@ -6,7 +6,7 @@ import {
   InterviewProvider,
   useInterviewContext,
 } from "./_context/interview-context";
-import { MindDialog } from "@/components/mind-dialog/mind-dialog-2";
+import { MindDialog } from "@/components/mind-dialog/mind-dialog";
 
 function InterviewLayoutContent({ children }: { children: React.ReactNode }) {
   const router = useRouter();

@@ -12,7 +12,7 @@ import {
 // import { ChevronDown } from "lucide-react";
 // import { useState } from "react";
 import { SCORE_PER_ITEM } from "@/app/studio/_constants/training-queue";
-import { useMindDialog } from "@/components/mind-dialog/mind-dialog-2";
+import { useMindDialog } from "@/components/mind-dialog/mind-dialog";
 // import { ExpandableQueueList } from "./expandable-queue-list";
 
 export interface TrainingCompletedStatusProps {

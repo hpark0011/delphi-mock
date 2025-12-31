@@ -1,4 +1,4 @@
-import { MindDialog } from "@/components/mind-dialog/mind-dialog-2";
+import { MindDialog } from "@/components/mind-dialog/mind-dialog";
 
 export default function ProfileLayout({
   children,

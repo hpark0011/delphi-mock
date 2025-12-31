@@ -3,7 +3,7 @@
 import { Icon } from "@/components/ui/icon";
 import { useTrainingQueue } from "@/hooks/use-training-queue";
 import { cn } from "@/lib/utils";
-import { useMindDialog } from "./mind-dialog-2";
+import { useMindDialog } from "./mind-dialog";
 import { showTrainingQueueToast } from "./training-queue-toast";
 
 const gridContentItems = ["X", "Youtube", "Website", "Podcast"];
