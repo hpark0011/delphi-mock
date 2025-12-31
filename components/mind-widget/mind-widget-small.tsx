@@ -9,7 +9,7 @@ import { useTrainingStatus } from "@/hooks/use-training-status";
 import { cn } from "@/lib/utils";
 import { AnimatePresence, motion } from "framer-motion";
 import { useCallback, useEffect, useState } from "react";
-import { useMindDialog } from "@/components/mind-dialog/mind-dialog";
+import { useMindDialog } from "@/features/mind-dialog";
 import { MiniTrainingStatus } from "./training-status-small";
 
 const SPRING_CONFIG = {

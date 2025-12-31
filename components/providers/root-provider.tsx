@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React from "react";
 
 // all the providers go here
 import { ThemeProvider } from "@/components/providers/theme-provider";
@@ -8,13 +8,11 @@ import { ThemeProvider } from "@/components/providers/theme-provider";
 import { Toaster } from "sonner";
 import { ReactQueryProvider } from "./react-query-provider";
 import { useThemeToggle } from "@/hooks/use-theme-toggle";
+import { MindScoreProvider } from "@/app/studio/_components/mindscore/mind-score-context";
 import {
-  MindScoreProvider,
-  useMindScore,
-} from "@/app/studio/_components/mindscore/mind-score-context";
-import { TrainingQueueProvider } from "@/components/mind-dialog/training-queue-context";
-import { LevelUpDialog } from "@/components/mind-dialog/level-up-dialog";
-import { MindDialog } from "@/components/mind-dialog/mind-dialog";
+  TrainingQueueProvider,
+  MindDialogProvider,
+} from "@/features/mind-dialog";
 
 // ThemeWrapper is used to toggle the theme when the user presses the command + k key. This is only for development purposes.
 function ThemeWrapper({ children }: { children: React.ReactNode }) {
@@ -35,12 +33,12 @@ export function RootProvider({ children }: { children: React.ReactNode }) {
       >
         <MindScoreProvider>
           <TrainingQueueProvider>
-            <MindDialog>
+            <MindDialogProvider>
               <ThemeWrapper>
                 {children}
                 <Toaster />
               </ThemeWrapper>
-            </MindDialog>
+            </MindDialogProvider>
           </TrainingQueueProvider>
         </MindScoreProvider>
       </ThemeProvider>

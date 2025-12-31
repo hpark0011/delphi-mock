@@ -25,10 +25,10 @@ import {
   MIND_DIALOG_TABS,
   MindDialogTabId,
   getMindDialogWidthClass,
-} from "./mind-dialog-config";
+} from "../utils/mind-dialog-config";
 
 // Re-export for convenience
-export type { MindDialogTabId } from "./mind-dialog-config";
+export type { MindDialogTabId } from "../utils/mind-dialog-config";
 
 interface MindDialogContextType {
   setActiveTab: (tab: MindDialogTabId) => void;
@@ -46,7 +46,7 @@ const MindDialogContext = createContext<MindDialogContextType | null>(null);
 export function useMindDialog() {
   const context = useContext(MindDialogContext);
   if (!context) {
-    throw new Error("useMindDialog must be used within MindDialog");
+    throw new Error("useMindDialog must be used within MindDialogProvider");
   }
   return context;
 }
@@ -140,7 +140,7 @@ export function MindDialogHeader({ level }: { level: string }) {
   );
 }
 
-export function MindDialog({
+export function MindDialogProvider({
   children,
   defaultTab = DEFAULT_MIND_DIALOG_TAB,
 }: MindDialogProps) {

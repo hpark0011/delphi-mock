@@ -1,4 +1,4 @@
-import type { TrainingDocType } from "../../../components/mind-dialog/training-queue-context";
+import type { TrainingDocType } from "@/features/mind-dialog";
 
 /**
  * Returns the default training duration for a given document type

@@ -1,5 +1,5 @@
 import type { IconName } from "@/components/ui/icon";
-import type { TrainingDocType } from "@/components/mind-dialog/training-queue-context";
+import type { TrainingDocType } from "@/features/mind-dialog";
 
 export const DOC_TYPE_ICON_MAP: Record<TrainingDocType, IconName> = {
   interview: "MicFillIcon",

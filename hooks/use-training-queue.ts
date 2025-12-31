@@ -1,12 +1,13 @@
 "use client";
 
-import { useTrainingQueueContext } from "@/components/mind-dialog/training-queue-context";
+import {
+  useTrainingQueueContext,
+  type QueueItem,
+  type TrainingDocType,
+} from "@/features/mind-dialog";
 
 // Re-export types for backward compatibility
-export type {
-  QueueItem,
-  TrainingDocType,
-} from "@/components/mind-dialog/training-queue-context";
+export type { QueueItem, TrainingDocType };
 
 interface UseTrainingQueueOptions {
   onItemCompleted?: (points?: number) => void;

@@ -1,7 +1,6 @@
 "use client";
 
-import { useMindDialog } from "@/components/mind-dialog/mind-dialog";
-import type { TrainingDocType } from "@/components/mind-dialog/training-queue-context";
+import { useMindDialog, type TrainingDocType } from "@/features/mind-dialog";
 import { MindStatusIcon } from "@/components/mind-status-notification";
 import { Icon } from "@/components/ui/icon";
 import { useTrainingQueue } from "@/hooks/use-training-queue";
