@@ -1,6 +1,5 @@
 "use client";
 
-// import { MindWidgetSmall } from "@/components/mind-widget/mind-widget-small";
 import { Button } from "@/components/ui/button";
 import { ArrowLeftIcon } from "@/delphi-ui/icons/ArrowLeft";
 import {

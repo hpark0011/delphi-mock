@@ -6,7 +6,6 @@ import {
   InterviewProvider,
   useInterviewContext,
 } from "./_context/interview-context";
-import { MindDialog } from "@/components/mind-dialog/mind-dialog";
 
 function InterviewLayoutContent({ children }: { children: React.ReactNode }) {
   const router = useRouter();
@@ -30,10 +29,8 @@ export default function InterviewLayout({
   children: React.ReactNode;
 }) {
   return (
-    <MindDialog>
-      <InterviewProvider>
-        <InterviewLayoutContent>{children}</InterviewLayoutContent>
-      </InterviewProvider>
-    </MindDialog>
+    <InterviewProvider>
+      <InterviewLayoutContent>{children}</InterviewLayoutContent>
+    </InterviewProvider>
   );
 }

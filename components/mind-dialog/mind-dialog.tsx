@@ -56,7 +56,7 @@ interface MindDialogProps {
   defaultTab?: MindDialogTabId;
 }
 
-export function MindDialogHeader2({ level }: { level: string }) {
+export function MindDialogHeader({ level }: { level: string }) {
   const [hasUserReviewed, setHasUserReviewed] = useState(false);
   const { queue, clearQueue } = useTrainingQueue();
   const { hasActiveItems, activeCount, queueStatus } =
@@ -211,7 +211,7 @@ export function MindDialog({
             className='w-full flex flex-col h-full min-h-0 gap-0'
           >
             {/* Fixed Header Section */}
-            <MindDialogHeader2 level={level} />
+            <MindDialogHeader level={level} />
 
             {/* Scrollable Content Section */}
             <div className='flex-1 overflow-y-auto min-h-0 p-4 pt-2'>

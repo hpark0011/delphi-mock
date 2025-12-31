@@ -5,10 +5,7 @@ import {
 } from "@/app/onboarding/_utils/widget-config";
 import { cn } from "@/lib/utils";
 import { StudioSectionWrapper } from "@/app/studio/_components/studio-section-wrapper";
-import {
-  MindDialog,
-  useMindDialog,
-} from "@/components/mind-dialog/mind-dialog";
+import { useMindDialog } from "@/components/mind-dialog/mind-dialog";
 import { MindProgressBar } from "@/app/studio/_components/mindscore/mind-progress-bar";
 import { TrainingCompletedStatus } from "@/app/studio/_components/mindscore/widget/training-completed-status";
 import { QueueItem, useTrainingQueue } from "@/hooks/use-training-queue";
@@ -208,16 +205,14 @@ export function MindWidgetLargeRect() {
         "w-full p-0.5 mind-area-section flex flex-col items-center bg-linear-to-b from-sand-6 to-sand-3 cursor-default bg-amber-50/12 backdrop-blur-[20px] overflow-hidden transition-all duration-200 text-left opacity-100 hover:bg-amber-50/18 shadow-[0_1px_0.908px_0_rgba(255,255,255,0.15)_inset,0_-1px_0.908px_0_rgba(255,255,255,0.05)_inset]"
       )}
     >
-      <MindDialog defaultTab='training-status'>
-        <MindScoreTrigger />
-        <TrainingStatusTrigger
-          hasUserReviewed={hasUserReviewed}
-          setHasUserReviewed={setHasUserReviewed}
-          completedCount={completedCount}
-          failedCount={failedCount}
-          queue={queue}
-        />
-      </MindDialog>
+      <MindScoreTrigger />
+      <TrainingStatusTrigger
+        hasUserReviewed={hasUserReviewed}
+        setHasUserReviewed={setHasUserReviewed}
+        completedCount={completedCount}
+        failedCount={failedCount}
+        queue={queue}
+      />
     </StudioSectionWrapper>
   );
 }
