@@ -3,14 +3,14 @@
 import { useMindDialog, type TrainingDocType } from "@/features/mind-dialog";
 import { MindStatusIcon } from "@/components/mind-status-notification";
 import { Icon } from "@/components/ui/icon";
-import { useTrainingQueue } from "@/hooks/use-training-queue";
-import { useTrainingStatus } from "@/hooks/use-training-status";
 import { getDocTypeIcon } from "@/utils/doc-type-helpers";
 import { AnimatePresence, motion, type Transition } from "framer-motion";
-import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { useLayoutEffect, useRef, useState } from "react";
 import { TrainingResultBadges } from "./training-result-badges";
-
-type BadgeState = "loading" | "newItem" | "finished";
+import {
+  useTrainingDisplayState,
+  type DisplayState,
+} from "@/features/mind-widget/hooks/use-training-display-state";
 
 const SPRING_CONFIG: Transition = {
   type: "spring",
@@ -18,10 +18,6 @@ const SPRING_CONFIG: Transition = {
   damping: 30,
 };
 
-const NEW_ITEM_DISPLAY_DURATION = 2000;
-const FINISHED_DISPLAY_DURATION = 2000;
-
-// Shared animation props for vertical slide transitions
 const SLIDE_ANIMATION = {
   initial: { y: 20, opacity: 0, filter: "blur(10px)" },
   animate: { y: 0, opacity: 1, filter: "blur(0px)" },
@@ -37,21 +33,21 @@ function StatusIcon({
   docType?: TrainingDocType;
 }) {
   return (
-    <span className='relative flex items-center justify-center size-4'>
-      <AnimatePresence mode='sync'>
+    <span className="relative flex items-center justify-center size-4">
+      <AnimatePresence mode="sync">
         <motion.span
           key={state}
-          className='absolute left-0 top-0'
+          className="absolute left-0 top-0"
           initial={{ y: -20, scale: 0.5, filter: "blur(6px)" }}
           animate={{ y: 0, scale: 1, filter: "blur(0px)" }}
           exit={{ y: 20, scale: 0.5, filter: "blur(6px)" }}
           transition={{ duration: 0.15, ease: "easeInOut" }}
         >
-          {state === "loading" && <MindStatusIcon status='active' />}
+          {state === "loading" && <MindStatusIcon status="active" />}
           {state === "newItem" && (
             <Icon
               name={docType ? getDocTypeIcon(docType) : "DocFillIcon"}
-              className='size-4.5'
+              className="size-4.5"
             />
           )}
         </motion.span>
@@ -61,7 +57,7 @@ function StatusIcon({
 }
 
 interface StatusLabelProps {
-  state: "loading" | "newItem";
+  state: DisplayState;
   activeCount: number;
   newItemName: string;
 }
@@ -87,18 +83,18 @@ function StatusLabel({ state, activeCount, newItemName }: StatusLabelProps) {
       {/* Hidden copy to measure width */}
       <div
         ref={measureRef}
-        className='absolute invisible whitespace-nowrap text-[13px]'
+        className="absolute invisible whitespace-nowrap text-[13px]"
       >
         {labelText}
       </div>
 
       <motion.span
-        className='relative overflow-hidden'
+        className="relative overflow-hidden"
         initial={false}
         animate={{ width: labelWidth }}
         transition={SPRING_CONFIG}
       >
-        <AnimatePresence mode='sync' initial={false}>
+        <AnimatePresence mode="sync" initial={false}>
           <motion.div
             key={state + labelText}
             className={`text-[13px] dark:text-white/90 ${isNewItem ? "max-w-[184px] truncate" : "whitespace-nowrap"}`}
@@ -139,112 +135,34 @@ export function MiniTrainingStatus({
   onDismiss,
   disableTooltips = false,
 }: MiniTrainingStatusProps) {
-  const { queue } = useTrainingQueue();
   const { openWithTab } = useMindDialog();
 
-  const { activeCount, queueStatus } = useTrainingStatus();
+  const { displayState, newItemInfo, activeCount, completedCount, failedCount } =
+    useTrainingDisplayState({ onFinished: onDismiss });
 
-  // Calculate completed and failed counts from queue
-  const completedCount = queue.filter(
-    (item) => item.status === "completed"
-  ).length;
-  const failedCount = queue.filter((item) => item.status === "failed").length;
+  const handleClick = () => openWithTab("training-status");
 
-  // When the training queue is actively processing, show loading spinner.
-  // Otherwise (empty, paused, or done), show completed state.
-  const baseState = queueStatus === "active" ? "loading" : "finished";
-
-  // Single override state for temporary "newItem" display
-  // Tracks both name and docType to show correct icon
-  const [newItemOverride, setNewItemOverride] = useState<{
-    name: string;
-    docType: TrainingDocType;
-  } | null>(() => {
-    const lastItem = queue[queue.length - 1];
-    return lastItem ? { name: lastItem.name, docType: lastItem.docType } : null;
-  });
-
-  const prevQueueLengthRef = useRef(queue.length);
-  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
-  const finishedTimeoutRef = useRef<NodeJS.Timeout | null>(null);
-
-  // Handle initial mount - start timer to clear override
-  useEffect(() => {
-    timeoutRef.current = setTimeout(() => {
-      setNewItemOverride(null);
-    }, NEW_ITEM_DISPLAY_DURATION);
-
-    return () => {
-      if (timeoutRef.current) clearTimeout(timeoutRef.current);
-    };
-  }, []);
-
-  // Detect new items added after initial mount
-  useEffect(() => {
-    if (queue.length > prevQueueLengthRef.current) {
-      const newestItem = queue[queue.length - 1];
-      if (newestItem) {
-        setNewItemOverride({
-          name: newestItem.name,
-          docType: newestItem.docType,
-        });
-
-        if (timeoutRef.current) clearTimeout(timeoutRef.current);
-        timeoutRef.current = setTimeout(() => {
-          setNewItemOverride(null);
-        }, NEW_ITEM_DISPLAY_DURATION);
-      }
-    }
-    prevQueueLengthRef.current = queue.length;
-  }, [queue]);
-
-  // When training finishes, show badges for 2 seconds then dismiss
-  useEffect(() => {
-    if (queueStatus === "finished" && completedCount + failedCount > 0) {
-      if (finishedTimeoutRef.current) clearTimeout(finishedTimeoutRef.current);
-      finishedTimeoutRef.current = setTimeout(() => {
-        onDismiss?.();
-      }, FINISHED_DISPLAY_DURATION);
-    }
-
-    if (queueStatus === "active" && finishedTimeoutRef.current) {
-      clearTimeout(finishedTimeoutRef.current);
-    }
-
-    return () => {
-      if (finishedTimeoutRef.current) clearTimeout(finishedTimeoutRef.current);
-    };
-  }, [queueStatus, completedCount, failedCount, onDismiss]);
-
-  // Display state: override takes priority over base state
-  const displayState: BadgeState =
-    newItemOverride !== null ? "newItem" : baseState;
-
-  const handleClick = () => {
-    openWithTab("training-status");
-  };
-
-  // Width-based animation pattern (like OnboardingMindWidget) for smooth collapse
+  // Width-based animation for horizontal layout
   return (
     <motion.div
-      className='overflow-hidden'
+      className="overflow-hidden"
       initial={{ width: 0, opacity: 0 }}
       animate={{ width: "auto", opacity: 1 }}
       exit={{ width: 0, opacity: 0 }}
       transition={{ duration: 0.25, ease: "easeInOut" }}
     >
       <div
-        className='flex items-center gap-1 text-text-muted cursor-pointer hover:text-blue-500 whitespace-nowrap pl-0.5 pr-4.5'
+        className="flex items-center gap-1 text-text-muted cursor-pointer hover:text-blue-500 whitespace-nowrap pl-0.5 pr-4.5"
         onClick={handleClick}
       >
-        <AnimatePresence mode='wait'>
+        <AnimatePresence mode="wait">
           {displayState === "finished" ? (
             <motion.div
-              key='finished-badges'
+              key="finished"
               {...SLIDE_ANIMATION}
-              className='flex items-center gap-1'
+              className="flex items-center gap-1"
             >
-              <span className='text-[13px] font-medium'>Completed!</span>
+              <span className="text-[13px] font-medium">Completed!</span>
               <TrainingResultBadges
                 completedCount={completedCount}
                 failedCount={failedCount}
@@ -253,29 +171,29 @@ export function MiniTrainingStatus({
                 }
                 onFailedClick={() => openWithTab("training-status", "failed")}
                 disableTooltips={disableTooltips}
-                countTextSize='text-[12px]'
+                countTextSize="text-[12px]"
               />
             </motion.div>
           ) : (
             <motion.div
-              key='status-content'
+              key="status"
               {...SLIDE_ANIMATION}
-              className='flex items-center gap-1'
+              className="flex items-center gap-1"
             >
               <StatusIcon
                 state={displayState}
-                docType={newItemOverride?.docType}
+                docType={newItemInfo?.docType}
               />
               <StatusLabel
                 state={displayState}
                 activeCount={activeCount}
-                newItemName={newItemOverride?.name ?? ""}
+                newItemName={newItemInfo?.name ?? ""}
               />
               {(completedCount > 0 || failedCount > 0) && (
-                <div className='ml-1'>
+                <div className="ml-1">
                   <TrainingResultBadges
-                    className='gap-1'
-                    countTextSize='text-[12px]'
+                    className="gap-1"
+                    countTextSize="text-[12px]"
                     completedCount={completedCount}
                     failedCount={failedCount}
                     onCompletedClick={() =>

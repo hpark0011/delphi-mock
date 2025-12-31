@@ -54,7 +54,7 @@ export function MindWidgetStatusLabel({
         <AnimatePresence mode='sync' initial={false}>
           <motion.div
             key={state + labelText}
-            className={`text-[12px] text-white/70 ${isNewItem ? "max-w-[100px] truncate" : "whitespace-nowrap"}`}
+            className={`text-sm text-sand-10 ${isNewItem ? "max-w-[100px] truncate" : "whitespace-nowrap"}`}
             initial={{
               y: -20,
               opacity: 0,
