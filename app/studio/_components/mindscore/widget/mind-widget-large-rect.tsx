@@ -152,7 +152,7 @@ function TrainingStatusTrigger({
     return <ActiveTrainingStatus />;
   }
 
-  // Default: show last trained date (dull state)
+  // Default: show last trained date (idle state)
   return <LastTrainedDate />;
 }
 

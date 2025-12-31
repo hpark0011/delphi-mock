@@ -3,7 +3,7 @@ import { cn } from "@/lib/utils";
 
 interface MindStatusIconProps {
   className?: string;
-  status: "active" | "finished" | "dull";
+  status: "active" | "finished" | "idle";
 }
 
 export function MindStatusIcon({ className, status }: MindStatusIconProps) {

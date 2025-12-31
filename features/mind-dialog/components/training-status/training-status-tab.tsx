@@ -109,8 +109,8 @@ export function TrainingStatusTab() {
         />
       )}
 
-      {/* Training Summary - Only show when queue is dull (default state) */}
-      {queueStatus === "dull" && (
+      {/* Training Summary - Only show when queue is idle (default state) */}
+      {queueStatus === "idle" && (
         <TrainingSummary
           summaryStats={summaryStats}
           scoreIncrease={scoreIncrease}

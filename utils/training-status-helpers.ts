@@ -60,24 +60,24 @@ export function isFinishedItemStatus(status: TrainingItemStatus): boolean {
  * Training Queue Status: The overall status of the training queue
  *
  * State transitions:
- * dull → (add items) → active → (all complete) → finished → (user reviews) → dull
+ * idle → (add items) → active → (all complete) → finished → (user reviews) → idle
  *
- * - dull: Default state. No training going on and user has reviewed all updates.
+ * - idle: Default state. No training going on and user has reviewed all updates.
  * - active: When there are items in the training queue (has queued or training items).
  * - finished: All items are finished (failed, completed, or deleted).
  *             No queued or training items, and user hasn't reviewed the recent change.
  *
  * @example
  * // User adds items
- * "dull" → "active"
+ * "idle" → "active"
  *
  * // Training completes
  * "active" → "finished"
  *
  * // User clicks "View summary"
- * "finished" → "dull"
+ * "finished" → "idle"
  */
-export type TrainingQueueStatus = "dull" | "active" | "finished";
+export type TrainingQueueStatus = "idle" | "active" | "finished";
 
 /**
  * Determine the training queue status based on the queue items and review state
@@ -90,9 +90,9 @@ export function getTrainingQueueStatus(
   queue: Array<{ status: TrainingItemStatus }>,
   hasUserReviewed: boolean = false
 ): TrainingQueueStatus {
-  // If queue is empty, return dull (default state)
+  // If queue is empty, return idle (default state)
   if (queue.length === 0) {
-    return "dull";
+    return "idle";
   }
 
   // Check if there are any active items (queued or training)
@@ -104,8 +104,8 @@ export function getTrainingQueueStatus(
   }
 
   // All items are finished
-  // If user has reviewed, return dull; otherwise return finished
-  return hasUserReviewed ? "dull" : "finished";
+  // If user has reviewed, return idle; otherwise return finished
+  return hasUserReviewed ? "idle" : "finished";
 }
 
 /**

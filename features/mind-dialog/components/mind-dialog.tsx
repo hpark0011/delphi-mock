@@ -74,7 +74,7 @@ export function MindDialogHeader({ level }: { level: string }) {
   }, [queueStatus, hasUserReviewed, queue.length]);
 
   const onPreviewClick = () => {
-    // Mark as reviewed to change status from "finished" to "dull"
+    // Mark as reviewed to change status from "finished" to "idle"
     if (queueStatus === "finished") {
       setHasUserReviewed(true);
     }

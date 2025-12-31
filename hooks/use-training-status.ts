@@ -20,7 +20,7 @@ import { useTrainingQueue } from "./use-training-queue";
  * @property {number} completedCount - Number of items that completed successfully
  * @property {number} failedCount - Number of items that failed during processing
  * @property {boolean} isIdle - True if there are no active items and the queue is empty
- * @property {TrainingQueueStatus} queueStatus - The overall status of the training queue (dull, active, finished)
+ * @property {TrainingQueueStatus} queueStatus - The overall status of the training queue (idle, active, finished)
  */
 export function useTrainingStatus(hasUserReviewed: boolean = false) {
   const { queue } = useTrainingQueue();
