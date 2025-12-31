@@ -14,13 +14,7 @@ const SLIDE_ANIMATION = {
   transition: { duration: 0.2, ease: "easeInOut" as const },
 };
 
-interface MindWidgetTrainingStatusProps {
-  onDismiss?: () => void;
-}
-
-export function MindWidgetTrainingStatus({
-  onDismiss,
-}: MindWidgetTrainingStatusProps) {
+export function MindWidgetTrainingStatus() {
   const { openWithTab } = useMindDialog();
 
   const {
@@ -29,7 +23,7 @@ export function MindWidgetTrainingStatus({
     activeCount,
     completedCount,
     failedCount,
-  } = useTrainingDisplayState({ onFinished: onDismiss });
+  } = useTrainingDisplayState();
 
   const handleClick = () => openWithTab("training-status");
 

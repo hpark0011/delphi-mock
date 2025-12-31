@@ -37,10 +37,6 @@ export function MindWidget({
     openWithTab("add-knowledge");
   };
 
-  const handleStatusDismiss = useCallback(() => {
-    setIsStatusVisible(false);
-  }, []);
-
   return (
     <MindWidgetWrapper>
       <MindWidgetBubble
@@ -59,9 +55,7 @@ export function MindWidget({
 
       {/* Training Status - below bubble */}
       <AnimatePresence>
-        {isStatusVisible && (
-          <MindWidgetTrainingStatus onDismiss={handleStatusDismiss} />
-        )}
+        {isStatusVisible && <MindWidgetTrainingStatus />}
       </AnimatePresence>
     </MindWidgetWrapper>
   );
