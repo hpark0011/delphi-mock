@@ -9,7 +9,10 @@ import React, {
   useRef,
 } from "react";
 import { toast } from "sonner";
-import type { TrainingItemStatus } from "@/utils/training-status-helpers";
+import {
+  isFinishedItemStatus,
+  type TrainingItemStatus,
+} from "@/utils/training-status-helpers";
 import { useMindScore } from "@/features/mind-score";
 import {
   PROGRESS_UPDATE_INTERVAL,
@@ -53,6 +56,8 @@ interface TrainingQueueContextType {
   clearQueue: () => void;
   removeItem: (itemId: string) => void;
   retryItem: (itemId: string) => void;
+  hasUserReviewed: boolean;
+  markAsReviewed: () => void;
 }
 
 const TrainingQueueContext = createContext<TrainingQueueContextType | null>(
@@ -68,6 +73,7 @@ export function TrainingQueueProvider({
 }: TrainingQueueProviderProps) {
   const { incrementScore, setLastTrainingDate } = useMindScore();
   const [queue, setQueue] = useState<QueueItem[]>([]);
+  const [hasUserReviewed, setHasUserReviewed] = useState(true);
   const processingRef = useRef(false);
   const intervalRefs = useRef<Map<string, NodeJS.Timeout>>(new Map());
   const timeoutRefs = useRef<NodeJS.Timeout[]>([]);
@@ -169,7 +175,23 @@ export function TrainingQueueProvider({
     setLastTrainingDate,
   ]);
 
+  // Auto-transition to "finished" when all items complete
+  useEffect(() => {
+    const allFinished =
+      queue.length > 0 && queue.every((item) => isFinishedItemStatus(item.status));
+
+    if (allFinished && hasUserReviewed) {
+      setHasUserReviewed(false); // Show "finished" state
+    }
+  }, [queue, hasUserReviewed]);
+
+  const markAsReviewed = useCallback(() => {
+    setHasUserReviewed(true);
+  }, []);
+
   const addToQueue = useCallback((items: QueueItemInput[]) => {
+    // Reset review state when new items are added
+    setHasUserReviewed(true);
     const newItems: QueueItem[] = items.map((item) => {
       // Calculate duration: use provided duration or default based on docType
       const duration = item.duration ?? getDurationByDocType(item.docType);
@@ -198,6 +220,7 @@ export function TrainingQueueProvider({
     timeoutRefs.current.forEach((timeout) => clearTimeout(timeout));
     timeoutRefs.current = [];
     setQueue([]);
+    setHasUserReviewed(true); // Reset review state when cleared
     processingRef.current = false;
   }, []);
 
@@ -241,8 +264,10 @@ export function TrainingQueueProvider({
       clearQueue,
       removeItem,
       retryItem,
+      hasUserReviewed,
+      markAsReviewed,
     }),
-    [queue, addToQueue, clearQueue, removeItem, retryItem]
+    [queue, addToQueue, clearQueue, removeItem, retryItem, hasUserReviewed, markAsReviewed]
   );
 
   return (

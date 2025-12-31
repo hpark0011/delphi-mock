@@ -29,5 +29,7 @@ export function useTrainingQueue(options?: UseTrainingQueueOptions) {
     clearQueue: context.clearQueue,
     removeItem: context.removeItem,
     retryItem: context.retryItem,
+    hasUserReviewed: context.hasUserReviewed,
+    markAsReviewed: context.markAsReviewed,
   };
 }

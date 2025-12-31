@@ -11,6 +11,7 @@ interface MindWidgetBubbleProps {
   className?: string;
   level: string;
   onClick?: () => void;
+  queueStatus?: "idle" | "active" | "finished";
 }
 
 // Base gradient overlay component
@@ -100,6 +101,7 @@ export function MindWidgetBubble({
   className,
   level,
   onClick,
+  queueStatus = "idle",
 }: MindWidgetBubbleProps) {
   // Get level-based colors
   const levelColors = getLevelShadowColors(level);
@@ -130,7 +132,13 @@ export function MindWidgetBubble({
       style={{
         // Drop shadow
         boxShadow: levelDropShadow,
-      }}
+        // CSS variables for animations
+        "--pill-color-light": levelColors.light,
+        "--pill-color-medium": levelColors.medium,
+        "--pill-color-dark": levelColors.dark,
+      } as React.CSSProperties}
+      data-luminating={queueStatus === "active"}
+      data-glowing={queueStatus === "finished"}
       onClick={onClick}
     >
       {children}

@@ -16,7 +16,6 @@ import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
 import React, {
   createContext,
   useContext,
-  useEffect,
   useMemo,
   useState,
 } from "react";
@@ -57,26 +56,14 @@ interface MindDialogProps {
 }
 
 export function MindDialogHeader({ level }: { level: string }) {
-  const [hasUserReviewed, setHasUserReviewed] = useState(false);
-  const { queue, clearQueue } = useTrainingQueue();
-  const { hasActiveItems, activeCount, queueStatus } =
-    useTrainingStatus(hasUserReviewed);
+  const { clearQueue, markAsReviewed } = useTrainingQueue();
+  const { queueStatus } = useTrainingStatus();
   const { close } = useMindDialog();
-
-  // Reset review state when queue becomes active or empty
-  useEffect(() => {
-    if (queueStatus === "active" && !hasUserReviewed) {
-      setHasUserReviewed(true);
-    }
-    if (queue.length === 0 && !hasUserReviewed) {
-      setHasUserReviewed(true);
-    }
-  }, [queueStatus, hasUserReviewed, queue.length]);
 
   const onPreviewClick = () => {
     // Mark as reviewed to change status from "finished" to "idle"
     if (queueStatus === "finished") {
-      setHasUserReviewed(true);
+      markAsReviewed();
     }
     clearQueue();
     close();

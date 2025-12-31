@@ -28,9 +28,7 @@ export function MindWidgetSmall({
   const { openWithTab } = useMindDialog();
   const { current, level } = useMindScore();
 
-  // Always pass false - mini widget doesn't mark as "reviewed"
-  // User reviews via dialog's "Preview" button
-  const { queueStatus } = useTrainingStatus(false);
+  const { queueStatus } = useTrainingStatus();
 
   // Local visibility state for the mini widget
   const [isWidgetVisible, setIsWidgetVisible] = useState(false);

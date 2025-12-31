@@ -4,7 +4,7 @@ import { useMindScore } from "@/features/mind-score";
 import { SCORE_PER_ITEM } from "@/app/studio/_constants/training-queue";
 import { useTrainingQueue, type QueueItem } from "@/hooks/use-training-queue";
 import { useTrainingStatus } from "@/hooks/use-training-status";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useMindDialog } from "../mind-dialog";
 import { ActiveTrainingQueue } from "./active-training-queue";
 import { type TrainingItem } from "./training-history";
@@ -16,70 +16,38 @@ export type { TrainingItemStatus as TrainingStatus } from "@/utils/training-stat
 export type { TrainingItem };
 
 export function TrainingStatusTab() {
-  const { queue } = useTrainingQueue();
+  const { queue, markAsReviewed } = useTrainingQueue();
   const { current, nextLevelThreshold, lastTrainingDate } = useMindScore();
   const { initialFilter, clearInitialFilter } = useMindDialog();
-  const [showCompletedStatus, setShowCompletedStatus] = useState(false);
   const [queueSnapshot, setQueueSnapshot] = useState<QueueItem[]>([]);
-  const [hasUserDismissedCompletion, setHasUserDismissedCompletion] =
-    useState(false);
+  const prevQueueStatus = useRef<string | null>(null);
 
-  // Use centralized queue status hook
-  // showCompletedStatus = true means user has NOT reviewed (showing completion message)
-  // useTrainingStatus expects hasUserReviewed (opposite), so we negate it
   const {
-    hasActiveItems,
     finishedCount,
     totalCount,
     queueStatus,
     completedCount,
     failedCount,
-  } = useTrainingStatus(!showCompletedStatus);
+  } = useTrainingStatus();
+
+  // Capture queue snapshot when transitioning to "finished" state
+  useEffect(() => {
+    if (queueStatus === "finished" && prevQueueStatus.current !== "finished") {
+      setQueueSnapshot([...queue]);
+    }
+    if (queueStatus === "active" && prevQueueStatus.current === "finished") {
+      setQueueSnapshot([]);
+    }
+    prevQueueStatus.current = queueStatus;
+  }, [queueStatus, queue]);
 
   // Handler for "View summary" button click
-  // Accepts boolean parameter to match interface but ignores it
-  const handleViewSummary = (_value: boolean) => {
-    setShowCompletedStatus(false);
-    setHasUserDismissedCompletion(true);
+  const handleViewSummary = () => {
+    markAsReviewed();
   };
-
-  // Detect completion and handle state transitions
-  useEffect(() => {
-    // Check if all items are done processing using centralized logic
-    const allDone = finishedCount === totalCount && totalCount > 0;
-
-    // Completion Detection: When all items are done and no active items
-    // Guard: Only set showCompletedStatus if user hasn't dismissed it
-    if (
-      allDone &&
-      !hasActiveItems &&
-      !showCompletedStatus &&
-      !hasUserDismissedCompletion
-    ) {
-      // Capture queue snapshot (all items with final states: completed, failed, deleted)
-      setQueueSnapshot([...queue]);
-      setShowCompletedStatus(true);
-    }
-
-    // Reset on New Items: When new items are added during completion state
-    if (queue.length > 0 && showCompletedStatus && hasActiveItems) {
-      setShowCompletedStatus(false);
-      setQueueSnapshot([]);
-      setHasUserDismissedCompletion(false); // Reset dismissal flag when new items are added
-    }
-  }, [
-    queue,
-    hasActiveItems,
-    showCompletedStatus,
-    finishedCount,
-    totalCount,
-    hasUserDismissedCompletion,
-  ]);
 
   // Calculate summary statistics using memoized values from hook
   const summaryStats = useMemo(() => {
-    // Use memoized counts from useTrainingStatus hook for better performance
-    // Total trained items (completed + failed + deleted)
     const deleted = finishedCount - completedCount - failedCount;
     const totalTrained = completedCount + failedCount + deleted;
 
@@ -99,7 +67,7 @@ export function TrainingStatusTab() {
       {/* Active training queue - Show when queue is active or finished */}
       {(queueStatus === "active" || queueStatus === "finished") && (
         <ActiveTrainingQueue
-          showCompletedStatus={showCompletedStatus}
+          showCompletedStatus={queueStatus === "finished"}
           setShowCompletedStatus={handleViewSummary}
           finishedCount={finishedCount}
           totalCount={totalCount}

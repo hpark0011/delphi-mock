@@ -142,10 +142,7 @@ export function MiniTrainingStatus({
   const { queue } = useTrainingQueue();
   const { openWithTab } = useMindDialog();
 
-  // Use centralized queue status hook
-  // Note: This widget doesn't track user review state, so we assume user hasn't reviewed
-  // (hasUserReviewed = false) to show "finished" state when appropriate
-  const { activeCount, queueStatus } = useTrainingStatus(false);
+  const { activeCount, queueStatus } = useTrainingStatus();
 
   // Calculate completed and failed counts from queue
   const completedCount = queue.filter(

@@ -3,3 +3,55 @@
   /* @ts-expect-error - cornerShape is a new CSS property */
   corner-shape: superellipse(1.4);
 }
+
+/* Luminating animation - pulsing glow while training is active */
+@keyframes mind-widget-bubble-luminate {
+  0%,
+  100% {
+    box-shadow:
+      inset 0 8px 20px -2px var(--pill-color-light),
+      inset 0 4px 16px -2px var(--pill-color-medium),
+      0 10px 20px -5px rgba(0, 0, 0, 0.4),
+      0 10px 20px -5px rgba(0, 0, 0, 0);
+  }
+  50% {
+    box-shadow:
+      inset 0 -8px 10px -2px var(--pill-color-light),
+      inset 0 8px 28px -2px var(--pill-color-medium),
+      0 10px 20px -5px var(--pill-color-dark),
+      0 10px 40px -5px rgba(0, 0, 0, 0.3);
+  }
+}
+
+.mind-widget-bubble[data-luminating="true"] {
+  animation: mind-widget-bubble-luminate 2.5s ease-in-out infinite;
+}
+
+/* Glowing animation - attention-grabbing pulse when finished */
+@keyframes mind-widget-bubble-glow {
+  0%,
+  100% {
+    box-shadow:
+      inset 0 1px 8px -2px var(--pill-color-light),
+      inset 0 -4px 6px -2px var(--pill-color-medium),
+      inset 0 -13px 24px -14px var(--pill-color-dark),
+      0 0 0 0.5px rgba(0, 0, 0, 0.05),
+      0 10px 20px -5px rgba(0, 0, 0, 0.4),
+      0 1px 1px 0 rgba(0, 0, 0, 0.15),
+      inset 0 0 6px 0 rgba(255, 255, 255, 0.1);
+  }
+  50% {
+    box-shadow:
+      inset 0 2px 16px -2px var(--pill-color-light),
+      inset 0 -6px 12px -2px var(--pill-color-medium),
+      inset 0 -16px 28px -4px var(--pill-color-dark),
+      0 0 0 0.5px rgba(0, 0, 0, 0.05),
+      0 12px 22px -6px var(--pill-color-dark),
+      0 1px 1px 0 rgba(0, 0, 0, 0.15),
+      inset 0 0 10px 0 rgba(255, 255, 255, 0.15);
+  }
+}
+
+.mind-widget-bubble[data-glowing="true"] {
+  animation: mind-widget-bubble-glow 1.5s ease-in-out infinite;
+}

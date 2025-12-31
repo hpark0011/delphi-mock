@@ -8,11 +8,10 @@ import { StudioSectionWrapper } from "@/app/studio/_components/studio-section-wr
 import { useMindDialog } from "@/features/mind-dialog";
 import { MindProgressBar } from "@/app/studio/_components/mindscore/mind-progress-bar";
 import { TrainingCompletedStatus } from "@/app/studio/_components/mindscore/widget/training-completed-status";
-import { QueueItem, useTrainingQueue } from "@/hooks/use-training-queue";
+import { useTrainingQueue } from "@/hooks/use-training-queue";
 import { useTrainingStatus } from "@/hooks/use-training-status";
 import { ActiveTrainingStatus } from "@/app/studio/_components/mindscore/widget/active-training-status";
 import { LastTrainedDate } from "@/app/studio/_components/mindscore/widget/last-trained-date";
-import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { PlusLargeIcon } from "@/delphi-ui/icons";
 
@@ -27,7 +26,7 @@ function MindScoreTrigger() {
     lastIncrement,
     lastDecrement,
   } = useMindScore();
-  const { queueStatus } = useTrainingStatus(false);
+  const { queueStatus } = useTrainingStatus();
 
   // Get level-based colors
   const levelColors = getLevelShadowColors(level);
@@ -118,31 +117,24 @@ function MindScoreTrigger() {
 }
 
 interface TrainingStatusTriggerProps {
-  hasUserReviewed: boolean;
-  setHasUserReviewed: (reviewed: boolean) => void;
   completedCount: number;
   failedCount: number;
-  queue: QueueItem[];
 }
 
 function TrainingStatusTrigger({
-  hasUserReviewed,
-  setHasUserReviewed,
   completedCount,
   failedCount,
-  queue,
 }: TrainingStatusTriggerProps) {
-  // Use centralized queue status hook
-  const { queueStatus } = useTrainingStatus(hasUserReviewed);
+  const { markAsReviewed } = useTrainingQueue();
+  const { queueStatus } = useTrainingStatus();
 
   // Show completed status when queue is finished (all items done, user hasn't reviewed)
   if (queueStatus === "finished") {
     return (
       <TrainingCompletedStatus
-        setShowCompletedStatus={(show) => setHasUserReviewed(!show)}
+        setShowCompletedStatus={() => markAsReviewed()}
         completedCount={completedCount}
         failedCount={failedCount}
-        // queueSnapshot={queue}
       />
     );
   }
@@ -157,47 +149,7 @@ function TrainingStatusTrigger({
 }
 
 export function MindWidgetLargeRect() {
-  const { queue } = useTrainingQueue();
-  const [hasUserReviewed, setHasUserReviewed] = useState(true); // Start as true (no completion to review)
-  const [completedCount, setCompletedCount] = useState(0);
-  const [failedCount, setFailedCount] = useState(0);
-
-  // Use centralized queue status logic
-  const { queueStatus, finishedCount, totalCount } =
-    useTrainingStatus(hasUserReviewed);
-
-  // Update counts when queue finishes and reset when new items are added
-  useEffect(() => {
-    // Detect when all items finish and user hasn't reviewed yet
-    const allFinished = finishedCount === totalCount && totalCount > 0;
-
-    if (allFinished && hasUserReviewed) {
-      // Queue just finished - capture snapshot counts and mark as unreviewed
-      // Note: We need manual filtering here to create a snapshot of counts
-      // at the moment of completion, which persists even as queue changes
-      const completed = queue.filter(
-        (item) => item.status === "completed"
-      ).length;
-      const failed = queue.filter((item) => item.status === "failed").length;
-      setCompletedCount(completed);
-      setFailedCount(failed);
-      setHasUserReviewed(false); // Mark as unreviewed to show completion status
-    }
-
-    // Reset when new items added (queue becomes active)
-    if (queueStatus === "active" && !hasUserReviewed) {
-      setHasUserReviewed(true); // Reset review state
-      setCompletedCount(0);
-      setFailedCount(0);
-    }
-
-    // Reset when queue is cleared (becomes empty)
-    if (queue.length === 0 && !hasUserReviewed) {
-      setHasUserReviewed(true);
-      setCompletedCount(0);
-      setFailedCount(0);
-    }
-  }, [queueStatus, hasUserReviewed, finishedCount, totalCount, queue]);
+  const { completedCount, failedCount } = useTrainingStatus();
 
   return (
     <StudioSectionWrapper
@@ -207,11 +159,8 @@ export function MindWidgetLargeRect() {
     >
       <MindScoreTrigger />
       <TrainingStatusTrigger
-        hasUserReviewed={hasUserReviewed}
-        setHasUserReviewed={setHasUserReviewed}
         completedCount={completedCount}
         failedCount={failedCount}
-        queue={queue}
       />
     </StudioSectionWrapper>
   );
