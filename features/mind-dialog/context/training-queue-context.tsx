@@ -10,7 +10,7 @@ import React, {
 } from "react";
 import { toast } from "sonner";
 import type { TrainingItemStatus } from "@/utils/training-status-helpers";
-import { useMindScore } from "@/app/studio/_components/mindscore/mind-score-context";
+import { useMindScore } from "@/features/mind-score";
 import {
   PROGRESS_UPDATE_INTERVAL,
   SCORE_PER_ITEM,

@@ -8,7 +8,7 @@ import React, {
   useCallback,
   useEffect,
 } from "react";
-import { calculateLevel, LEVEL_THRESHOLDS } from "@/lib/mind-level";
+import { calculateLevel, LEVEL_THRESHOLDS } from "../utils/mind-level";
 
 interface MindScoreContextType {
   current: number;

@@ -1,6 +1,6 @@
 "use client";
 
-import { useMindScore } from "@/app/studio/_components/mindscore/mind-score-context";
+import { useMindScore } from "@/features/mind-score";
 import { MindStatusIcon } from "@/components/mind-status-notification";
 import { MindWidgetSmall } from "@/components/mind-widget/mind-widget-small";
 import { Button } from "@/components/ui/button";

@@ -6,7 +6,7 @@ import {
   LevelColors,
 } from "../_utils/widget-config";
 import { useWidgetConfig } from "../_context";
-import { calculateLevel } from "@/lib/mind-level";
+import { calculateLevel } from "@/features/mind-score";
 
 interface UseOnboardingBubbleShadowProps {
   /** Current mind score used to calculate level and shadow colors. */

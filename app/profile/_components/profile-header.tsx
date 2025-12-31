@@ -2,7 +2,7 @@
 
 import { Link } from "next-view-transitions";
 
-import { useMindScore } from "@/app/studio/_components/mindscore/mind-score-context";
+import { useMindScore } from "@/features/mind-score";
 import { Button } from "@/components/ui/button";
 import { DelphiCurrentIcon } from "@/delphi-ui/icons/DelphiCurrent";
 import { ProfileMindWidget } from "./mind-widget/profile-mind-widget";

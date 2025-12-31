@@ -1,6 +1,6 @@
 "use client";
 
-import { useMindScore } from "@/app/studio/_components/mindscore/mind-score-context";
+import { useMindScore } from "@/features/mind-score";
 import {
   generateSmallWidgetShadowString,
   getLevelShadowColors,

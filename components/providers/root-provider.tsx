@@ -8,7 +8,7 @@ import { ThemeProvider } from "@/components/providers/theme-provider";
 import { Toaster } from "sonner";
 import { ReactQueryProvider } from "./react-query-provider";
 import { useThemeToggle } from "@/hooks/use-theme-toggle";
-import { MindScoreProvider } from "@/app/studio/_components/mindscore/mind-score-context";
+import { MindScoreProvider } from "@/features/mind-score";
 import {
   TrainingQueueProvider,
   MindDialogProvider,

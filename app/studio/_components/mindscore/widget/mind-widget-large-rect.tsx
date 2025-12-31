@@ -1,4 +1,4 @@
-import { useMindScore } from "@/app/studio/_components/mindscore/mind-score-context";
+import { useMindScore } from "@/features/mind-score";
 import {
   getLevelShadowColors,
   generateShadowString,

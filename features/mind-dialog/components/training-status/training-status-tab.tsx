@@ -1,6 +1,6 @@
 "use client";
 
-import { useMindScore } from "@/app/studio/_components/mindscore/mind-score-context";
+import { useMindScore } from "@/features/mind-score";
 import { SCORE_PER_ITEM } from "@/app/studio/_constants/training-queue";
 import { useTrainingQueue, type QueueItem } from "@/hooks/use-training-queue";
 import { useTrainingStatus } from "@/hooks/use-training-status";
