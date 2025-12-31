@@ -16,25 +16,22 @@ export function MindWidgetStatusIcon({
   docType,
 }: MindWidgetStatusIconProps) {
   return (
-    <span className='relative flex items-center justify-center size-4'>
-      <AnimatePresence mode='sync'>
-        <motion.span
-          key={state}
-          className='absolute left-0 top-0'
-          initial={{ y: -20, scale: 0.5, filter: "blur(6px)" }}
-          animate={{ y: 0, scale: 1, filter: "blur(0px)" }}
-          exit={{ y: 20, scale: 0.5, filter: "blur(6px)" }}
-          transition={{ duration: 0.15, ease: "easeInOut" }}
-        >
-          {state === "loading" && <MindStatusIcon status='active' />}
-          {state === "newItem" && (
-            <Icon
-              name={docType ? getDocTypeIcon(docType) : "DocFillIcon"}
-              className='size-5'
-            />
-          )}
-        </motion.span>
-      </AnimatePresence>
-    </span>
+    <AnimatePresence mode='sync'>
+      <motion.span
+        key={state}
+        initial={{ y: -20, scale: 0.5, filter: "blur(6px)" }}
+        animate={{ y: 0, scale: 1, filter: "blur(0px)" }}
+        exit={{ y: 20, scale: 0.5, filter: "blur(6px)" }}
+        transition={{ duration: 0.15, ease: "easeInOut" }}
+      >
+        {state === "loading" && <MindStatusIcon status='active' />}
+        {state === "newItem" && (
+          <Icon
+            name={docType ? getDocTypeIcon(docType) : "DocFillIcon"}
+            className='size-5 text-sand-9'
+          />
+        )}
+      </motion.span>
+    </AnimatePresence>
   );
 }

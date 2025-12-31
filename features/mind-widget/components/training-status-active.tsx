@@ -33,7 +33,7 @@ export function TrainingStatusActive({
       animate={SLIDE_ANIMATION.animate}
       exit={SLIDE_ANIMATION.exit}
       transition={SLIDE_ANIMATION.transition}
-      className='flex items-center gap-1'
+      className='flex items-center gap-0.5'
     >
       <MindWidgetStatusIcon
         state={displayState}
