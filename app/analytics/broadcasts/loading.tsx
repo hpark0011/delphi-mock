@@ -1,7 +1,5 @@
-import {
-  StudioSectionWrapper,
-  Divider,
-} from "@/components/analytics/dashboard-ui";
+import { StudioSectionWrapper } from "@/app/studio/_components/studio-section-wrapper";
+import { Divider } from "@/components/analytics/dashboard-ui";
 import * as React from "react";
 
 export default function BroadcastsLoading() {

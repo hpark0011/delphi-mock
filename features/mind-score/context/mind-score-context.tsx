@@ -8,7 +8,13 @@ import React, {
   useCallback,
   useEffect,
 } from "react";
-import { calculateLevel, LEVEL_THRESHOLDS } from "../utils/mind-level";
+import {
+  calculateLevel,
+  LEVEL_THRESHOLDS,
+  getNextLevelThreshold,
+  getProgressToNextLevel,
+  getProgressCap,
+} from "../utils/mind-level";
 
 interface MindScoreContextType {
   current: number;
@@ -25,40 +31,6 @@ interface MindScoreContextType {
 }
 
 const MindScoreContext = createContext<MindScoreContextType | null>(null);
-
-function getCurrentLevelThreshold(score: number): number {
-  for (let i = LEVEL_THRESHOLDS.length - 1; i >= 0; i--) {
-    if (score >= LEVEL_THRESHOLDS[i].min) {
-      return LEVEL_THRESHOLDS[i].min;
-    }
-  }
-  return LEVEL_THRESHOLDS[0].min;
-}
-
-function getNextLevelThreshold(score: number): number {
-  const currentThreshold = getCurrentLevelThreshold(score);
-  const currentIndex = LEVEL_THRESHOLDS.findIndex(
-    (level) => level.min === currentThreshold
-  );
-
-  // If at max level, return current threshold (no next level)
-  if (currentIndex === LEVEL_THRESHOLDS.length - 1) {
-    return currentThreshold;
-  }
-
-  return LEVEL_THRESHOLDS[currentIndex + 1].min;
-}
-
-function getProgressToNextLevel(score: number): number {
-  const currentThreshold = getCurrentLevelThreshold(score);
-  return Math.max(0, score - currentThreshold);
-}
-
-function getProgressCap(score: number): number {
-  const currentThreshold = getCurrentLevelThreshold(score);
-  const nextThreshold = getNextLevelThreshold(score);
-  return nextThreshold - currentThreshold;
-}
 
 interface MindScoreProviderProps {
   children: React.ReactNode;

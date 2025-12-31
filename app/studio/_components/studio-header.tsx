@@ -1,5 +1,5 @@
 import React from "react";
-import { MindWidget } from "@/components/mind-widget/mind-widget";
+import { MindWidget } from "@/features/mind-widget";
 import { MindWidgetSmall } from "@/components/mind-widget/mind-widget-small";
 
 export function StudioHeader() {

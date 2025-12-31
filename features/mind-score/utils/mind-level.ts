@@ -18,3 +18,31 @@ export function calculateLevel(score: number): LevelName {
   }
   return LEVEL_THRESHOLDS[0].name;
 }
+
+export function getCurrentLevelThreshold(score: number): number {
+  for (let i = LEVEL_THRESHOLDS.length - 1; i >= 0; i--) {
+    if (score >= LEVEL_THRESHOLDS[i].min) {
+      return LEVEL_THRESHOLDS[i].min;
+    }
+  }
+  return LEVEL_THRESHOLDS[0].min;
+}
+
+export function getNextLevelThreshold(score: number): number {
+  const currentThreshold = getCurrentLevelThreshold(score);
+  const currentIndex = LEVEL_THRESHOLDS.findIndex(
+    (level) => level.min === currentThreshold
+  );
+  if (currentIndex === LEVEL_THRESHOLDS.length - 1) {
+    return currentThreshold;
+  }
+  return LEVEL_THRESHOLDS[currentIndex + 1].min;
+}
+
+export function getProgressToNextLevel(score: number): number {
+  return Math.max(0, score - getCurrentLevelThreshold(score));
+}
+
+export function getProgressCap(score: number): number {
+  return getNextLevelThreshold(score) - getCurrentLevelThreshold(score);
+}
