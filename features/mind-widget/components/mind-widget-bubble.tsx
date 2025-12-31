@@ -1,4 +1,5 @@
 import {
+  generateDropShadow,
   generateSmallWidgetShadowString,
   getLevelShadowColors,
 } from "../utils/level-shadows";
@@ -9,24 +10,101 @@ interface MindWidgetBubbleProps {
   children: React.ReactNode;
   className?: string;
   level: string;
+  onClick?: () => void;
+}
+
+// Base gradient overlay component
+function BaseGradientOverlay() {
+  return (
+    <div
+      className={cn(
+        // Positioning
+        "absolute top-0 right-0",
+        // Sizing
+        "w-full h-full",
+        // Background
+        "bg-black"
+      )}
+    />
+  );
+}
+
+// Glass effect highlight component
+function GlassEffectHighlight() {
+  return (
+    <div
+      className={cn(
+        // Positioning
+        "absolute top-0 right-0",
+        // Sizing
+        "w-full h-full",
+        // Shape
+        "rounded-full mind-widget-bubble",
+        // Border
+        "border-[1px] border-sand-1",
+        // Effects
+        "blur-[3px]",
+        // Shadow
+        "shadow-[inset_0px_-1px_1px_1px_rgba(255,255,255,0.1),inset_0px_2px_2px_2px_rgba(255,255,255,0.15),inset_0px_4px_4px_2px_rgba(255,255,255,0.2)]"
+      )}
+    />
+  );
+}
+
+// Level accent shadow overlay component
+interface LevelAccentShadowProps {
+  shadowString: string;
+}
+
+function LevelAccentShadow({ shadowString }: LevelAccentShadowProps) {
+  return (
+    <div
+      className={cn(
+        // Shape,
+        "rounded-full mind-widget-bubble",
+        // Positioning
+        "absolute top-0 right-0",
+        // Sizing
+        "w-full h-full"
+      )}
+      style={{
+        boxShadow: shadowString.replace(/_/g, " "),
+      }}
+    />
+  );
+}
+
+// Level accent gradient overlay component
+interface LevelAccentGradientProps {
+  lightColor: string;
+}
+
+function LevelAccentGradient({ lightColor }: LevelAccentGradientProps) {
+  return (
+    <div
+      className={cn(
+        // Positioning
+        "absolute top-0 right-0",
+        // Sizing
+        "w-full h-full"
+      )}
+      style={{
+        background: `linear-gradient(to top, ${lightColor.replace("1)", "0.4)")}, transparent)`,
+      }}
+    />
+  );
 }
 
 export function MindWidgetBubble({
   children,
   className,
   level,
+  onClick,
 }: MindWidgetBubbleProps) {
   // Get level-based colors
   const levelColors = getLevelShadowColors(level);
   const shadowString = generateSmallWidgetShadowString(levelColors);
-
-  // Generate dynamic shadow based on level colors
-  const levelShadow = [
-    `0 3px 6px ${levelColors.light.replace("1)", "0.4)")}`,
-    `0 8px 8px -4px ${levelColors.medium.replace("0.5)", "0.3)")}`,
-    `0 16px 16px -8px ${levelColors.dark.replace("1)", "0.2)")}`,
-    `0 24px 24px -12px ${levelColors.dark.replace("1)", "0.3)")}`,
-  ].join(", ");
+  const levelDropShadow = generateDropShadow(levelColors);
 
   return (
     <div
@@ -43,72 +121,24 @@ export function MindWidgetBubble({
         "overflow-hidden",
         // Shape
         "mind-widget-bubble",
+        // Transitions
+        "transition-transform duration-200 ease-out",
+        // Hover effects
+        "hover:scale-104 cursor-pointer",
         className
       )}
       style={{
         // Drop shadow
-        boxShadow: levelShadow,
+        boxShadow: levelDropShadow,
       }}
+      onClick={onClick}
     >
       {children}
 
-      {/* Base gradient overlay */}
-      <div
-        className={cn(
-          // Positioning
-          "absolute top-0 right-0",
-          // Sizing
-          "w-full h-full",
-          // Background
-          "bg-black"
-        )}
-      />
-
-      {/* Glass effect highlight */}
-      <div
-        className={cn(
-          // Positioning
-          "absolute top-0 right-0",
-          // Sizing
-          "w-full h-full",
-          // Shape
-          "rounded-full mind-widget-bubble",
-          // Border
-          "border-[1px] border-sand-1",
-          // Effects
-          "blur-[3px]",
-          // Shadow
-          "shadow-[inset_0px_-1px_1px_1px_rgba(255,255,255,0.1),inset_0px_2px_2px_2px_rgba(255,255,255,0.15),inset_0px_4px_4px_2px_rgba(255,255,255,0.2)]"
-        )}
-      />
-
-      {/* Level accent gradient overlay */}
-      <div
-        className={cn(
-          // Shape,
-          "rounded-full mind-widget-bubble",
-          // Positioning
-          "absolute top-0 right-0",
-          // Sizing
-          "w-full h-full"
-        )}
-        style={{
-          boxShadow: shadowString.replace(/_/g, " "),
-        }}
-      />
-
-      {/* Level accent gradient overlay */}
-      <div
-        className={cn(
-          // Positioning
-          "absolute top-0 right-0",
-          // Sizing
-          "w-full h-full"
-        )}
-        style={{
-          background: `linear-gradient(to top, ${levelColors.light.replace("1)", "0.4)")}, transparent)`,
-        }}
-      />
+      <BaseGradientOverlay />
+      <GlassEffectHighlight />
+      <LevelAccentShadow shadowString={shadowString} />
+      <LevelAccentGradient lightColor={levelColors.light} />
     </div>
   );
 }

@@ -47,6 +47,15 @@ export function getLevelShadowColors(level: string): LevelColors {
   return LEVEL_COLORS[level] ?? LEVEL_COLORS.Skilled;
 }
 
+// Color manipulation helpers
+export function adjustRgbaOpacity(
+  rgbaString: string,
+  newOpacity: number
+): string {
+  const parsed = parseRgba(rgbaString);
+  return `rgba(${parsed.r}, ${parsed.g}, ${parsed.b}, ${newOpacity})`;
+}
+
 // Shadow Generators
 export function generateShadowString(
   colors: LevelColors,
@@ -60,6 +69,16 @@ export function generateShadowString(
 
 export function generateSmallWidgetShadowString(colors: LevelColors): string {
   return `inset_0_1px_8px_-2px_${colors.light},inset_0_-4px_6px_-2px_${colors.medium},inset_0_-13px_24px_-14px_${colors.dark},_0_0_0_0.5px_rgba(0,0,0,0.05),0_10px_20px_-5px_rgba(0,0,0,0.3),0_1px_1px_0_rgba(0,0,0,0.15),_inset_0_0_6px_0_rgba(255,255,255,0.1)`;
+}
+
+export function generateDropShadow(colors: LevelColors): string {
+  const shadows = [
+    `0 3px 6px ${adjustRgbaOpacity(colors.light, 0.4)}`,
+    `0 8px 8px -4px ${adjustRgbaOpacity(colors.medium, 0.3)}`,
+    `0 16px 16px -8px ${adjustRgbaOpacity(colors.dark, 0.2)}`,
+    `0 24px 24px -12px ${adjustRgbaOpacity(colors.dark, 0.3)}`,
+  ];
+  return shadows.join(", ");
 }
 
 // SVG Shadow Colors (for SVG filters)
