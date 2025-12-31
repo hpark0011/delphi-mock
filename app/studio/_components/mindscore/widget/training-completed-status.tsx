@@ -1,7 +1,7 @@
 "use client";
 
 import { MindStatusIcon } from "@/components/mind-status-notification";
-import { TrainingResultBadges } from "@/components/mind-widget/training-result-badges";
+import { TrainingResultBadges } from "@/features/mind-widget/components/training-result-badges";
 import {
   Tooltip,
   TooltipContent,

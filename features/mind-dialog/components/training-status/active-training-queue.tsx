@@ -8,7 +8,7 @@ import {
   getStatusIcon,
 } from "@/app/studio/_utils/mind-dialog-helpers";
 import { TrainingQueueItem } from "@/app/studio/_components/mindscore/training-queue-item";
-import { TrainingResultBadges } from "@/components/mind-widget/training-result-badges";
+import { TrainingResultBadges } from "@/features/mind-widget/components/training-result-badges";
 import {
   Select,
   SelectContent,
@@ -149,7 +149,6 @@ export function ActiveTrainingQueue({
                 {/* <TrainingResultBadges
                   completedCount={0}
                   failedCount={failedCount}
-                  countTextSize='text-[12px]'
                   disableTooltips
                 /> */}
                 <div className='flex items-center gap-0 mr-1'>
@@ -181,7 +180,6 @@ export function ActiveTrainingQueue({
                 <TrainingResultBadges
                   completedCount={completedCount}
                   failedCount={failedCount}
-                  countTextSize='text-[12px]'
                   disableTooltips
                   className='mr-4 gap-1'
                 />

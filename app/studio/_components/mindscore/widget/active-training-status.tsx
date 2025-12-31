@@ -2,7 +2,7 @@
 
 import { useMindDialog } from "@/features/mind-dialog";
 import { MindStatusIcon } from "@/components/mind-status-notification";
-import { TrainingResultBadges } from "@/components/mind-widget/training-result-badges";
+import { TrainingResultBadges } from "@/features/mind-widget/components/training-result-badges";
 import { useTrainingQueue } from "@/hooks/use-training-queue";
 import { useTrainingStatus } from "@/hooks/use-training-status";
 import { AnimatePresence, motion } from "framer-motion";
@@ -144,7 +144,6 @@ export function ActiveTrainingStatus() {
             onCompletedClick={() => openWithTab("training-status", "completed")}
             onFailedClick={() => openWithTab("training-status", "failed")}
             className='gap-1'
-            countTextSize='text-[12px]'
           />
         )}
 

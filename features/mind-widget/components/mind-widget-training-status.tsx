@@ -1,7 +1,7 @@
 "use client";
 
 import { useMindDialog } from "@/features/mind-dialog";
-import { TrainingResultBadges } from "@/components/mind-widget/training-result-badges";
+import { TrainingResultBadges } from "./training-result-badges";
 import { AnimatePresence, motion } from "framer-motion";
 import { useTrainingDisplayState } from "../hooks/use-training-display-state";
 import { MindWidgetStatusIcon } from "./mind-widget-status-icon";
@@ -57,7 +57,6 @@ export function MindWidgetTrainingStatus() {
                 }
                 onFailedClick={() => openWithTab("training-status", "failed")}
                 disableTooltips
-                countTextSize='text-[11px]'
               />
             </motion.div>
           ) : (
@@ -78,8 +77,7 @@ export function MindWidgetTrainingStatus() {
               {(completedCount > 0 || failedCount > 0) && (
                 <div className='ml-0.5'>
                   <TrainingResultBadges
-                    className='gap-0.5'
-                    countTextSize='text-[11px]'
+                    className='gap-0'
                     completedCount={completedCount}
                     failedCount={failedCount}
                     onCompletedClick={() =>

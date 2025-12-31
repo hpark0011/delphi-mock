@@ -6,7 +6,7 @@ import { Icon } from "@/components/ui/icon";
 import { getDocTypeIcon } from "@/utils/doc-type-helpers";
 import { AnimatePresence, motion, type Transition } from "framer-motion";
 import { useLayoutEffect, useRef, useState } from "react";
-import { TrainingResultBadges } from "./training-result-badges";
+import { TrainingResultBadges } from "@/features/mind-widget/components/training-result-badges";
 import {
   useTrainingDisplayState,
   type DisplayState,
@@ -171,7 +171,6 @@ export function MiniTrainingStatus({
                 }
                 onFailedClick={() => openWithTab("training-status", "failed")}
                 disableTooltips={disableTooltips}
-                countTextSize="text-[12px]"
               />
             </motion.div>
           ) : (
@@ -193,7 +192,6 @@ export function MiniTrainingStatus({
                 <div className="ml-1">
                   <TrainingResultBadges
                     className="gap-1"
-                    countTextSize="text-[12px]"
                     completedCount={completedCount}
                     failedCount={failedCount}
                     onCompletedClick={() =>
