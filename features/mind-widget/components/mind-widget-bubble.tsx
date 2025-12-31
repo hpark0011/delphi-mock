@@ -1,4 +1,7 @@
-import { getLevelShadowColors } from "../utils/level-shadows";
+import {
+  generateSmallWidgetShadowString,
+  getLevelShadowColors,
+} from "../utils/level-shadows";
 import { cn } from "@/lib/utils";
 import React from "react";
 
@@ -15,6 +18,7 @@ export function MindWidgetBubble({
 }: MindWidgetBubbleProps) {
   // Get level-based colors
   const levelColors = getLevelShadowColors(level);
+  const shadowString = generateSmallWidgetShadowString(levelColors);
 
   // Generate dynamic shadow based on level colors
   const levelShadow = [
@@ -42,7 +46,7 @@ export function MindWidgetBubble({
         className
       )}
       style={{
-        backgroundColor: levelColors.dark,
+        // Drop shadow
         boxShadow: levelShadow,
       }}
     >
@@ -56,14 +60,11 @@ export function MindWidgetBubble({
           // Sizing
           "w-full h-full",
           // Background
-          "bg-gradient-to-t from-sand-12 to-sand-10"
+          "bg-black"
         )}
-        // style={{
-        //   background: `linear-gradient(to top, ${levelColors.dark}, ${levelColors.medium})`,
-        // }}
       />
 
-      {/* Glass effect with border and inner shadows */}
+      {/* Glass effect highlight */}
       <div
         className={cn(
           // Positioning
@@ -75,20 +76,25 @@ export function MindWidgetBubble({
           // Border
           "border-[1px] border-sand-1",
           // Effects
-          "blur-[2px]",
+          "blur-[3px]",
           // Shadow
-          "shadow-[inset_0px_-1px_1px_1px_rgba(255,255,255,0.1),inset_0px_2px_2px_2px_rgba(255,255,255,0.1),inset_0px_4px_4px_2px_rgba(255,255,255,0.3)]"
+          "shadow-[inset_0px_-1px_1px_1px_rgba(255,255,255,0.1),inset_0px_2px_2px_2px_rgba(255,255,255,0.15),inset_0px_4px_4px_2px_rgba(255,255,255,0.2)]"
         )}
       />
 
       {/* Level accent gradient overlay */}
       <div
         className={cn(
+          // Shape,
+          "rounded-full mind-widget-bubble",
           // Positioning
           "absolute top-0 right-0",
           // Sizing
           "w-full h-full"
         )}
+        style={{
+          boxShadow: shadowString.replace(/_/g, " "),
+        }}
       />
 
       {/* Level accent gradient overlay */}

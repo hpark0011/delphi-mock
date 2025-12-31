@@ -19,8 +19,7 @@ export function MindWidget({
     <MindWidgetWrapper>
       <MindWidgetBubble className='min-w-[112px]' level={level}>
         <div className='relative z-10 flex flex-col h-full gap-1 justify-center items-center p-1.5'>
-          <div className='flex items-center justify-center gap-0.5 -ml-[4px]'>
-            <MindIcon className='size-4.5 text-white' />
+          <div className='flex items-center justify-center gap-0.5'>
             <MindWidgetScore score={score} fontSize='text-2xl' />
           </div>
           <MindWidgetLevel level={level} />
