@@ -1,7 +1,7 @@
 "use client";
 
 import { useId } from "react";
-import { getLevelSvgShadowColors } from "@/app/onboarding/_utils/widget-config";
+import { getLevelSvgShadowColors } from "@/features/mind-widget";
 
 /**
  * Converts RGBA color values to feColorMatrix format

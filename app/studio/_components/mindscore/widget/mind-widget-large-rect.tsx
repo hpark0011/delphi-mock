@@ -2,7 +2,7 @@ import { useMindScore } from "@/features/mind-score";
 import {
   getLevelShadowColors,
   generateShadowString,
-} from "@/app/onboarding/_utils/widget-config";
+} from "@/features/mind-widget";
 import { cn } from "@/lib/utils";
 import { StudioSectionWrapper } from "@/app/studio/_components/studio-section-wrapper";
 import { useMindDialog } from "@/features/mind-dialog";

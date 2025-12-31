@@ -4,7 +4,7 @@ import { useMindScore } from "@/features/mind-score";
 import {
   generateSmallWidgetShadowString,
   getLevelShadowColors,
-} from "@/app/onboarding/_utils/widget-config";
+} from "@/features/mind-widget";
 import { useTrainingStatus } from "@/hooks/use-training-status";
 import { cn } from "@/lib/utils";
 import { AnimatePresence, motion } from "framer-motion";

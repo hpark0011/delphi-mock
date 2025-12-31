@@ -1,4 +1,4 @@
-import { getLevelShadowColors } from "@/app/onboarding/_utils/widget-config";
+import { getLevelShadowColors } from "../utils/level-shadows";
 import { cn } from "@/lib/utils";
 import React from "react";
 
@@ -54,11 +54,13 @@ export function MindWidgetBubble({
           // Positioning
           "absolute top-0 right-0",
           // Sizing
-          "w-full h-full"
+          "w-full h-full",
+          // Background
+          "bg-gradient-to-t from-sand-12 to-sand-10"
         )}
-        style={{
-          background: `linear-gradient(to top, ${levelColors.dark}, ${levelColors.medium})`,
-        }}
+        // style={{
+        //   background: `linear-gradient(to top, ${levelColors.dark}, ${levelColors.medium})`,
+        // }}
       />
 
       {/* Glass effect with border and inner shadows */}
@@ -76,6 +78,16 @@ export function MindWidgetBubble({
           "blur-[2px]",
           // Shadow
           "shadow-[inset_0px_-1px_1px_1px_rgba(255,255,255,0.1),inset_0px_2px_2px_2px_rgba(255,255,255,0.1),inset_0px_4px_4px_2px_rgba(255,255,255,0.3)]"
+        )}
+      />
+
+      {/* Level accent gradient overlay */}
+      <div
+        className={cn(
+          // Positioning
+          "absolute top-0 right-0",
+          // Sizing
+          "w-full h-full"
         )}
       />
 

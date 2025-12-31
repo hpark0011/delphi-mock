@@ -11,7 +11,7 @@ import {
   DialogClose,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
-import { getLevelShadowColors } from "@/app/onboarding/_utils/widget-config";
+import { getLevelShadowColors } from "@/features/mind-widget";
 
 interface LevelUpDialogProps {
   open: boolean;
