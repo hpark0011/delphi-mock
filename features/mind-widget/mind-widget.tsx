@@ -1,7 +1,8 @@
 "use client";
 
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useMindDialog } from "@/features/mind-dialog";
+import { calculateLevelProgress } from "@/features/mind-score";
 import { useTrainingStatus } from "@/hooks/use-training-status";
 import { AnimatePresence } from "framer-motion";
 import { MindWidgetBubble } from "./components/mind-widget-bubble";
@@ -23,6 +24,9 @@ export function MindWidget({
   const { openWithTab } = useMindDialog();
   const { queueStatus } = useTrainingStatus();
 
+  // Calculate progress toward next level
+  const progress = calculateLevelProgress(score);
+
   // Local visibility for training status
   const [isStatusVisible, setIsStatusVisible] = useState(false);
 
@@ -42,6 +46,7 @@ export function MindWidget({
       <MindWidgetBubble
         className='min-w-[112px]'
         level={level}
+        progress={progress}
         onClick={handleClick}
         queueStatus={queueStatus}
       >

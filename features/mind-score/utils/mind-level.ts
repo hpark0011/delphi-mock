@@ -46,3 +46,15 @@ export function getProgressToNextLevel(score: number): number {
 export function getProgressCap(score: number): number {
   return getNextLevelThreshold(score) - getCurrentLevelThreshold(score);
 }
+
+/**
+ * Calculate progress percentage within current level (0-100)
+ * Returns 100 if at max level (Eternal)
+ */
+export function calculateLevelProgress(score: number): number {
+  const progressCap = getProgressCap(score);
+  if (progressCap === 0) return 100; // At max level
+
+  const progress = getProgressToNextLevel(score);
+  return Math.min(Math.max((progress / progressCap) * 100, 0), 100);
+}

@@ -10,6 +10,7 @@ interface MindWidgetBubbleProps {
   children: React.ReactNode;
   className?: string;
   level: string;
+  progress?: number; // 0-100, percentage toward next level
   onClick?: () => void;
   queueStatus?: "idle" | "active" | "finished";
 }
@@ -46,7 +47,7 @@ function GlassEffectHighlight() {
         // Effects
         "blur-[3px]",
         // Shadow
-        "shadow-[inset_0px_-1px_1px_1px_rgba(255,255,255,0.1),inset_0px_2px_2px_2px_rgba(255,255,255,0.15),inset_0px_4px_4px_2px_rgba(255,255,255,0.2)]"
+        "shadow-[inset_0px_-1px_1px_1px_rgba(255,255,255,0.1),inset_0px_2px_2px_2px_rgba(255,255,255,0.1),inset_0px_4px_4px_2px_rgba(255,255,255,0.1)]"
       )}
     />
   );
@@ -78,19 +79,28 @@ function LevelAccentShadow({ shadowString }: LevelAccentShadowProps) {
 // Level accent gradient overlay component
 interface LevelAccentGradientProps {
   lightColor: string;
+  progress: number; // 0-100, percentage toward next level
 }
 
-function LevelAccentGradient({ lightColor }: LevelAccentGradientProps) {
+function LevelAccentGradient({
+  lightColor,
+  progress,
+}: LevelAccentGradientProps) {
+  // Clamp progress between 0 and 100
+  const fillPercent = Math.min(Math.max(progress, 0), 100);
+
   return (
     <div
       className={cn(
         // Positioning
         "absolute top-0 right-0",
         // Sizing
-        "w-full h-full"
+        "w-full h-full",
+        // Transition
+        "transition-all duration-500 ease-out"
       )}
       style={{
-        background: `linear-gradient(to top, ${lightColor.replace("1)", "0.4)")}, transparent)`,
+        background: `linear-gradient(to top, ${lightColor.replace("1)", "0.6)")} 0%, ${lightColor.replace("1)", "0.1)")} ${fillPercent}%, transparent ${fillPercent}%)`,
       }}
     />
   );
@@ -100,6 +110,7 @@ export function MindWidgetBubble({
   children,
   className,
   level,
+  progress = 0,
   onClick,
   queueStatus = "idle",
 }: MindWidgetBubbleProps) {
@@ -129,14 +140,16 @@ export function MindWidgetBubble({
         "hover:scale-104 cursor-pointer",
         className
       )}
-      style={{
-        // Drop shadow
-        boxShadow: levelDropShadow,
-        // CSS variables for animations
-        "--pill-color-light": levelColors.light,
-        "--pill-color-medium": levelColors.medium,
-        "--pill-color-dark": levelColors.dark,
-      } as React.CSSProperties}
+      style={
+        {
+          // Drop shadow
+          boxShadow: levelDropShadow,
+          // CSS variables for animations
+          "--pill-color-light": levelColors.light,
+          "--pill-color-medium": levelColors.medium,
+          "--pill-color-dark": levelColors.dark,
+        } as React.CSSProperties
+      }
       data-luminating={queueStatus === "active"}
       data-glowing={queueStatus === "finished"}
       onClick={onClick}
@@ -146,7 +159,7 @@ export function MindWidgetBubble({
       <BaseGradientOverlay />
       <GlassEffectHighlight />
       <LevelAccentShadow shadowString={shadowString} />
-      <LevelAccentGradient lightColor={levelColors.light} />
+      <LevelAccentGradient lightColor={levelColors.light} progress={progress} />
     </div>
   );
 }
