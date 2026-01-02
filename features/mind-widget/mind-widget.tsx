@@ -6,6 +6,7 @@ import { calculateLevelProgress } from "@/features/mind-score";
 import { useTrainingStatus } from "@/hooks/use-training-status";
 import { AnimatePresence } from "framer-motion";
 import { MindWidgetBubble } from "./components/mind-widget-bubble";
+import { MindWidgetInfo } from "./components/mind-widget-info";
 import { MindWidgetLevel } from "./components/mind-widget-level";
 import { MindWidgetScore } from "./components/mind-widget-score";
 import { MindWidgetTrainingStatus } from "./components/mind-widget-training-status";
@@ -60,7 +61,7 @@ export function MindWidget({
 
       {/* Training Status - below bubble */}
       <AnimatePresence>
-        {isStatusVisible && <MindWidgetTrainingStatus />}
+        {isStatusVisible ? <MindWidgetTrainingStatus /> : <MindWidgetInfo />}
       </AnimatePresence>
     </MindWidgetWrapper>
   );
