@@ -92,15 +92,16 @@ function LevelAccentGradient({
   return (
     <div
       className={cn(
-        // Positioning
-        "absolute top-0 right-0",
+        // Positioning - anchor to bottom
+        "absolute bottom-0 left-0 right-0",
         // Sizing
-        "w-full h-full",
-        // Transition
-        "transition-all duration-500 ease-out"
+        "w-full",
+        // Transition - animate height
+        "transition-[height] duration-500 ease-out"
       )}
       style={{
-        background: `linear-gradient(to top, ${lightColor.replace("1)", "0.6)")} 0%, ${lightColor.replace("1)", "0.1)")} ${fillPercent}%, transparent ${fillPercent}%)`,
+        height: `${fillPercent}%`,
+        background: `linear-gradient(to top, ${lightColor.replace("1)", "0.6)")} 0%, ${lightColor.replace("1)", "0.1)")} 100%)`,
       }}
     />
   );
