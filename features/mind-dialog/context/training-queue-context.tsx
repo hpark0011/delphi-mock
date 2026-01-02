@@ -6,7 +6,7 @@ import React, {
   useState,
   useEffect,
   useCallback,
-  useRef,
+  useMemo,
 } from "react";
 import { toast } from "sonner";
 import {
@@ -14,14 +14,15 @@ import {
   type TrainingItemStatus,
 } from "@/utils/training-status-helpers";
 import { useMindScore } from "@/features/mind-score";
-import {
-  PROGRESS_UPDATE_INTERVAL,
-  SCORE_PER_ITEM,
-} from "@/app/studio/_constants/training-queue";
+import { SCORE_PER_ITEM } from "@/app/studio/_constants/training-queue";
 import {
   getDurationByDocType,
   updateScoreSafely,
 } from "@/app/studio/_utils/training-queue-helpers";
+import {
+  useTrainingProcessor,
+  type ProcessorCallbacks,
+} from "../hooks/use-training-processor";
 
 export type TrainingDocType =
   | "interview"
@@ -50,11 +51,6 @@ type QueueItemInput = Omit<
   duration?: number; // Optional duration, will be calculated from docType if not provided
 };
 
-export interface RecentlyAddedItem {
-  name: string;
-  docType: TrainingDocType;
-}
-
 interface TrainingQueueContextType {
   queue: QueueItem[];
   addToQueue: (items: QueueItemInput[]) => QueueItem[];
@@ -63,7 +59,6 @@ interface TrainingQueueContextType {
   retryItem: (itemId: string) => void;
   hasUserReviewed: boolean;
   markAsReviewed: () => void;
-  recentlyAddedItem: RecentlyAddedItem | null;
 }
 
 const TrainingQueueContext = createContext<TrainingQueueContextType | null>(
@@ -80,11 +75,6 @@ export function TrainingQueueProvider({
   const { incrementScore, setLastTrainingDate } = useMindScore();
   const [queue, setQueue] = useState<QueueItem[]>([]);
   const [hasUserReviewed, setHasUserReviewed] = useState(true);
-  const [recentlyAddedItem, setRecentlyAddedItem] = useState<RecentlyAddedItem | null>(null);
-  const processingRef = useRef(false);
-  const intervalRefs = useRef<Map<string, NodeJS.Timeout>>(new Map());
-  const timeoutRefs = useRef<NodeJS.Timeout[]>([]);
-  const recentlyAddedTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   /**
    * Helper: Updates a specific queue item's properties
@@ -98,95 +88,38 @@ export function TrainingQueueProvider({
     []
   );
 
-  /**
-   * Helper: Processes a single item with progress tracking
-   * Returns a promise that resolves when processing completes
-   */
-  const processItemProgress = useCallback(
-    (itemId: string, duration: number): Promise<void> => {
-      return new Promise((resolve) => {
-        const startTime = Date.now();
-
-        // Update progress every PROGRESS_UPDATE_INTERVAL
-        const interval = setInterval(() => {
-          const elapsed = Date.now() - startTime;
-          const progress = Math.min((elapsed / duration) * 100, 100);
-          updateItemStatus(itemId, { progress });
-        }, PROGRESS_UPDATE_INTERVAL);
-
-        intervalRefs.current.set(itemId, interval);
-
-        // Wait for duration to complete
-        const timeout = setTimeout(() => {
-          const intervalToClear = intervalRefs.current.get(itemId);
-          if (intervalToClear) {
-            clearInterval(intervalToClear);
-            intervalRefs.current.delete(itemId);
-          }
-          resolve();
-        }, duration);
-
-        timeoutRefs.current.push(timeout);
-      });
-    },
-    [updateItemStatus]
+  // Callbacks for the training processor
+  const processorCallbacks = useMemo<ProcessorCallbacks>(
+    () => ({
+      onItemProgress: (itemId, progress) => {
+        updateItemStatus(itemId, { progress });
+      },
+      onItemStatusChange: (itemId, status, progress) => {
+        updateItemStatus(itemId, { status, progress });
+      },
+      onItemCompleted: () => {
+        // Award points for successful completion
+        updateScoreSafely(incrementScore, SCORE_PER_ITEM, "increment");
+      },
+      onBatchComplete: () => {
+        // Update last training date when batch processing completes
+        setLastTrainingDate(new Date());
+      },
+    }),
+    [updateItemStatus, incrementScore, setLastTrainingDate]
   );
 
-  // Process queue items sequentially
-  useEffect(() => {
-    if (queue.length === 0 || processingRef.current) return;
-
-    const processQueue = async () => {
-      processingRef.current = true;
-
-      // Separate items by status
-      const itemsToProcess = queue.filter((item) => item.status === "queued");
-
-      // ============ Process Training Queue ============
-      for (const item of itemsToProcess) {
-        // Start training
-        updateItemStatus(item.id, { status: "training", progress: 0 });
-
-        // Simulate progress over item duration
-        await processItemProgress(item.id, item.duration);
-
-        // Determine final status and handle transitions
-        if (item.shouldDelete) {
-          // Transition to deleted state (mark as deleted immediately since training is done)
-          updateItemStatus(item.id, { status: "deleted", progress: 100 });
-        } else {
-          // Complete or fail
-          const finalStatus = item.shouldFail ? "failed" : "completed";
-          updateItemStatus(item.id, { status: finalStatus, progress: 100 });
-
-          // Award points for successful completion
-          if (!item.shouldFail) {
-            updateScoreSafely(incrementScore, SCORE_PER_ITEM, "increment");
-          }
-        }
-      }
-
-      // Update last training date when queue processing completes
-      if (itemsToProcess.length > 0) {
-        setLastTrainingDate(new Date());
-      }
-
-      processingRef.current = false;
-    };
-
-    processQueue();
-  }, [
+  // Use the training processor hook for simulation logic
+  const { clearProcessing } = useTrainingProcessor({
     queue,
-    updateItemStatus,
-    processItemProgress,
-    incrementScore,
-    setLastTrainingDate,
-  ]);
+    callbacks: processorCallbacks,
+  });
 
   // Auto-transition to "finished" when all items complete
   useEffect(() => {
     const allFinished =
-      queue.length > 0 && queue.every((item) => isFinishedItemStatus(item.status));
+      queue.length > 0 &&
+      queue.every((item) => isFinishedItemStatus(item.status));
 
     if (allFinished && hasUserReviewed) {
       setHasUserReviewed(false); // Show "finished" state
@@ -218,46 +151,19 @@ export function TrainingQueueProvider({
 
     setQueue((prev) => [...prev, ...newItems]);
 
-    // Track recently added item for UI overlay (auto-clears after 2 seconds)
-    const lastItem = newItems[newItems.length - 1];
-    if (lastItem) {
-      setRecentlyAddedItem({ name: lastItem.name, docType: lastItem.docType });
-      if (recentlyAddedTimeoutRef.current) {
-        clearTimeout(recentlyAddedTimeoutRef.current);
-      }
-      recentlyAddedTimeoutRef.current = setTimeout(() => {
-        setRecentlyAddedItem(null);
-      }, 2000);
-    }
-
     return newItems;
   }, []);
 
   const clearQueue = useCallback(() => {
-    // Clear all intervals
-    intervalRefs.current.forEach((interval) => clearInterval(interval));
-    intervalRefs.current.clear();
-    // Clear all timeouts
-    timeoutRefs.current.forEach((timeout) => clearTimeout(timeout));
-    timeoutRefs.current = [];
-    // Clear recently added item timeout
-    if (recentlyAddedTimeoutRef.current) {
-      clearTimeout(recentlyAddedTimeoutRef.current);
-      recentlyAddedTimeoutRef.current = null;
-    }
+    // Clear processing timers
+    clearProcessing();
+    // Clear queue
     setQueue([]);
-    setHasUserReviewed(true); // Reset review state when cleared
-    setRecentlyAddedItem(null); // Clear recently added item
-    processingRef.current = false;
-  }, []);
+    // Reset review state when cleared
+    setHasUserReviewed(true);
+  }, [clearProcessing]);
 
   const removeItem = useCallback((itemId: string) => {
-    // Clear any intervals/timeouts for this item
-    const intervalToClear = intervalRefs.current.get(itemId);
-    if (intervalToClear) {
-      clearInterval(intervalToClear);
-      intervalRefs.current.delete(itemId);
-    }
     // Remove item from queue
     setQueue((prev) => prev.filter((item) => item.id !== itemId));
   }, []);
@@ -281,10 +187,7 @@ export function TrainingQueueProvider({
     }
   }, [queue.length]);
 
-  // Note: No cleanup on unmount - we want the queue to persist
-  // Only clear when explicitly calling clearQueue()
-
-  const value = React.useMemo(
+  const value = useMemo(
     () => ({
       queue,
       addToQueue,
@@ -293,9 +196,16 @@ export function TrainingQueueProvider({
       retryItem,
       hasUserReviewed,
       markAsReviewed,
-      recentlyAddedItem,
     }),
-    [queue, addToQueue, clearQueue, removeItem, retryItem, hasUserReviewed, markAsReviewed, recentlyAddedItem]
+    [
+      queue,
+      addToQueue,
+      clearQueue,
+      removeItem,
+      retryItem,
+      hasUserReviewed,
+      markAsReviewed,
+    ]
   );
 
   return (

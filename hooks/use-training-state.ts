@@ -1,12 +1,16 @@
 "use client";
 
-import { useMemo } from "react";
-import { useTrainingQueue, type RecentlyAddedItem } from "@/features/mind-dialog";
+import { useMemo, useRef, useEffect } from "react";
+import { useTrainingQueue } from "@/features/mind-dialog";
+import {
+  useRecentlyAddedItem,
+  type RecentlyAddedItem,
+} from "@/features/mind-dialog/hooks/use-recently-added-item";
 
 export type TrainingStatus = "idle" | "active" | "finished";
 
 // Re-export for consumers
-export type { RecentlyAddedItem } from "@/features/mind-dialog";
+export type { RecentlyAddedItem };
 
 /**
  * Unified hook for training state management
@@ -17,7 +21,36 @@ export type { RecentlyAddedItem } from "@/features/mind-dialog";
  * @returns Training state with status, counts, and recently added item
  */
 export function useTrainingState() {
-  const { queue, hasUserReviewed, recentlyAddedItem } = useTrainingQueue();
+  const { queue, hasUserReviewed } = useTrainingQueue();
+  const { recentlyAddedItem, setRecentlyAdded, clearRecentlyAdded } =
+    useRecentlyAddedItem();
+
+  // Track previous queue length to detect additions
+  const prevQueueLengthRef = useRef(queue.length);
+
+  // Detect when items are added to queue and update recently added item
+  useEffect(() => {
+    const prevLength = prevQueueLengthRef.current;
+    const currentLength = queue.length;
+
+    // Queue grew - items were added
+    if (currentLength > prevLength && currentLength > 0) {
+      const lastItem = queue[currentLength - 1];
+      if (lastItem) {
+        setRecentlyAdded({
+          name: lastItem.name,
+          docType: lastItem.docType,
+        });
+      }
+    }
+
+    // Queue was cleared
+    if (currentLength === 0 && prevLength > 0) {
+      clearRecentlyAdded();
+    }
+
+    prevQueueLengthRef.current = currentLength;
+  }, [queue, setRecentlyAdded, clearRecentlyAdded]);
 
   // Derive status (single source of truth)
   const status: TrainingStatus = useMemo(() => {

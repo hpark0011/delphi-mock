@@ -19,13 +19,18 @@ export {
   useTrainingQueue,
 } from "./context/training-queue-context";
 
+// Hooks
+export { useRecentlyAddedItem } from "./hooks/use-recently-added-item";
+export { useTrainingProcessor } from "./hooks/use-training-processor";
+
 // Types
 export type { MindDialogTabId } from "./components/mind-dialog";
 export type {
   TrainingDocType,
   QueueItem,
-  RecentlyAddedItem,
 } from "./context/training-queue-context";
+export type { RecentlyAddedItem } from "./hooks/use-recently-added-item";
+export type { ProcessorCallbacks } from "./hooks/use-training-processor";
 export type { TrainingItem } from "./components/training-status/training-history";
 
 // Config/Utils
