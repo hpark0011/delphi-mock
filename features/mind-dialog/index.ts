@@ -24,6 +24,7 @@ export type { MindDialogTabId } from "./components/mind-dialog";
 export type {
   TrainingDocType,
   QueueItem,
+  RecentlyAddedItem,
 } from "./context/training-queue-context";
 export type { TrainingItem } from "./components/training-status/training-history";
 

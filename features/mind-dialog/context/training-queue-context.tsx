@@ -50,7 +50,7 @@ type QueueItemInput = Omit<
   duration?: number; // Optional duration, will be calculated from docType if not provided
 };
 
-interface RecentlyAddedItem {
+export interface RecentlyAddedItem {
   name: string;
   docType: TrainingDocType;
 }

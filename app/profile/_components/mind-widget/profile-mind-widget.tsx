@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { HomeIcon, PlusLargeIcon } from "@/delphi-ui/icons";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { useState } from "react";
 import { useMindDialog } from "@/features/mind-dialog";
 

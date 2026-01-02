@@ -1,14 +1,12 @@
 "use client";
 
 import { useMemo } from "react";
-import { useTrainingQueue, type TrainingDocType } from "@/features/mind-dialog";
+import { useTrainingQueue, type RecentlyAddedItem } from "@/features/mind-dialog";
 
 export type TrainingStatus = "idle" | "active" | "finished";
 
-export interface RecentlyAddedItem {
-  name: string;
-  docType: TrainingDocType;
-}
+// Re-export for consumers
+export type { RecentlyAddedItem } from "@/features/mind-dialog";
 
 /**
  * Unified hook for training state management
