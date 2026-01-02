@@ -3,8 +3,9 @@ import React from "react";
 
 export function MindWidgetInfo() {
   return (
-    <div className='text-sm text-sand-10 dark:text-sand-11 flex items-center gap-0.5 -ml-[2px] mt-1'>
-      <CircleInfoIcon className='w-4 h-4 text-sand-8' /> Mind Score
+    <div className='text-sm text-sand-10 dark:text-sand-11 flex items-center gap-[3px] -ml-[2px] mt-1 group cursor-pointer'>
+      <CircleInfoIcon className='w-4 h-4 text-sand-8 group-hover:text-blue-500' />{" "}
+      <span className='group-hover:text-blue-500'>Mind Score</span>
     </div>
   );
 }
