@@ -49,15 +49,14 @@ export function MindLevelInfoDialog({
                 <div
                   className='w-3 h-3 rounded-full shrink-0'
                   style={{
-                    backgroundColor: levelColors.light,
-                    boxShadow: `0 0 8px ${levelColors.light}`,
+                    backgroundColor: levelColors.dark,
                   }}
                 />
 
                 {/* Level name */}
                 <span
                   className='font-medium flex-1'
-                  style={{ color: levelColors.light }}
+                  style={{ color: levelColors.dark }}
                 >
                   {level.name}
                 </span>
