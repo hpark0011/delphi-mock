@@ -50,6 +50,11 @@ type QueueItemInput = Omit<
   duration?: number; // Optional duration, will be calculated from docType if not provided
 };
 
+interface RecentlyAddedItem {
+  name: string;
+  docType: TrainingDocType;
+}
+
 interface TrainingQueueContextType {
   queue: QueueItem[];
   addToQueue: (items: QueueItemInput[]) => QueueItem[];
@@ -58,6 +63,7 @@ interface TrainingQueueContextType {
   retryItem: (itemId: string) => void;
   hasUserReviewed: boolean;
   markAsReviewed: () => void;
+  recentlyAddedItem: RecentlyAddedItem | null;
 }
 
 const TrainingQueueContext = createContext<TrainingQueueContextType | null>(
@@ -74,9 +80,11 @@ export function TrainingQueueProvider({
   const { incrementScore, setLastTrainingDate } = useMindScore();
   const [queue, setQueue] = useState<QueueItem[]>([]);
   const [hasUserReviewed, setHasUserReviewed] = useState(true);
+  const [recentlyAddedItem, setRecentlyAddedItem] = useState<RecentlyAddedItem | null>(null);
   const processingRef = useRef(false);
   const intervalRefs = useRef<Map<string, NodeJS.Timeout>>(new Map());
   const timeoutRefs = useRef<NodeJS.Timeout[]>([]);
+  const recentlyAddedTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   /**
    * Helper: Updates a specific queue item's properties
@@ -209,6 +217,19 @@ export function TrainingQueueProvider({
     });
 
     setQueue((prev) => [...prev, ...newItems]);
+
+    // Track recently added item for UI overlay (auto-clears after 2 seconds)
+    const lastItem = newItems[newItems.length - 1];
+    if (lastItem) {
+      setRecentlyAddedItem({ name: lastItem.name, docType: lastItem.docType });
+      if (recentlyAddedTimeoutRef.current) {
+        clearTimeout(recentlyAddedTimeoutRef.current);
+      }
+      recentlyAddedTimeoutRef.current = setTimeout(() => {
+        setRecentlyAddedItem(null);
+      }, 2000);
+    }
+
     return newItems;
   }, []);
 
@@ -219,8 +240,14 @@ export function TrainingQueueProvider({
     // Clear all timeouts
     timeoutRefs.current.forEach((timeout) => clearTimeout(timeout));
     timeoutRefs.current = [];
+    // Clear recently added item timeout
+    if (recentlyAddedTimeoutRef.current) {
+      clearTimeout(recentlyAddedTimeoutRef.current);
+      recentlyAddedTimeoutRef.current = null;
+    }
     setQueue([]);
     setHasUserReviewed(true); // Reset review state when cleared
+    setRecentlyAddedItem(null); // Clear recently added item
     processingRef.current = false;
   }, []);
 
@@ -266,8 +293,9 @@ export function TrainingQueueProvider({
       retryItem,
       hasUserReviewed,
       markAsReviewed,
+      recentlyAddedItem,
     }),
-    [queue, addToQueue, clearQueue, removeItem, retryItem, hasUserReviewed, markAsReviewed]
+    [queue, addToQueue, clearQueue, removeItem, retryItem, hasUserReviewed, markAsReviewed, recentlyAddedItem]
   );
 
   return (

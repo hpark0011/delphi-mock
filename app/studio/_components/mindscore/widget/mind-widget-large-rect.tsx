@@ -8,7 +8,7 @@ import { StudioSectionWrapper } from "@/app/studio/_components/studio-section-wr
 import { useMindDialog, useTrainingQueue } from "@/features/mind-dialog";
 import { MindProgressBar } from "@/app/studio/_components/mindscore/mind-progress-bar";
 import { TrainingCompletedStatus } from "@/app/studio/_components/mindscore/widget/training-completed-status";
-import { useTrainingStatus } from "@/hooks/use-training-status";
+import { useTrainingState } from "@/hooks/use-training-state";
 import { ActiveTrainingStatus } from "@/app/studio/_components/mindscore/widget/active-training-status";
 import { LastTrainedDate } from "@/app/studio/_components/mindscore/widget/last-trained-date";
 import { Button } from "@/components/ui/button";
@@ -25,7 +25,7 @@ function MindScoreTrigger() {
     lastIncrement,
     lastDecrement,
   } = useMindScore();
-  const { queueStatus } = useTrainingStatus();
+  const { status } = useTrainingState();
 
   // Get level-based colors
   const levelColors = getLevelShadowColors(level);
@@ -79,7 +79,7 @@ function MindScoreTrigger() {
           lastDecrement={lastDecrement}
           className={cn(
             "top-[3px] transition-all duration-100 ease-in relative max-w-[312px]",
-            queueStatus === "active"
+            status === "active"
               ? "opacity-100"
               : "opacity-0 group-hover:opacity-100"
           )}
@@ -125,10 +125,10 @@ function TrainingStatusTrigger({
   failedCount,
 }: TrainingStatusTriggerProps) {
   const { markAsReviewed } = useTrainingQueue();
-  const { queueStatus } = useTrainingStatus();
+  const { status } = useTrainingState();
 
   // Show completed status when queue is finished (all items done, user hasn't reviewed)
-  if (queueStatus === "finished") {
+  if (status === "finished") {
     return (
       <TrainingCompletedStatus
         setShowCompletedStatus={() => markAsReviewed()}
@@ -139,7 +139,7 @@ function TrainingStatusTrigger({
   }
 
   // Show active training status when queue is active
-  if (queueStatus === "active") {
+  if (status === "active") {
     return <ActiveTrainingStatus />;
   }
 
@@ -148,7 +148,7 @@ function TrainingStatusTrigger({
 }
 
 export function MindWidgetLargeRect() {
-  const { completedCount, failedCount } = useTrainingStatus();
+  const { completed: completedCount, failed: failedCount } = useTrainingState();
 
   return (
     <StudioSectionWrapper

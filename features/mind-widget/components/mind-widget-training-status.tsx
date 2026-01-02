@@ -1,8 +1,8 @@
 "use client";
 
 import { useMindDialog } from "@/features/mind-dialog";
+import { useTrainingState } from "@/hooks/use-training-state";
 import { AnimatePresence, motion } from "framer-motion";
-import { useTrainingDisplayState } from "../hooks/use-training-display-state";
 import { TrainingStatusFinished } from "./training-status-finished";
 import { TrainingStatusActive } from "./training-status-active";
 import { CONTAINER_ANIMATION } from "../utils/animations";
@@ -25,12 +25,12 @@ export function MindWidgetTrainingStatus() {
   const { openWithTab } = useMindDialog();
 
   const {
-    displayState,
-    newItemInfo,
-    activeCount,
-    completedCount,
-    failedCount,
-  } = useTrainingDisplayState();
+    status,
+    recentlyAddedItem,
+    active: activeCount,
+    completed: completedCount,
+    failed: failedCount,
+  } = useTrainingState();
 
   const handleClick = () => openWithTab("training-status");
   const badgeHandlers = createBadgeHandlers(openWithTab);
@@ -48,7 +48,7 @@ export function MindWidgetTrainingStatus() {
         onClick={handleClick}
       >
         <AnimatePresence mode='wait'>
-          {displayState === "finished" ? (
+          {status === "finished" ? (
             <TrainingStatusFinished
               completedCount={completedCount}
               failedCount={failedCount}
@@ -56,8 +56,7 @@ export function MindWidgetTrainingStatus() {
             />
           ) : (
             <TrainingStatusActive
-              displayState={displayState}
-              newItemInfo={newItemInfo}
+              recentlyAddedItem={recentlyAddedItem}
               activeCount={activeCount}
               completedCount={completedCount}
               failedCount={failedCount}

@@ -3,7 +3,7 @@
 import { useMindDialog, useTrainingQueue } from "@/features/mind-dialog";
 import { MindStatusIcon } from "@/components/mind-status-notification";
 import { TrainingResultBadges } from "@/features/mind-widget/components/training-result-badges";
-import { useTrainingStatus } from "@/hooks/use-training-status";
+import { useTrainingState } from "@/hooks/use-training-state";
 import { AnimatePresence, motion } from "framer-motion";
 // import { ChevronDown } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
@@ -11,7 +11,7 @@ import { useEffect, useRef, useState } from "react";
 
 export function ActiveTrainingStatus() {
   const { queue } = useTrainingQueue();
-  const { activeCount, completedCount, failedCount } = useTrainingStatus();
+  const { active: activeCount, completed: completedCount, failed: failedCount } = useTrainingState();
   const { openWithTab } = useMindDialog();
   // const [isExpanded, setIsExpanded] = useState(true);
   const [newlyAddedCount, setNewlyAddedCount] = useState<number | null>(null);

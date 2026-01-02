@@ -3,7 +3,7 @@
 import { useMindScore } from "@/features/mind-score";
 import { SCORE_PER_ITEM } from "@/app/studio/_constants/training-queue";
 import { useTrainingQueue, type QueueItem } from "../../context/training-queue-context";
-import { useTrainingStatus } from "@/hooks/use-training-status";
+import { useTrainingState } from "@/hooks/use-training-state";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useMindDialog } from "../mind-dialog";
 import { ActiveTrainingQueue } from "./active-training-queue";
@@ -23,23 +23,23 @@ export function TrainingStatusTab() {
   const prevQueueStatus = useRef<string | null>(null);
 
   const {
-    finishedCount,
-    totalCount,
-    queueStatus,
-    completedCount,
-    failedCount,
-  } = useTrainingStatus();
+    finished: finishedCount,
+    total: totalCount,
+    status,
+    completed: completedCount,
+    failed: failedCount,
+  } = useTrainingState();
 
   // Capture queue snapshot when transitioning to "finished" state
   useEffect(() => {
-    if (queueStatus === "finished" && prevQueueStatus.current !== "finished") {
+    if (status === "finished" && prevQueueStatus.current !== "finished") {
       setQueueSnapshot([...queue]);
     }
-    if (queueStatus === "active" && prevQueueStatus.current === "finished") {
+    if (status === "active" && prevQueueStatus.current === "finished") {
       setQueueSnapshot([]);
     }
-    prevQueueStatus.current = queueStatus;
-  }, [queueStatus, queue]);
+    prevQueueStatus.current = status;
+  }, [status, queue]);
 
   // Handler for "View summary" button click
   const handleViewSummary = () => {
@@ -65,9 +65,9 @@ export function TrainingStatusTab() {
   return (
     <div className='flex flex-col gap-4'>
       {/* Active training queue - Show when queue is active or finished */}
-      {(queueStatus === "active" || queueStatus === "finished") && (
+      {(status === "active" || status === "finished") && (
         <ActiveTrainingQueue
-          showCompletedStatus={queueStatus === "finished"}
+          showCompletedStatus={status === "finished"}
           setShowCompletedStatus={handleViewSummary}
           finishedCount={finishedCount}
           totalCount={totalCount}
@@ -78,7 +78,7 @@ export function TrainingStatusTab() {
       )}
 
       {/* Training Summary - Only show when queue is idle (default state) */}
-      {queueStatus === "idle" && (
+      {status === "idle" && (
         <TrainingSummary
           summaryStats={summaryStats}
           scoreIncrease={scoreIncrease}

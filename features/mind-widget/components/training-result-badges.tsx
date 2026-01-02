@@ -51,6 +51,7 @@ interface TrainingResultBadgesProps {
   onCompletedClick?: () => void;
   onFailedClick?: () => void;
   disableTooltips?: boolean;
+  className?: string;
 }
 
 export function TrainingResultBadges({
@@ -59,6 +60,7 @@ export function TrainingResultBadges({
   onCompletedClick,
   onFailedClick,
   disableTooltips = false,
+  className,
 }: TrainingResultBadgesProps) {
   const completedBadge = (
     <TrainingResultBadge
@@ -96,7 +98,7 @@ export function TrainingResultBadges({
   };
 
   return (
-    <div className={cn("flex items-center gap-0.5")}>
+    <div className={cn("flex items-center gap-0.5", className)}>
       {completedCount > 0 &&
         renderBadgeWithTooltip(completedBadge, "Completed")}
       {failedCount > 0 && renderBadgeWithTooltip(failedBadge, "Failed")}

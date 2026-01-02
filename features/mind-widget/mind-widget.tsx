@@ -1,9 +1,9 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useMindDialog } from "@/features/mind-dialog";
 import { calculateLevelProgress } from "@/features/mind-score";
-import { useTrainingStatus } from "@/hooks/use-training-status";
+import { useTrainingState } from "@/hooks/use-training-state";
 import { AnimatePresence } from "framer-motion";
 import { MindLevelInfoDialog } from "./components/mind-level-info-dialog";
 import { MindWidgetBubble } from "./components/mind-widget-bubble";
@@ -24,23 +24,16 @@ export function MindWidget({
   level = "Skilled",
 }: MindWidgetProps = {}) {
   const { openWithTab } = useMindDialog();
-  const { queueStatus } = useTrainingStatus();
+  const { status } = useTrainingState();
 
   // Calculate progress toward next level
   const progress = calculateLevelProgress(score);
 
-  // Local visibility for training status
-  const [isStatusVisible, setIsStatusVisible] = useState(false);
+  // Derive visibility from status (no state sync needed)
+  const isStatusVisible = status === "active" || status === "finished";
 
   // Dialog state for mind level info
   const [isInfoDialogOpen, setIsInfoDialogOpen] = useState(false);
-
-  // Show when training is active or finished
-  useEffect(() => {
-    if (queueStatus === "active" || queueStatus === "finished") {
-      setIsStatusVisible(true);
-    }
-  }, [queueStatus]);
 
   const handleClick = () => {
     openWithTab("add-knowledge");
@@ -53,7 +46,7 @@ export function MindWidget({
         level={level}
         progress={progress}
         onClick={handleClick}
-        queueStatus={queueStatus}
+        queueStatus={status}
       >
         <div className='relative z-10 flex flex-col h-full gap-1 justify-center items-center p-1.5'>
           <div className='flex items-center justify-center gap-0.5'>

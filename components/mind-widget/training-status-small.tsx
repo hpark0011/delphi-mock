@@ -5,12 +5,11 @@ import { MindStatusIcon } from "@/components/mind-status-notification";
 import { Icon } from "@/components/ui/icon";
 import { getDocTypeIcon } from "@/utils/doc-type-helpers";
 import { AnimatePresence, motion, type Transition } from "framer-motion";
-import { useLayoutEffect, useRef, useState } from "react";
+import { useLayoutEffect, useRef, useState, useEffect } from "react";
 import { TrainingResultBadges } from "@/features/mind-widget/components/training-result-badges";
-import {
-  useTrainingDisplayState,
-  type DisplayState,
-} from "@/features/mind-widget/hooks/use-training-display-state";
+import { useTrainingState } from "@/hooks/use-training-state";
+
+type DisplayState = "learning" | "newItem" | "finished";
 
 const SPRING_CONFIG: Transition = {
   type: "spring",
@@ -138,12 +137,28 @@ export function MiniTrainingStatus({
   const { openWithTab } = useMindDialog();
 
   const {
-    displayState,
-    newItemInfo,
-    activeCount,
-    completedCount,
-    failedCount,
-  } = useTrainingDisplayState({ onFinished: onDismiss });
+    status,
+    recentlyAddedItem,
+    active: activeCount,
+    completed: completedCount,
+    failed: failedCount,
+  } = useTrainingState();
+
+  // Derive display state from status and recentlyAddedItem
+  const displayState: DisplayState =
+    status === "finished"
+      ? "finished"
+      : recentlyAddedItem
+        ? "newItem"
+        : "learning";
+
+  // Auto-dismiss after 2 seconds in finished state
+  useEffect(() => {
+    if (status === "finished" && onDismiss) {
+      const timeout = setTimeout(onDismiss, 2000);
+      return () => clearTimeout(timeout);
+    }
+  }, [status, onDismiss]);
 
   const handleClick = () => openWithTab("training-status");
 
@@ -184,11 +199,11 @@ export function MiniTrainingStatus({
               {...SLIDE_ANIMATION}
               className='flex items-center gap-1'
             >
-              <StatusIcon state={displayState} docType={newItemInfo?.docType} />
+              <StatusIcon state={displayState} docType={recentlyAddedItem?.docType} />
               <StatusLabel
                 state={displayState}
                 activeCount={activeCount}
-                newItemName={newItemInfo?.name ?? ""}
+                newItemName={recentlyAddedItem?.name ?? ""}
               />
               {(completedCount > 0 || failedCount > 0) && (
                 <div className='ml-1'>

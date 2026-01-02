@@ -9,7 +9,7 @@ import type { IconName } from "@/components/ui/icon";
 import { Icon } from "@/components/ui/icon";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useTrainingQueue } from "../context/training-queue-context";
-import { useTrainingStatus } from "@/hooks/use-training-status";
+import { useTrainingState } from "@/hooks/use-training-state";
 import { cn } from "@/lib/utils";
 import { type TrainingItemStatus } from "@/utils/training-status-helpers";
 import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
@@ -52,12 +52,12 @@ interface MindDialogProps {
 
 export function MindDialogHeader({ level }: { level: string }) {
   const { clearQueue, markAsReviewed } = useTrainingQueue();
-  const { queueStatus } = useTrainingStatus();
+  const { status } = useTrainingState();
   const { close } = useMindDialog();
 
   const onPreviewClick = () => {
     // Mark as reviewed to change status from "finished" to "idle"
-    if (queueStatus === "finished") {
+    if (status === "finished") {
       markAsReviewed();
     }
     clearQueue();
@@ -76,7 +76,7 @@ export function MindDialogHeader({ level }: { level: string }) {
           variant='glossy'
           onClick={onPreviewClick}
         >
-          <MindStatusIcon status={queueStatus} />
+          <MindStatusIcon status={status} />
           <span>Preview</span>
         </Button>
       </div>

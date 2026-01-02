@@ -5,10 +5,10 @@ import {
   generateSmallWidgetShadowString,
   getLevelShadowColors,
 } from "@/features/mind-widget";
-import { useTrainingStatus } from "@/hooks/use-training-status";
+import { useTrainingState } from "@/hooks/use-training-state";
 import { cn } from "@/lib/utils";
 import { AnimatePresence, motion } from "framer-motion";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useState } from "react";
 import { useMindDialog } from "@/features/mind-dialog";
 import { MiniTrainingStatus } from "./training-status-small";
 
@@ -27,18 +27,18 @@ export function MindWidgetSmall({
 }: MindWidgetSmallProps) {
   const { openWithTab } = useMindDialog();
   const { current, level } = useMindScore();
+  const { status } = useTrainingState();
 
-  const { queueStatus } = useTrainingStatus();
+  // Local override for manual dismissal
+  const [isDismissed, setIsDismissed] = useState(false);
 
-  // Local visibility state for the mini widget
-  const [isWidgetVisible, setIsWidgetVisible] = useState(false);
+  // Show widget when training is active or finished, unless dismissed
+  const isWidgetVisible = (status === "active" || status === "finished") && !isDismissed;
 
-  // Show widget when training is active or just finished
-  useEffect(() => {
-    if (queueStatus === "active" || queueStatus === "finished") {
-      setIsWidgetVisible(true);
-    }
-  }, [queueStatus]);
+  // Reset dismissed state when status changes to active (new training started)
+  if (status === "active" && isDismissed) {
+    setIsDismissed(false);
+  }
 
   const handleClick = () => {
     if (disableClick) return;
@@ -47,7 +47,7 @@ export function MindWidgetSmall({
 
   // Called after MiniTrainingStatus finishes showing "Completed!" for 2 seconds
   const handleWidgetDismiss = useCallback(() => {
-    setIsWidgetVisible(false);
+    setIsDismissed(true);
   }, []);
 
   // Get level-based shadow colors

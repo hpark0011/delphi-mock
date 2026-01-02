@@ -1,7 +1,5 @@
-import { MindStatusIcon } from "@/components/mind-status-notification";
 import { Button } from "@/components/ui/button";
-import { HomeIcon, PlusLargeIcon, PlusSmallIcon } from "@/delphi-ui/icons";
-import { useTrainingStatus } from "@/hooks/use-training-status";
+import { HomeIcon, PlusLargeIcon } from "@/delphi-ui/icons";
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
 import { useMindDialog } from "@/features/mind-dialog";
@@ -62,7 +60,6 @@ export function ProfileMindWidget({
   const handleExpandWidget = () => {
     setWidgetExpanded((prev) => !prev);
   };
-  const { queueStatus } = useTrainingStatus();
   const { openWithTab } = useMindDialog();
 
   return (
