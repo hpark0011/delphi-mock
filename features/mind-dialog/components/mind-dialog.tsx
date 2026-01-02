@@ -13,12 +13,7 @@ import { useTrainingStatus } from "@/hooks/use-training-status";
 import { cn } from "@/lib/utils";
 import { type TrainingItemStatus } from "@/utils/training-status-helpers";
 import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
-import React, {
-  createContext,
-  useContext,
-  useMemo,
-  useState,
-} from "react";
+import React, { createContext, useContext, useMemo, useState } from "react";
 import {
   DEFAULT_MIND_DIALOG_TAB,
   MIND_DIALOG_TABS,
@@ -187,10 +182,6 @@ export function MindDialogProvider({
         <DialogContent
           // showCloseButton
           className={`p-0 sm:max-w-2xl ${dialogWidthClass} rounded-[36px] max-h-[87vh] h-full flex flex-col overflow-hidden bg-dialog`}
-          style={{
-            boxShadow:
-              "0 2px 2px 0 rgba(255, 255, 255, 1) inset,  0 10.213px 10.213px -5.107px rgba(0, 0, 0, 0.03), 0 5.107px 5.107px -2.553px rgba(0, 0, 0, 0.03), 0 2.553px 2.553px -2px rgba(0, 0, 0, 0.03), 0 0.638px 0.638px -0.319px rgba(0, 0, 0, 0.03)",
-          }}
         >
           <Tabs
             value={activeTab}

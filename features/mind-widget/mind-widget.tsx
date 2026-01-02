@@ -5,6 +5,7 @@ import { useMindDialog } from "@/features/mind-dialog";
 import { calculateLevelProgress } from "@/features/mind-score";
 import { useTrainingStatus } from "@/hooks/use-training-status";
 import { AnimatePresence } from "framer-motion";
+import { MindLevelInfoDialog } from "./components/mind-level-info-dialog";
 import { MindWidgetBubble } from "./components/mind-widget-bubble";
 import { MindWidgetInfo } from "./components/mind-widget-info";
 import { MindWidgetLevel } from "./components/mind-widget-level";
@@ -30,6 +31,9 @@ export function MindWidget({
 
   // Local visibility for training status
   const [isStatusVisible, setIsStatusVisible] = useState(false);
+
+  // Dialog state for mind level info
+  const [isInfoDialogOpen, setIsInfoDialogOpen] = useState(false);
 
   // Show when training is active or finished
   useEffect(() => {
@@ -61,8 +65,18 @@ export function MindWidget({
 
       {/* Training Status - below bubble */}
       <AnimatePresence>
-        {isStatusVisible ? <MindWidgetTrainingStatus /> : <MindWidgetInfo />}
+        {isStatusVisible ? (
+          <MindWidgetTrainingStatus />
+        ) : (
+          <MindWidgetInfo onClick={() => setIsInfoDialogOpen(true)} />
+        )}
       </AnimatePresence>
+
+      {/* Mind Level Info Dialog */}
+      <MindLevelInfoDialog
+        open={isInfoDialogOpen}
+        onOpenChange={setIsInfoDialogOpen}
+      />
     </MindWidgetWrapper>
   );
 }
