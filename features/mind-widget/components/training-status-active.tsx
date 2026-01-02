@@ -1,14 +1,14 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { TrainingResultBadges } from "./training-result-badges";
-import { MindWidgetStatusIcon } from "./mind-widget-status-icon";
-import { MindWidgetStatusLabel } from "./mind-widget-status-label";
+import { MindWidgetStatusLearning } from "./mind-widget-status-learning";
+import { MindWidgetStatusNewItem } from "./mind-widget-status-new-item";
 import { SLIDE_ANIMATION } from "../utils/animations";
 import type { NewItemInfo } from "../hooks/use-training-display-state";
 
 interface TrainingStatusActiveProps {
-  displayState: "loading" | "newItem";
+  displayState: "learning" | "newItem";
   newItemInfo: NewItemInfo | null;
   activeCount: number;
   completedCount: number;
@@ -35,15 +35,32 @@ export function TrainingStatusActive({
       transition={SLIDE_ANIMATION.transition}
       className='flex items-center gap-0.5'
     >
-      <MindWidgetStatusIcon
-        state={displayState}
-        docType={newItemInfo?.docType}
-      />
-      <MindWidgetStatusLabel
-        state={displayState}
-        activeCount={activeCount}
-        newItemName={newItemInfo?.name ?? ""}
-      />
+      <AnimatePresence mode='wait'>
+        {displayState === "learning" ? (
+          <motion.div
+            key='learning'
+            initial={SLIDE_ANIMATION.initial}
+            animate={SLIDE_ANIMATION.animate}
+            exit={SLIDE_ANIMATION.exit}
+            transition={SLIDE_ANIMATION.transition}
+          >
+            <MindWidgetStatusLearning activeCount={activeCount} />
+          </motion.div>
+        ) : (
+          <motion.div
+            key='newItem'
+            initial={SLIDE_ANIMATION.initial}
+            animate={SLIDE_ANIMATION.animate}
+            exit={SLIDE_ANIMATION.exit}
+            transition={SLIDE_ANIMATION.transition}
+          >
+            <MindWidgetStatusNewItem
+              name={newItemInfo?.name ?? ""}
+              docType={newItemInfo?.docType}
+            />
+          </motion.div>
+        )}
+      </AnimatePresence>
       {(completedCount > 0 || failedCount > 0) && (
         <div className='ml-1'>
           <TrainingResultBadges

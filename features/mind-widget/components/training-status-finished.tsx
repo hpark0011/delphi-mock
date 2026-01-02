@@ -26,7 +26,9 @@ export function TrainingStatusFinished({
       transition={SLIDE_ANIMATION.transition}
       className='flex items-center gap-1'
     >
-      <span className='text-sm font-medium text-sand-10'>Completed!</span>
+      <span className='text-sm font-medium text-sand-10 hover:text-blue-500'>
+        Completed!
+      </span>
       <TrainingResultBadges
         completedCount={completedCount}
         failedCount={failedCount}

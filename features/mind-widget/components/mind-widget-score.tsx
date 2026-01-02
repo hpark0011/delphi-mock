@@ -1,10 +1,15 @@
 import { cn } from "@/lib/utils";
-import React from "react";
 
 interface MindWidgetScoreProps {
   score: number;
   className?: string;
   fontSize?: string;
+}
+
+function formatScore(score: number): string {
+  if (score < 1000) return score.toString();
+  const k = score / 1000;
+  return `${Math.floor(k * 10) / 10}k`;
 }
 
 export function MindWidgetScore({
@@ -21,7 +26,7 @@ export function MindWidgetScore({
         className
       )}
     >
-      {score}
+      {formatScore(score)}
     </div>
   );
 }

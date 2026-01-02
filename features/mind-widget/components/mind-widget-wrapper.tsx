@@ -14,7 +14,7 @@ export function MindWidgetWrapper({
     <div
       className={cn(
         // Layout
-        "flex flex-col items-center h-fit",
+        "flex flex-col items-center h-fit gap-1",
         // Background
         "bg-sand-1",
         // Shape

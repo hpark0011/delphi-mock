@@ -28,7 +28,8 @@
       "WebFetch(domain:motion.dev)",
       "mcp__playwright__browser_wait_for",
       "Bash(wc:*)",
-      "Bash(timeout 10 pnpm dev:*)"
+      "Bash(timeout 10 pnpm dev:*)",
+      "mcp__playwright__browser_evaluate"
     ],
     "deny": [],
     "ask": []

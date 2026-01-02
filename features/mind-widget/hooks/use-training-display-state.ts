@@ -3,7 +3,7 @@ import { useTrainingStatus } from "@/hooks/use-training-status";
 import { useEffect, useRef, useState } from "react";
 import { type TrainingDocType } from "@/features/mind-dialog";
 
-export type DisplayState = "loading" | "newItem" | "finished";
+export type DisplayState = "learning" | "newItem" | "finished";
 
 export interface NewItemInfo {
   name: string;
@@ -101,7 +101,7 @@ export function useTrainingDisplayState({
   }, [queueStatus, completedCount, failedCount, finishedDuration, onFinished]);
 
   // Derive display state: newItem override takes priority
-  const baseState = queueStatus === "active" ? "loading" : "finished";
+  const baseState = queueStatus === "active" ? "learning" : "finished";
   const displayState: DisplayState =
     newItemInfo !== null ? "newItem" : baseState;
 

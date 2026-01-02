@@ -29,7 +29,7 @@ function StatusIcon({
   state,
   docType,
 }: {
-  state: "loading" | "newItem";
+  state: "learning" | "newItem";
   docType?: TrainingDocType;
 }) {
   return (
@@ -43,7 +43,7 @@ function StatusIcon({
           exit={{ y: 20, scale: 0.5, filter: "blur(6px)" }}
           transition={{ duration: 0.15, ease: "easeInOut" }}
         >
-          {state === "loading" && <MindStatusIcon status="active" />}
+          {state === "learning" && <MindStatusIcon status="active" />}
           {state === "newItem" && (
             <Icon
               name={docType ? getDocTypeIcon(docType) : "DocFillIcon"}
@@ -67,7 +67,7 @@ function StatusLabel({ state, activeCount, newItemName }: StatusLabelProps) {
   const measureRef = useRef<HTMLDivElement>(null);
 
   const labelText =
-    state === "loading" ? `Learning ${activeCount}` : newItemName;
+    state === "learning" ? `Learning ${activeCount}` : newItemName;
 
   const isNewItem = state === "newItem";
 
