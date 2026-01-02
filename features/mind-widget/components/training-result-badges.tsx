@@ -50,7 +50,6 @@ interface TrainingResultBadgesProps {
   failedCount: number;
   onCompletedClick?: () => void;
   onFailedClick?: () => void;
-  className?: string;
   disableTooltips?: boolean;
 }
 
@@ -59,7 +58,6 @@ export function TrainingResultBadges({
   failedCount,
   onCompletedClick,
   onFailedClick,
-  className,
   disableTooltips = false,
 }: TrainingResultBadgesProps) {
   const completedBadge = (

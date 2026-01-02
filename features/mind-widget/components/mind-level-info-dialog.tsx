@@ -9,7 +9,7 @@ import {
   DialogDescription,
 } from "@/components/ui/dialog";
 import { LEVEL_THRESHOLDS } from "@/features/mind-score";
-import { getLevelShadowColors } from "../utils/level-shadows";
+import { MindLevelInfoItem } from "./mind-level-info-item";
 
 interface MindLevelInfoDialogProps {
   open: boolean;
@@ -22,58 +22,31 @@ export function MindLevelInfoDialog({
 }: MindLevelInfoDialogProps) {
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className='sm:max-w-md'>
-        <DialogHeader className='pb-4'>
-          <DialogTitle className='text-xl'>Mind Score Levels</DialogTitle>
-          <DialogDescription className='text-sm'>
-            Your Mind Score reflects how well your AI assistant understands you.
-            As you train it with more knowledge, your score increases and you
-            unlock new levels.
+      <DialogContent className='sm:max-w-md '>
+        <DialogHeader className='pb-0'>
+          <DialogTitle className='text-xl font-medium'>
+            Mind Score Levels
+          </DialogTitle>
+          <DialogDescription className='text-base leading-[1.4]'>
+            Your Mind Score increases as you add more knowledge to your Delphi.
+            Unlock new levels as you progress.
           </DialogDescription>
         </DialogHeader>
 
-        <div className='space-y-2 py-2 px-2'>
+        <div className='py-2 px-2 pb-3'>
           {LEVEL_THRESHOLDS.map((level, index) => {
-            const levelColors = getLevelShadowColors(level.name);
             const nextThreshold = LEVEL_THRESHOLDS[index + 1]?.min;
-            const thresholdText = nextThreshold
-              ? `${level.min.toLocaleString()} - ${(nextThreshold - 1).toLocaleString()}`
-              : `${level.min.toLocaleString()}+`;
 
             return (
-              <div
+              <MindLevelInfoItem
                 key={level.name}
-                className='flex items-center gap-3 p-2.5 rounded-lg bg-sand-2 dark:bg-sand-3'
-              >
-                {/* Color indicator */}
-                <div
-                  className='w-3 h-3 rounded-full shrink-0'
-                  style={{
-                    backgroundColor: levelColors.dark,
-                  }}
-                />
-
-                {/* Level name */}
-                <span
-                  className='font-medium flex-1'
-                  style={{ color: levelColors.dark }}
-                >
-                  {level.name}
-                </span>
-
-                {/* Threshold */}
-                <span className='text-sm text-sand-11 tabular-nums'>
-                  {thresholdText}
-                </span>
-              </div>
+                levelName={level.name}
+                min={level.min}
+                nextThreshold={nextThreshold}
+              />
             );
           })}
         </div>
-
-        <p className='text-xs text-sand-10 pt-2'>
-          Train your AI by adding knowledge about yourself, your preferences,
-          and your goals to increase your Mind Score.
-        </p>
       </DialogContent>
     </Dialog>
   );

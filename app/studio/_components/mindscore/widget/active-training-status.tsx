@@ -142,7 +142,6 @@ export function ActiveTrainingStatus() {
             failedCount={failedCount}
             onCompletedClick={() => openWithTab("training-status", "completed")}
             onFailedClick={() => openWithTab("training-status", "failed")}
-            className='gap-1'
           />
         )}
 
