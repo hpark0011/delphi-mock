@@ -14,7 +14,7 @@ export function MindWidgetLevel({ level, className }: MindWidgetLevelProps) {
         className
       )}
     >
-      <div className='text-sand-4 text-[13px] font-[480] text-center leading-[100%] tracking-tight'>
+      <div className='text-sand-4 dark:text-sand-11 text-[13px] font-[480] text-center leading-[100%] tracking-tight'>
         {level}
       </div>
     </div>

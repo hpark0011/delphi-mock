@@ -2,8 +2,7 @@
 
 import { useRef, useEffect } from "react";
 import { Icon } from "@/components/ui/icon";
-import { useMindDialog } from "@/features/mind-dialog";
-import type { QueueItem } from "@/hooks/use-training-queue";
+import { useMindDialog, type QueueItem } from "@/features/mind-dialog";
 import { motion, AnimatePresence } from "framer-motion";
 import { TrainingQueueItem } from "../training-queue-item";
 import { cn } from "@/lib/utils";

@@ -1,7 +1,6 @@
-import { useTrainingQueue } from "@/hooks/use-training-queue";
+import { useTrainingQueue, type TrainingDocType } from "@/features/mind-dialog";
 import { useTrainingStatus } from "@/hooks/use-training-status";
 import { useEffect, useRef, useState } from "react";
-import { type TrainingDocType } from "@/features/mind-dialog";
 
 export type DisplayState = "learning" | "newItem" | "finished";
 

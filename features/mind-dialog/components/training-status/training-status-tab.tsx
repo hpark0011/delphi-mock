@@ -2,7 +2,7 @@
 
 import { useMindScore } from "@/features/mind-score";
 import { SCORE_PER_ITEM } from "@/app/studio/_constants/training-queue";
-import { useTrainingQueue, type QueueItem } from "@/hooks/use-training-queue";
+import { useTrainingQueue, type QueueItem } from "../../context/training-queue-context";
 import { useTrainingStatus } from "@/hooks/use-training-status";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useMindDialog } from "../mind-dialog";

@@ -6,7 +6,7 @@ import {
   getTrainingQueueStatus,
   hasActiveItems,
 } from "@/utils/training-status-helpers";
-import { useTrainingQueue } from "./use-training-queue";
+import { useTrainingQueue } from "@/features/mind-dialog";
 
 /**
  * Hook to get training queue status information

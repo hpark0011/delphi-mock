@@ -1,7 +1,7 @@
 "use client";
 
 import { Icon } from "@/components/ui/icon";
-import { useTrainingQueue } from "@/hooks/use-training-queue";
+import { useTrainingQueue } from "../context/training-queue-context";
 import { cn } from "@/lib/utils";
 import { useMindDialog } from "./mind-dialog";
 import { showTrainingQueueToast } from "./training-queue-toast";

@@ -16,7 +16,7 @@ export { TrainingHistory } from "./components/training-status/training-history";
 // Context
 export {
   TrainingQueueProvider,
-  useTrainingQueueContext,
+  useTrainingQueue,
 } from "./context/training-queue-context";
 
 // Types

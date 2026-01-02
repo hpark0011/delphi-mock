@@ -277,11 +277,11 @@ export function TrainingQueueProvider({
   );
 }
 
-export function useTrainingQueueContext() {
+export function useTrainingQueue() {
   const context = useContext(TrainingQueueContext);
   if (!context) {
     throw new Error(
-      "useTrainingQueueContext must be used within TrainingQueueProvider"
+      "useTrainingQueue must be used within TrainingQueueProvider"
     );
   }
   return context;

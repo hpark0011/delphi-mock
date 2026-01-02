@@ -1,9 +1,8 @@
 "use client";
 
-import { useMindDialog } from "@/features/mind-dialog";
+import { useMindDialog, useTrainingQueue } from "@/features/mind-dialog";
 import { MindStatusIcon } from "@/components/mind-status-notification";
 import { TrainingResultBadges } from "@/features/mind-widget/components/training-result-badges";
-import { useTrainingQueue } from "@/hooks/use-training-queue";
 import { useTrainingStatus } from "@/hooks/use-training-status";
 import { AnimatePresence, motion } from "framer-motion";
 // import { ChevronDown } from "lucide-react";

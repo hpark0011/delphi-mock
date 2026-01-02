@@ -6,8 +6,7 @@ import {
 } from "@/app/studio/_utils/mind-dialog-helpers";
 import { Icon } from "@/components/ui/icon";
 import { Button } from "@/components/ui/button";
-import type { QueueItem } from "@/hooks/use-training-queue";
-import { useTrainingQueue } from "@/hooks/use-training-queue";
+import { useTrainingQueue, type QueueItem } from "@/features/mind-dialog";
 import { cn } from "@/lib/utils";
 import { getDocTypeIcon } from "@/utils/doc-type-helpers";
 import { motion } from "framer-motion";

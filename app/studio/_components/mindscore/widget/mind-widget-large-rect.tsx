@@ -5,10 +5,9 @@ import {
 } from "@/features/mind-widget";
 import { cn } from "@/lib/utils";
 import { StudioSectionWrapper } from "@/app/studio/_components/studio-section-wrapper";
-import { useMindDialog } from "@/features/mind-dialog";
+import { useMindDialog, useTrainingQueue } from "@/features/mind-dialog";
 import { MindProgressBar } from "@/app/studio/_components/mindscore/mind-progress-bar";
 import { TrainingCompletedStatus } from "@/app/studio/_components/mindscore/widget/training-completed-status";
-import { useTrainingQueue } from "@/hooks/use-training-queue";
 import { useTrainingStatus } from "@/hooks/use-training-status";
 import { ActiveTrainingStatus } from "@/app/studio/_components/mindscore/widget/active-training-status";
 import { LastTrainedDate } from "@/app/studio/_components/mindscore/widget/last-trained-date";

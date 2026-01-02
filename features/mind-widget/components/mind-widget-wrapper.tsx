@@ -14,9 +14,9 @@ export function MindWidgetWrapper({
     <div
       className={cn(
         // Layout
-        "flex flex-col items-center h-fit gap-1",
+        "flex flex-col items-center h-fit gap-1 min-w-[160px] p-4 pt-0 pb-3",
         // Background
-        "bg-sand-1",
+        "bg-transparent",
         // Shape
         "mind-widget-bubble",
         className

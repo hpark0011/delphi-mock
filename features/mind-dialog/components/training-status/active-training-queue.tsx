@@ -21,7 +21,7 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { useTrainingQueue, type QueueItem } from "@/hooks/use-training-queue";
+import { useTrainingQueue, type QueueItem } from "../../context/training-queue-context";
 import { cn } from "@/lib/utils";
 import { type TrainingItemStatus } from "@/utils/training-status-helpers";
 import { useEffect, useMemo, useState } from "react";

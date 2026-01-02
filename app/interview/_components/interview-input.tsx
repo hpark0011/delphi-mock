@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { LoadingCircleIcon } from "@/delphi-ui/icons/LoadingCircle";
 import { MicrophoneOnIcon } from "@/delphi-ui/icons/MicrophoneOn";
 import { StopIcon } from "@/delphi-ui/icons/Stop";
-import { useTrainingQueue } from "@/hooks/use-training-queue";
+import { useTrainingQueue } from "@/features/mind-dialog";
 import { cn } from "@/lib/utils";
 import { ArrowUpIcon } from "lucide-react";
 import { useState } from "react";

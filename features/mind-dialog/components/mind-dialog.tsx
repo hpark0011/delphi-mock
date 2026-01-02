@@ -8,7 +8,7 @@ import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import type { IconName } from "@/components/ui/icon";
 import { Icon } from "@/components/ui/icon";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { useTrainingQueue } from "@/hooks/use-training-queue";
+import { useTrainingQueue } from "../context/training-queue-context";
 import { useTrainingStatus } from "@/hooks/use-training-status";
 import { cn } from "@/lib/utils";
 import { type TrainingItemStatus } from "@/utils/training-status-helpers";
