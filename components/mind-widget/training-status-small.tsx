@@ -134,7 +134,7 @@ export function MiniTrainingStatus({
   onDismiss,
   disableTooltips = false,
 }: MiniTrainingStatusProps) {
-  const { openWithTab } = useMindDialog();
+  const { open } = useMindDialog();
 
   const {
     status,
@@ -160,7 +160,7 @@ export function MiniTrainingStatus({
     }
   }, [status, onDismiss]);
 
-  const handleClick = () => openWithTab("training-status");
+  const handleClick = () => open({ tab: "training-status" });
 
   // Width-based animation for horizontal layout
   return (
@@ -187,9 +187,9 @@ export function MiniTrainingStatus({
                 completedCount={completedCount}
                 failedCount={failedCount}
                 onCompletedClick={() =>
-                  openWithTab("training-status", "completed")
+                  open({ tab: "training-status", filter: "completed" })
                 }
-                onFailedClick={() => openWithTab("training-status", "failed")}
+                onFailedClick={() => open({ tab: "training-status", filter: "failed" })}
                 disableTooltips={disableTooltips}
               />
             </motion.div>
@@ -211,10 +211,10 @@ export function MiniTrainingStatus({
                     completedCount={completedCount}
                     failedCount={failedCount}
                     onCompletedClick={() =>
-                      openWithTab("training-status", "completed")
+                      open({ tab: "training-status", filter: "completed" })
                     }
                     onFailedClick={() =>
-                      openWithTab("training-status", "failed")
+                      open({ tab: "training-status", filter: "failed" })
                     }
                     disableTooltips={disableTooltips}
                   />

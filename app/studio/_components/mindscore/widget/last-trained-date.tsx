@@ -5,18 +5,18 @@ import { MindStatusIcon } from "@/components/mind-status-notification";
 import { useMindDialog } from "@/features/mind-dialog";
 
 export function LastTrainedDate() {
-  const { openWithTab } = useMindDialog();
+  const { open } = useMindDialog();
 
   return (
     <div
       className='w-full items-center flex justify-center p-2 gap-1.5 text-text-muted hover:text-blue-500 cursor-pointer group'
-      onClick={() => openWithTab("training-status")}
+      onClick={() => open({ tab: "training-status" })}
       role='button'
       tabIndex={0}
       onKeyDown={(e) => {
         if (e.key === "Enter" || e.key === " ") {
           e.preventDefault();
-          openWithTab("training-status");
+          open({ tab: "training-status" });
         }
       }}
     >

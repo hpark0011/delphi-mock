@@ -15,7 +15,7 @@ import { Button } from "@/components/ui/button";
 import { PlusLargeIcon } from "@/delphi-ui/icons";
 
 function MindScoreTrigger() {
-  const { openWithTab } = useMindDialog();
+  const { open } = useMindDialog();
   const {
     current,
     level,
@@ -59,13 +59,13 @@ function MindScoreTrigger() {
       onMouseLeave={(e) => {
         e.currentTarget.style.boxShadow = "var(--shadow-default)";
       }}
-      onClick={() => openWithTab("add-knowledge")}
+      onClick={() => open({ tab: "add-knowledge" })}
       role='button'
       tabIndex={0}
       onKeyDown={(e) => {
         if (e.key === "Enter" || e.key === " ") {
           e.preventDefault();
-          openWithTab("add-knowledge");
+          open({ tab: "add-knowledge" });
         }
       }}
     >

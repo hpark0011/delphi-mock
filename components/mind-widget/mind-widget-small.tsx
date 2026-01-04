@@ -25,7 +25,7 @@ interface MindWidgetSmallProps {
 export function MindWidgetSmall({
   disableClick = false,
 }: MindWidgetSmallProps) {
-  const { openWithTab } = useMindDialog();
+  const { open } = useMindDialog();
   const { current, level } = useMindScore();
   const { status } = useTrainingState();
 
@@ -42,7 +42,7 @@ export function MindWidgetSmall({
 
   const handleClick = () => {
     if (disableClick) return;
-    openWithTab("add-knowledge");
+    open({ tab: "add-knowledge" });
   };
 
   // Called after MiniTrainingStatus finishes showing "Completed!" for 2 seconds

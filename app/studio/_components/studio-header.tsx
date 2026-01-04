@@ -1,7 +1,7 @@
 import React from "react";
 import { MindWidget } from "@/features/mind-widget";
-import { MindWidgetSmall } from "@/components/mind-widget/mind-widget-small";
-import { MindWidgetLargeRect } from "./mindscore/widget/mind-widget-large-rect";
+// import { MindWidgetSmall } from "@/components/mind-widget/mind-widget-small";
+// import { MindWidgetLargeRect } from "./mindscore/widget/mind-widget-large-rect";
 import { useMindScore } from "@/features/mind-score";
 
 export function StudioHeader() {

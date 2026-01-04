@@ -18,7 +18,7 @@ export function ExpandableQueueList({
   isExpanded,
   enableAutoScroll = true,
 }: ExpandableQueueListProps) {
-  const { openWithTab } = useMindDialog();
+  const { open } = useMindDialog();
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const previousItemsLengthRef = useRef(items.length);
 
@@ -69,13 +69,13 @@ export function ExpandableQueueList({
             </AnimatePresence>
             <div
               className='text-[13px] flex items-center justify-start gap-0.5 py-1.5 pb-2 text-text-muted cursor-pointer hover:text-blue-500 bg-gradient-to-t from-extra-light to-transparent px-3 w-full text-center'
-              onClick={() => openWithTab("training-status")}
+              onClick={() => open({ tab: "training-status" })}
               role='button'
               tabIndex={0}
               onKeyDown={(e) => {
                 if (e.key === "Enter" || e.key === " ") {
                   e.preventDefault();
-                  openWithTab("training-status");
+                  open({ tab: "training-status" });
                 }
               }}
             >

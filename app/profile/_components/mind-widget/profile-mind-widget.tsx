@@ -60,7 +60,7 @@ export function ProfileMindWidget({
   const handleExpandWidget = () => {
     setWidgetExpanded((prev) => !prev);
   };
-  const { openWithTab } = useMindDialog();
+  const { open } = useMindDialog();
 
   return (
     <motion.div
@@ -156,7 +156,7 @@ export function ProfileMindWidget({
                 size='sm'
                 className='h-10 text-[15px] relative gap-1.5 rounded-full cursor-pointer flex-1 shadow-none bg-sand-8/20 text-gray-500 hover:bg-sand-8/10 hover:shadow-none'
                 variant='primary'
-                onClick={() => openWithTab("add-knowledge")}
+                onClick={() => open({ tab: "add-knowledge" })}
               >
                 <PlusLargeIcon className='text-gray-500 size-4.5' />
                 <span>Add</span>

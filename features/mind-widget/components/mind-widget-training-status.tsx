@@ -1,28 +1,21 @@
 "use client";
 
-import { useMindDialog } from "@/features/mind-dialog";
+import { useMindDialog, type OpenDialogOptions } from "@/features/mind-dialog";
 import { useTrainingState } from "@/hooks/use-training-state";
 import { AnimatePresence, motion } from "framer-motion";
 import { TrainingStatusFinished } from "./training-status-finished";
 import { TrainingStatusActive } from "./training-status-active";
 import { CONTAINER_ANIMATION } from "../utils/animations";
-import type { TrainingItemStatus } from "@/utils/training-status-helpers";
-import type { MindDialogTabId } from "@/features/mind-dialog";
 
-function createBadgeHandlers(
-  openWithTab: (
-    tab: MindDialogTabId,
-    initialFilter?: TrainingItemStatus | "all"
-  ) => void
-) {
+function createBadgeHandlers(open: (options?: OpenDialogOptions) => void) {
   return {
-    onCompletedClick: () => openWithTab("training-status", "completed"),
-    onFailedClick: () => openWithTab("training-status", "failed"),
+    onCompletedClick: () => open({ tab: "training-status", filter: "completed" }),
+    onFailedClick: () => open({ tab: "training-status", filter: "failed" }),
   };
 }
 
 export function MindWidgetTrainingStatus() {
-  const { openWithTab } = useMindDialog();
+  const { open } = useMindDialog();
 
   const {
     status,
@@ -32,8 +25,8 @@ export function MindWidgetTrainingStatus() {
     failed: failedCount,
   } = useTrainingState();
 
-  const handleClick = () => openWithTab("training-status");
-  const badgeHandlers = createBadgeHandlers(openWithTab);
+  const handleClick = () => open({ tab: "training-status" });
+  const badgeHandlers = createBadgeHandlers(open);
 
   return (
     <motion.div

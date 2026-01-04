@@ -24,12 +24,14 @@ import {
 // Re-export for convenience
 export type { MindDialogTabId } from "../utils/mind-dialog-config";
 
+export type OpenDialogOptions = {
+  tab?: MindDialogTabId;
+  filter?: TrainingItemStatus | "all";
+};
+
 interface MindDialogContextType {
   setActiveTab: (tab: MindDialogTabId) => void;
-  openWithTab: (
-    tab: MindDialogTabId,
-    initialFilter?: TrainingItemStatus | "all"
-  ) => void;
+  open: (options?: OpenDialogOptions) => void;
   close: () => void;
   initialFilter: TrainingItemStatus | "all" | null;
   clearInitialFilter: () => void;
@@ -127,33 +129,31 @@ export function MindDialogProvider({
   defaultTab = DEFAULT_MIND_DIALOG_TAB,
 }: MindDialogProps) {
   const { level } = useMindScore();
-  const [open, setOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
   const [activeTab, setActiveTab] = useState<MindDialogTabId>(defaultTab);
   const [initialFilter, setInitialFilter] = useState<
     TrainingItemStatus | "all" | null
   >(null);
 
-  const handleOpenChange = (isOpen: boolean) => {
-    setOpen(isOpen);
+  const handleOpenChange = (nextIsOpen: boolean) => {
+    setIsOpen(nextIsOpen);
     // Clear initial filter when dialog closes
-    if (!isOpen) {
+    if (!nextIsOpen) {
       setInitialFilter(null);
     }
   };
 
-  const openWithTab = (
-    tab: MindDialogTabId,
-    filter?: TrainingItemStatus | "all"
-  ) => {
+  const open = (options?: OpenDialogOptions) => {
+    const { tab = DEFAULT_MIND_DIALOG_TAB, filter } = options ?? {};
     setActiveTab(tab);
     if (filter) {
       setInitialFilter(filter);
     }
-    setOpen(true);
+    setIsOpen(true);
   };
 
   const closeDialog = () => {
-    setOpen(false);
+    setIsOpen(false);
     setInitialFilter(null);
   };
 
@@ -171,13 +171,13 @@ export function MindDialogProvider({
     <MindDialogContext.Provider
       value={{
         setActiveTab,
-        openWithTab,
+        open,
         close: closeDialog,
         initialFilter,
         clearInitialFilter,
       }}
     >
-      <Dialog open={open} onOpenChange={handleOpenChange}>
+      <Dialog open={isOpen} onOpenChange={handleOpenChange}>
         {children}
         <DialogContent
           // showCloseButton

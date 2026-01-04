@@ -1,9 +1,9 @@
 "use client";
 
 import { StudioAnalytics } from "@/app/studio/_components/studio-analytics";
-import { StudioHighlights } from "@/app/studio/_components/studio-highlights";
 import { StudioGreeting } from "@/app/studio/_components/studio-greeting";
 import { StudioHeader } from "@/app/studio/_components/studio-header";
+import { StudioHighlights } from "@/app/studio/_components/studio-highlights";
 import { StudioTasks } from "@/app/studio/_components/studio-tasks";
 import type {
   Engagements,
@@ -33,7 +33,7 @@ export function StudioView({
           <div className='w-full flex flex-col gap-2'>
             <StudioTasks trainingCards={trainingCards} />
 
-            <div className='flex gap-2'>
+            <div className='flex lg:flex-row gap-2 flex-col'>
               <StudioAnalytics engagements={engagements} />
 
               <StudioHighlights highlights={highlights} />

@@ -12,7 +12,7 @@ import { useEffect, useRef, useState } from "react";
 export function ActiveTrainingStatus() {
   const { queue } = useTrainingQueue();
   const { active: activeCount, completed: completedCount, failed: failedCount } = useTrainingState();
-  const { openWithTab } = useMindDialog();
+  const { open } = useMindDialog();
   // const [isExpanded, setIsExpanded] = useState(true);
   const [newlyAddedCount, setNewlyAddedCount] = useState<number | null>(null);
   const previousQueueLengthRef = useRef(queue.length);
@@ -98,7 +98,7 @@ export function ActiveTrainingStatus() {
             className='flex items-center gap-1 w-fit cursor-pointer hover:opacity-80'
             onClick={(e) => {
               e.stopPropagation();
-              openWithTab("training-status", "all");
+              open({ tab: "training-status", filter: "all" });
             }}
             role='button'
             tabIndex={0}
@@ -106,7 +106,7 @@ export function ActiveTrainingStatus() {
               if (e.key === "Enter" || e.key === " ") {
                 e.preventDefault();
                 e.stopPropagation();
-                openWithTab("training-status", "all");
+                open({ tab: "training-status", filter: "all" });
               }
             }}
           >
@@ -140,8 +140,8 @@ export function ActiveTrainingStatus() {
           <TrainingResultBadges
             completedCount={completedCount}
             failedCount={failedCount}
-            onCompletedClick={() => openWithTab("training-status", "completed")}
-            onFailedClick={() => openWithTab("training-status", "failed")}
+            onCompletedClick={() => open({ tab: "training-status", filter: "completed" })}
+            onFailedClick={() => open({ tab: "training-status", filter: "failed" })}
           />
         )}
 

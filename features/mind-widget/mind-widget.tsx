@@ -23,7 +23,7 @@ export function MindWidget({
   score = 20,
   level = "Skilled",
 }: MindWidgetProps = {}) {
-  const { openWithTab } = useMindDialog();
+  const { open } = useMindDialog();
   const { status } = useTrainingState();
 
   // Calculate progress toward next level
@@ -35,8 +35,8 @@ export function MindWidget({
   // Dialog state for mind level info
   const [isInfoDialogOpen, setIsInfoDialogOpen] = useState(false);
 
-  const handleClick = () => {
-    openWithTab("add-knowledge");
+  const handleMindWidgetClick = () => {
+    open({ tab: "add-knowledge" });
   };
 
   return (
@@ -45,7 +45,7 @@ export function MindWidget({
         className='min-w-[112px]'
         level={level}
         progress={progress}
-        onClick={handleClick}
+        onClick={handleMindWidgetClick}
         queueStatus={status}
       >
         <div className='relative z-10 flex flex-col h-full gap-1 justify-center items-center p-1.5'>

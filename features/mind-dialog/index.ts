@@ -24,7 +24,7 @@ export { useRecentlyAddedItem } from "./hooks/use-recently-added-item";
 export { useTrainingProcessor } from "./hooks/use-training-processor";
 
 // Types
-export type { MindDialogTabId } from "./components/mind-dialog";
+export type { MindDialogTabId, OpenDialogOptions } from "./components/mind-dialog";
 export type {
   TrainingDocType,
   QueueItem,
