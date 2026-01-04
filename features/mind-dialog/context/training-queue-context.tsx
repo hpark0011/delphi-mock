@@ -9,10 +9,7 @@ import React, {
   useMemo,
 } from "react";
 import { toast } from "sonner";
-import {
-  isFinishedItemStatus,
-  type TrainingItemStatus,
-} from "@/utils/training-status-helpers";
+import { type TrainingItemStatus } from "@/utils/training-status-helpers";
 import { useMindScore } from "@/features/mind-score";
 import { SCORE_PER_ITEM } from "@/app/studio/_constants/training-queue";
 import {
@@ -102,8 +99,8 @@ export function TrainingQueueProvider({
         updateScoreSafely(incrementScore, SCORE_PER_ITEM, "increment");
       },
       onBatchComplete: () => {
-        // Update last training date when batch processing completes
         setLastTrainingDate(new Date());
+        setHasUserReviewed(false); // Show "finished" state
       },
     }),
     [updateItemStatus, incrementScore, setLastTrainingDate]
@@ -115,23 +112,11 @@ export function TrainingQueueProvider({
     callbacks: processorCallbacks,
   });
 
-  // Auto-transition to "finished" when all items complete
-  useEffect(() => {
-    const allFinished =
-      queue.length > 0 &&
-      queue.every((item) => isFinishedItemStatus(item.status));
-
-    if (allFinished && hasUserReviewed) {
-      setHasUserReviewed(false); // Show "finished" state
-    }
-  }, [queue, hasUserReviewed]);
-
   const markAsReviewed = useCallback(() => {
     setHasUserReviewed(true);
   }, []);
 
   const addToQueue = useCallback((items: QueueItemInput[]) => {
-    // Reset review state when new items are added
     setHasUserReviewed(true);
     const newItems: QueueItem[] = items.map((item) => {
       // Calculate duration: use provided duration or default based on docType

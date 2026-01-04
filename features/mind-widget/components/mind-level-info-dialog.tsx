@@ -27,7 +27,7 @@ export function MindLevelInfoDialog({
           <DialogTitle className='text-xl font-medium'>
             Mind Score Levels
           </DialogTitle>
-          <DialogDescription className='text-base leading-[1.4]'>
+          <DialogDescription className='text-base leading-[1.3]'>
             Your Mind Score increases as you add more knowledge to your Delphi.
             Unlock new levels as you progress.
           </DialogDescription>

@@ -1,9 +1,8 @@
 "use client";
 
 import { useMindScore } from "@/features/mind-score";
-import { MindStatusIcon } from "@/components/mind-status-icon";
+import { MindProfileButton } from "@/features/mind-widget/components/mind-profile-button";
 import { MindWidgetSmall } from "@/components/mind-widget/mind-widget-small";
-import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import type { IconName } from "@/components/ui/icon";
 import { Icon } from "@/components/ui/icon";
@@ -57,7 +56,7 @@ export function MindDialogHeader({ level }: { level: string }) {
   const { status } = useTrainingState();
   const { close } = useMindDialog();
 
-  const onPreviewClick = () => {
+  const onProfileClick = () => {
     // Mark as reviewed to change status from "finished" to "idle"
     if (status === "finished") {
       markAsReviewed();
@@ -72,15 +71,7 @@ export function MindDialogHeader({ level }: { level: string }) {
         <DialogTitle>Mind</DialogTitle>
       </VisuallyHidden>
       <div className='flex justify-end items-center z-10 pt-2 pr-2 w-full absolute top-2 right-2'>
-        <Button
-          size='sm'
-          className='h-8 relative gap-1 has-[>svg]:pl-0.5 pl-2 rounded-full cursor-pointer'
-          variant='glossy'
-          onClick={onPreviewClick}
-        >
-          <MindStatusIcon status={status} />
-          <span>Preview</span>
-        </Button>
+        <MindProfileButton onClick={onProfileClick} />
       </div>
       <div className='mt-2 flex flex-col items-center justify-center gap-6'>
         <MindWidgetSmall disableClick />
