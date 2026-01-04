@@ -1,6 +1,6 @@
 "use client";
 
-import { MindStatusIcon } from "@/components/mind-status-notification";
+import { MindStatusIcon } from "@/components/mind-status-icon";
 import { Button } from "@/components/ui/button";
 import { Icon, type IconName } from "@/components/ui/icon";
 import {
@@ -21,7 +21,10 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { useTrainingQueue, type QueueItem } from "../../context/training-queue-context";
+import {
+  useTrainingQueue,
+  type QueueItem,
+} from "../../context/training-queue-context";
 import { cn } from "@/lib/utils";
 import { type TrainingItemStatus } from "@/utils/training-status-helpers";
 import { useEffect, useMemo, useState } from "react";

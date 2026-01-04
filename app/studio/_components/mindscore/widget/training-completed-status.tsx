@@ -1,6 +1,6 @@
 "use client";
 
-import { MindStatusIcon } from "@/components/mind-status-notification";
+import { MindStatusIcon } from "@/components/mind-status-icon";
 import { TrainingResultBadges } from "@/features/mind-widget/components/training-result-badges";
 import {
   Tooltip,
@@ -70,8 +70,12 @@ export function TrainingCompletedStatus({
         <TrainingResultBadges
           completedCount={completedCount}
           failedCount={failedCount}
-          onCompletedClick={() => open({ tab: "training-status", filter: "completed" })}
-          onFailedClick={() => open({ tab: "training-status", filter: "failed" })}
+          onCompletedClick={() =>
+            open({ tab: "training-status", filter: "completed" })
+          }
+          onFailedClick={() =>
+            open({ tab: "training-status", filter: "failed" })
+          }
         />
         {/* <Tooltip>
           <TooltipTrigger asChild className='shadow-2xl'>

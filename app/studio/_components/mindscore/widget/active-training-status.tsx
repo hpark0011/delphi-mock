@@ -1,7 +1,7 @@
 "use client";
 
 import { useMindDialog, useTrainingQueue } from "@/features/mind-dialog";
-import { MindStatusIcon } from "@/components/mind-status-notification";
+import { MindStatusIcon } from "@/components/mind-status-icon";
 import { TrainingResultBadges } from "@/features/mind-widget/components/training-result-badges";
 import { useTrainingState } from "@/hooks/use-training-state";
 import { AnimatePresence, motion } from "framer-motion";
@@ -11,7 +11,11 @@ import { useEffect, useRef, useState } from "react";
 
 export function ActiveTrainingStatus() {
   const { queue } = useTrainingQueue();
-  const { active: activeCount, completed: completedCount, failed: failedCount } = useTrainingState();
+  const {
+    active: activeCount,
+    completed: completedCount,
+    failed: failedCount,
+  } = useTrainingState();
   const { open } = useMindDialog();
   // const [isExpanded, setIsExpanded] = useState(true);
   const [newlyAddedCount, setNewlyAddedCount] = useState<number | null>(null);
@@ -140,8 +144,12 @@ export function ActiveTrainingStatus() {
           <TrainingResultBadges
             completedCount={completedCount}
             failedCount={failedCount}
-            onCompletedClick={() => open({ tab: "training-status", filter: "completed" })}
-            onFailedClick={() => open({ tab: "training-status", filter: "failed" })}
+            onCompletedClick={() =>
+              open({ tab: "training-status", filter: "completed" })
+            }
+            onFailedClick={() =>
+              open({ tab: "training-status", filter: "failed" })
+            }
           />
         )}
 

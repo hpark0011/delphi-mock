@@ -9,7 +9,6 @@ interface MindStatusIconProps {
 export function MindStatusIcon({ className, status }: MindStatusIconProps) {
   const isActive = status === "active";
   const isFinished = status === "finished";
-  // const isDull = status === "dull";
 
   return (
     <div className='relative flex items-center justify-center'>

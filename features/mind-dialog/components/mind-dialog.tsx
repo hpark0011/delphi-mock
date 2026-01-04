@@ -1,7 +1,7 @@
 "use client";
 
 import { useMindScore } from "@/features/mind-score";
-import { MindStatusIcon } from "@/components/mind-status-notification";
+import { MindStatusIcon } from "@/components/mind-status-icon";
 import { MindWidgetSmall } from "@/components/mind-widget/mind-widget-small";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";

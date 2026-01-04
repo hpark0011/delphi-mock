@@ -9,7 +9,8 @@ import { CONTAINER_ANIMATION } from "../utils/animations";
 
 function createBadgeHandlers(open: (options?: OpenDialogOptions) => void) {
   return {
-    onCompletedClick: () => open({ tab: "training-status", filter: "completed" }),
+    onCompletedClick: () =>
+      open({ tab: "training-status", filter: "completed" }),
     onFailedClick: () => open({ tab: "training-status", filter: "failed" }),
   };
 }
@@ -30,14 +31,14 @@ export function MindWidgetTrainingStatus() {
 
   return (
     <motion.div
-      className='overflow-hidden'
+      className='overflow-hidden bg-sand-3 p-2 px-3 rounded-full min-h-[38px]'
       initial={CONTAINER_ANIMATION.initial}
       animate={CONTAINER_ANIMATION.animate}
       exit={CONTAINER_ANIMATION.exit}
       transition={CONTAINER_ANIMATION.transition}
     >
       <div
-        className='flex items-center justify-center gap-1 pt-1.5 cursor-pointer'
+        className='flex items-center justify-center gap-1 cursor-pointer'
         onClick={handleClick}
       >
         <AnimatePresence mode='wait'>

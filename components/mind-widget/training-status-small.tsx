@@ -1,7 +1,7 @@
 "use client";
 
 import { useMindDialog, type TrainingDocType } from "@/features/mind-dialog";
-import { MindStatusIcon } from "@/components/mind-status-notification";
+import { MindStatusIcon } from "@/components/mind-status-icon";
 import { Icon } from "@/components/ui/icon";
 import { getDocTypeIcon } from "@/utils/doc-type-helpers";
 import { AnimatePresence, motion, type Transition } from "framer-motion";
@@ -189,7 +189,9 @@ export function MiniTrainingStatus({
                 onCompletedClick={() =>
                   open({ tab: "training-status", filter: "completed" })
                 }
-                onFailedClick={() => open({ tab: "training-status", filter: "failed" })}
+                onFailedClick={() =>
+                  open({ tab: "training-status", filter: "failed" })
+                }
                 disableTooltips={disableTooltips}
               />
             </motion.div>
@@ -199,7 +201,10 @@ export function MiniTrainingStatus({
               {...SLIDE_ANIMATION}
               className='flex items-center gap-1'
             >
-              <StatusIcon state={displayState} docType={recentlyAddedItem?.docType} />
+              <StatusIcon
+                state={displayState}
+                docType={recentlyAddedItem?.docType}
+              />
               <StatusLabel
                 state={displayState}
                 activeCount={activeCount}

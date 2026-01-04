@@ -1,4 +1,4 @@
-import { MindStatusIcon } from "@/components/mind-status-notification";
+import { MindStatusIcon } from "@/components/mind-status-icon";
 
 interface MindWidgetStatusLearningProps {
   activeCount: number;

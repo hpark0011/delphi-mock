@@ -1,6 +1,6 @@
 "use client";
 
-import { MindStatusIcon } from "@/components/mind-status-notification";
+import { MindStatusIcon } from "@/components/mind-status-icon";
 // import { Icon } from "@/components/ui/icon";
 import { useMindDialog } from "@/features/mind-dialog";
 

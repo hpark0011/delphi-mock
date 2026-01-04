@@ -40,9 +40,9 @@ export function MindWidget({
   };
 
   return (
-    <MindWidgetWrapper>
+    <MindWidgetWrapper className='gap-1.5'>
       <MindWidgetBubble
-        className='min-w-[112px]'
+        className='min-w-[112px] z-10 relative'
         level={level}
         progress={progress}
         onClick={handleMindWidgetClick}

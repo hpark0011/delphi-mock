@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { MindStatusIcon } from "@/components/mind-status-notification";
+import { MindStatusIcon } from "@/components/mind-status-icon";
 
 interface OnboardingMindWidgetTrainingStatusProps {
   trainingMessage: string;
