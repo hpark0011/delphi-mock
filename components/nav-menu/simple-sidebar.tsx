@@ -6,6 +6,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { SidebarHamburgerMenu } from "./sidebar-hamburger-menu";
 import { SidebarNavItems } from "./sidebar-nav-items";
+import "./styles/nav-menu.styles.css";
 
 export function SimpleSidebar() {
   const pathname = usePathname();
@@ -26,7 +27,7 @@ export function SimpleSidebar() {
   return (
     <>
       {/* Desktop Sidebar */}
-      <aside className='bg-background fixed left-0 top-0 z-40 hidden h-screen w-[68px] flex-col lg:flex'>
+      <aside className='fixed left-0 top-0 z-40 hidden h-screen w-[68px] flex-col lg:flex'>
         {/* Logo */}
         <div className='flex h-16 items-center justify-center'>
           <Link href='/' aria-label='Home'>
@@ -35,7 +36,7 @@ export function SimpleSidebar() {
         </div>
 
         {/* Navigation - Vertically Centered */}
-        <nav className='flex flex-1 flex-col items-center justify-center gap-1'>
+        <nav className='flex flex-1 flex-col items-center justify-center gap-4'>
           <SidebarNavItems isActive={isActive} onAddClick={handleAddClick} />
         </nav>
 
@@ -46,15 +47,15 @@ export function SimpleSidebar() {
       </aside>
 
       {/* Mobile Top Header */}
-      <header className='bg-background/95 supports-[backdrop-filter]:bg-background/60 fixed left-0 right-0 top-0 z-40 flex h-14 items-center justify-between border-b px-4 backdrop-blur lg:hidden'>
+      <header className='bg-background/95 supports-[backdrop-filter]:bg-background/60 fixed left-0 right-0 top-0 z-40 flex h-14 items-center justify-between px-4 backdrop-blur lg:hidden'>
         <Link href='/' aria-label='Home'>
-          <DelphiLogo className='text-foreground' />
+          <DelphiLogo className='text-foreground size-6' />
         </Link>
         <SidebarHamburgerMenu />
       </header>
 
       {/* Mobile Bottom Navigation */}
-      <nav className='bg-background/95 supports-[backdrop-filter]:bg-background/60 fixed bottom-0 left-0 right-0 z-40 flex h-14 items-center justify-around border-t backdrop-blur lg:hidden'>
+      <nav className='bg-background/95 supports-[backdrop-filter]:bg-background/60 fixed bottom-0 left-0 right-0 z-40 flex h-14 items-center justify-around backdrop-blur lg:hidden'>
         <SidebarNavItems isActive={isActive} onAddClick={handleAddClick} />
       </nav>
     </>

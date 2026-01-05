@@ -18,9 +18,9 @@ export function SidebarNavLink({
     <Link
       href={href}
       className={cn(
-        "flex items-center justify-center rounded-lg p-2.5 transition-colors",
+        "sidebar-nav-link flex items-center justify-center rounded-lg p-2.5 py-2 transition-colors",
         isActive
-          ? "text-foreground bg-neutral-100 dark:bg-neutral-800"
+          ? "text-foreground bg-sand-3 dark:bg-neutral-800"
           : "text-muted-foreground hover:text-foreground"
       )}
       aria-label={label}

@@ -19,7 +19,7 @@ export function DashboardContent({
       className={cn(
         "min-h-screen overflow-auto",
         // Sidebar spacing: desktop left padding, mobile top/bottom padding
-        "pt-14 pb-14 lg:pt-0 lg:pb-0 lg:pl-[68px]",
+        "pt-14 pb-14 lg:pt-0 lg:pb-0",
         className
       )}
     >

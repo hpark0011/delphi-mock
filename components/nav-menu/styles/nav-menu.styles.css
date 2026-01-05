@@ -1,0 +1,6 @@
+.sidebar-add-button,
+.sidebar-nav-link {
+  border-radius: 32px;
+  /* @ts-expect-error - cornerShape is a new CSS property */
+  corner-shape: superellipse(1.2);
+}
