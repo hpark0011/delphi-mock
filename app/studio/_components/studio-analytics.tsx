@@ -87,7 +87,7 @@ export function StudioAnalytics({ engagements }: { engagements: Engagements }) {
               isPositive={metric.isPositive}
             />
             {index < metrics.length - 1 && (
-              <div className='h-[1px] bg-sand-5 dark:bg-[#171715]' />
+              <div className='h-[1px] min-h-[1px] bg-sand-5 dark:bg-sand-2' />
             )}
           </Fragment>
         ))}
