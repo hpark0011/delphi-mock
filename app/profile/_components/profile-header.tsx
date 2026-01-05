@@ -16,21 +16,9 @@ interface ProfileHeaderProps {
   headline: string | null;
 }
 
-export function ProfileHeader({
-  slug,
-  customWarning,
-  name,
-  headline,
-}: ProfileHeaderProps) {
-  const {
-    current,
-    level,
-    progressToNextLevel,
-    nextLevelThreshold,
-    progressCap,
-    lastIncrement,
-    lastDecrement,
-  } = useMindScore();
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export function ProfileHeader(_props: ProfileHeaderProps) {
+  const { current, level } = useMindScore();
   return (
     <>
       <header className='pointer-events-none sticky top-0 z-50 w-full select-none pb-1 bg-gradient-to-b from-profile-bg to-transparent'>

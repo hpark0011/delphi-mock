@@ -16,8 +16,6 @@ export function MindProgressBar({
   progressToNextLevel,
   nextLevelThreshold,
   progressCap,
-  lastIncrement,
-  lastDecrement,
   className = "",
   accentColor = "bg-white/90",
 }: MindProgressBarProps) {

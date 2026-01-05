@@ -16,7 +16,7 @@ export function ProfileQuestions({ questions, slug }: ProfileQuestionsProps) {
   const router = useTransitionRouter();
 
   const handleQuestionClick = useCallback(
-    (question: string, index: number) => {
+    (question: string) => {
       router.push(`/${slug}/talk?q=${encodeURIComponent(question)}`);
     },
     [slug, router]
@@ -40,7 +40,7 @@ export function ProfileQuestions({ questions, slug }: ProfileQuestionsProps) {
           <button
             key={question.id}
             type='button'
-            onClick={() => handleQuestionClick(question.question, index)}
+            onClick={() => handleQuestionClick(question.question)}
             className='cursor-pointer w-fit rounded-[20px] bg-sand-11/5 px-4 py-3 text-left text-sand-12 hover:bg-sand-10/10 animate-in fade-in slide-in-from-bottom-4 text-[18px] transition-all duration-400 active:scale-95'
             style={{
               animationDelay: `${(index + 1) * 80}ms`,

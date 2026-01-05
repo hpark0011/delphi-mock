@@ -2,16 +2,6 @@
 
 import { MindStatusIcon } from "@/components/mind-status-icon";
 import { TrainingResultBadges } from "@/features/mind-widget/components/training-result-badges";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
-// import type { QueueItem } from "@/hooks/use-training-queue";
-// import { motion } from "framer-motion";
-// import { ChevronDown } from "lucide-react";
-// import { useState } from "react";
-import { SCORE_PER_ITEM } from "@/app/studio/_constants/training-queue";
 import { useMindDialog } from "@/features/mind-dialog";
 // import { ExpandableQueueList } from "./expandable-queue-list";
 
