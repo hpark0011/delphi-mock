@@ -2,6 +2,8 @@
 
 import { DelphiLogo } from "@/components/delphi-logo";
 import { useMindDialog } from "@/features/mind-dialog";
+import { useMindScore } from "@/features/mind-score";
+import { MindWidget } from "@/features/mind-widget";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { SidebarHamburgerMenu } from "./sidebar-hamburger-menu";
@@ -11,6 +13,9 @@ import "./styles/nav-menu.styles.css";
 export function SimpleSidebar() {
   const pathname = usePathname();
   const { open: openMindDialog } = useMindDialog();
+  const { current, level } = useMindScore();
+
+  const isStudioRoute = pathname === "/studio";
 
   // Home is active for root and analytics routes (analytics is the main dashboard view)
   const isActive = (href: string) => {
@@ -47,15 +52,23 @@ export function SimpleSidebar() {
       </aside>
 
       {/* Mobile Top Header */}
-      <header className='bg-background/95 supports-[backdrop-filter]:bg-background/60 fixed left-0 right-0 top-0 z-40 flex h-14 items-center justify-between px-4 backdrop-blur lg:hidden'>
-        <Link href='/' aria-label='Home'>
+      <header className='bg-background/95 supports-[backdrop-filter]:bg-background/60 fixed left-0 right-0 top-0 z-40 flex lg:h-14 h-[108px] items-start lg:items-center justify-between px-4 backdrop-blur lg:hidden'>
+        <Link href='/' aria-label='Home' className='mt-2 lg:mt-0'>
           <DelphiLogo className='text-foreground size-6' />
         </Link>
+
+        {/* MindWidget on studio route */}
+        {isStudioRoute && (
+          <div className='absolute top-2 left-1/2 -translate-x-1/2 overflow-visible'>
+            <MindWidget score={current} level={level} />
+          </div>
+        )}
+
         <SidebarHamburgerMenu />
       </header>
 
       {/* Mobile Bottom Navigation */}
-      <nav className='bg-background/95 supports-[backdrop-filter]:bg-background/60 fixed bottom-0 left-0 right-0 z-40 flex h-14 items-center justify-around backdrop-blur lg:hidden'>
+      <nav className='bg-background/95 supports-[backdrop-filter]:bg-background/60 fixed bottom-0 left-0 right-0 z-40 flex h-14 items-center justify-around backdrop-blur lg:hidden rounded-t-[32px] border-t border-sand-3'>
         <SidebarNavItems isActive={isActive} onAddClick={handleAddClick} />
       </nav>
     </>
