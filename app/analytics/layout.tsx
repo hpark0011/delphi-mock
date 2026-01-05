@@ -17,7 +17,7 @@ export default function AnalyticsLayout({
   return (
     <Dashboard>
       <Dashboard.Sidebar />
-      <Dashboard.Content className='py-8'>
+      <Dashboard.Content className='lg:py-[32px]'>
         <Dashboard.Header>
           <Dashboard.BackButton href='/studio'>Main</Dashboard.BackButton>
           <Dashboard.HeaderRow>
