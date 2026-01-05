@@ -161,6 +161,9 @@
 
   /* Profile Colors */
   --color-profile-bg: var(--profile-bg);
+
+  /* Brand Colors */
+  --color-brand-primary: var(--brand-primary);
 }
 
 :root {
@@ -215,6 +218,7 @@
     0 1px 1px 0px rgba(0, 0, 0, 0.05);
   --hover-background: #f1f0ef;
   --chat-input-background: #ffffff;
+  --brand-primary: #ff5e00;
 }
 
 .dark {
@@ -265,6 +269,7 @@
     0 30px 60px 0 rgba(0, 0, 0, 0.12), 0 14px 28x 0 rgba(0, 0, 0, 0.05);
   --hover-background: #212120;
   --chat-input-background: #2c2c2c;
+  --brand-primary: #ff5e00;
 }
 
 @layer base {
