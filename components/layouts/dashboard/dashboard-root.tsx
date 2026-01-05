@@ -1,6 +1,5 @@
 "use client";
 
-import { SidebarProvider } from "@/components/ui/sidebar";
 import * as React from "react";
 
 interface DashboardContextValue {
@@ -29,9 +28,7 @@ export function DashboardRoot({ children }: DashboardRootProps) {
 
   return (
     <DashboardContext.Provider value={{ fullWidth, setFullWidth }}>
-      <SidebarProvider defaultOpen={true}>
-        <div className='flex h-screen w-full'>{children}</div>
-      </SidebarProvider>
+      <div className='min-h-screen w-full'>{children}</div>
     </DashboardContext.Provider>
   );
 }

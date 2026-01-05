@@ -1,9 +1,7 @@
 "use client";
 
 import { DashboardMainWrapper } from "@/components/analytics/dashboard-ui";
-import { SidebarInset } from "@/components/ui/sidebar";
 import { cn } from "@/lib/utils";
-import * as React from "react";
 
 interface DashboardContentProps {
   children: React.ReactNode;
@@ -17,9 +15,11 @@ export function DashboardContent({
   className,
 }: DashboardContentProps) {
   return (
-    <SidebarInset
+    <main
       className={cn(
-        "flex-1 overflow-auto md:peer-data-[variant=inset]:shadow-none border-light border dark:border-white/2",
+        "min-h-screen overflow-auto",
+        // Sidebar spacing: desktop left padding, mobile top/bottom padding
+        "pt-14 pb-14 lg:pt-0 lg:pb-0 lg:pl-[68px]",
         className
       )}
     >
@@ -28,6 +28,6 @@ export function DashboardContent({
       >
         {children}
       </DashboardMainWrapper>
-    </SidebarInset>
+    </main>
   );
 }

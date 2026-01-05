@@ -1,7 +1,7 @@
 "use client";
 
-import { AppSidebar } from "@/components/app-sidebar";
+import { SimpleSidebar } from "@/components/simple-sidebar";
 
 export function DashboardSidebar() {
-  return <AppSidebar />;
+  return <SimpleSidebar />;
 }

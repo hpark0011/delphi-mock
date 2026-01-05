@@ -29,7 +29,8 @@
       "mcp__playwright__browser_wait_for",
       "Bash(wc:*)",
       "Bash(timeout 10 pnpm dev:*)",
-      "mcp__playwright__browser_evaluate"
+      "mcp__playwright__browser_evaluate",
+      "Bash(grep:*)"
     ],
     "deny": [],
     "ask": []
