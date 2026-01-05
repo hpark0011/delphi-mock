@@ -1,13 +1,12 @@
 "use client";
 
 import type { AnalyticsData } from "@/app/analytics/types";
+import { StudioSectionWrapper } from "@/app/studio/_components/studio-section-wrapper";
 import { BroadcastMetricCard } from "@/components/analytics/broadcast-metric-card";
 import { AreaChartComponent } from "@/components/analytics/charts/area-chart";
 import { StackedQuestionsChart } from "@/components/analytics/charts/stacked-questions-chart";
-import {
-  AnalyticsSectionWrapper,
-  Divider,
-} from "@/components/analytics/dashboard-ui";
+import { Divider } from "@/components/analytics/dashboard-ui";
+import { UpgradeBroadcast } from "@/components/analytics/home/upgrade-broadcast";
 import { KPICard } from "@/components/analytics/kpi-card";
 import { ModuleCard } from "@/components/analytics/module-ui";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -16,7 +15,6 @@ import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import EngagementLoading from "../engagement/loading";
 import { BroadcastData } from "../types/broadcast";
-import { UpgradeBroadcast } from "@/components/analytics/home/upgrade-broadcast";
 
 interface EngagementTabProps {
   analyticsData: AnalyticsData | null;
@@ -92,7 +90,7 @@ export function EngagementTab({
 
   return (
     <div className='flex flex-col w-full gap-4'>
-      <AnalyticsSectionWrapper>
+      <StudioSectionWrapper>
         <Tabs
           value={activeTab}
           onValueChange={setActiveTab}
@@ -170,10 +168,10 @@ export function EngagementTab({
             />
           </TabsContent>
         </Tabs>
-      </AnalyticsSectionWrapper>
+      </StudioSectionWrapper>
 
       {upgradeClicked ? (
-        <AnalyticsSectionWrapper>
+        <StudioSectionWrapper>
           <div className='p-4 py-3 flex flex-col gap-1 mb-1'>
             <div className='text-sm font-medium text-[#8D8D86] dark:text-neutral-400'>
               Latest Broadcast
@@ -225,7 +223,7 @@ export function EngagementTab({
               />
             </div>
           </ModuleCard>
-        </AnalyticsSectionWrapper>
+        </StudioSectionWrapper>
       ) : (
         <UpgradeBroadcast
           setUpgradeClicked={setUpgradeClicked}

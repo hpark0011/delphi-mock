@@ -76,7 +76,8 @@ export const CustomInput = forwardRef<CustomInputHandle, CustomInputProps>(
       onBlur?.();
     };
 
-    const handleFocus = (e: React.FocusEvent<HTMLInputElement>) => {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const handleFocus = (_e: React.FocusEvent<HTMLInputElement>) => {
       const scrollX = window.scrollX;
       const scrollY = window.scrollY;
 
@@ -105,6 +106,7 @@ export const CustomInput = forwardRef<CustomInputHandle, CustomInputProps>(
           }
         });
       }
+      // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [value]);
 
     useEffect(() => {
@@ -137,6 +139,7 @@ export const CustomInput = forwardRef<CustomInputHandle, CustomInputProps>(
 
       input.addEventListener("scroll", handleScroll);
       return () => input.removeEventListener("scroll", handleScroll);
+      // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const updateCursorPosition = () => {

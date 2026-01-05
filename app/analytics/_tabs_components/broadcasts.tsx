@@ -3,10 +3,8 @@
 import type { BroadcastData } from "@/app/analytics/types/broadcast";
 import { BroadcastMetricCard } from "@/components/analytics/broadcast-metric-card";
 import { FunnelChart } from "@/components/analytics/charts/funnel-chart";
-import {
-  AnalyticsSectionWrapper,
-  Divider,
-} from "@/components/analytics/dashboard-ui";
+import { StudioSectionWrapper } from "@/app/studio/_components/studio-section-wrapper";
+import { Divider } from "@/components/analytics/dashboard-ui";
 import { ModuleCard } from "@/components/analytics/module-ui";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import * as React from "react";
@@ -55,7 +53,7 @@ export function BroadcastsTab() {
 
   return (
     <div className='flex flex-col w-full gap-4'>
-      <AnalyticsSectionWrapper>
+      <StudioSectionWrapper>
         <div className='p-4 py-3 flex flex-col gap-1 mb-1'>
           <div className='text-sm font-medium text-[#8D8D86] dark:text-neutral-400'>
             Latest Broadcast
@@ -113,7 +111,7 @@ export function BroadcastsTab() {
         </ModuleCard>
 
         <FunnelChart data={broadcastData.funnelData} />
-      </AnalyticsSectionWrapper>
+      </StudioSectionWrapper>
     </div>
   );
 }

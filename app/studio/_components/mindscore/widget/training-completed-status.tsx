@@ -1,18 +1,8 @@
 "use client";
 
-import { MindStatusIcon } from "@/components/mind-status-notification";
-import { TrainingResultBadges } from "@/components/mind-widget/training-result-badges";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
-// import type { QueueItem } from "@/hooks/use-training-queue";
-// import { motion } from "framer-motion";
-// import { ChevronDown } from "lucide-react";
-// import { useState } from "react";
-import { SCORE_PER_ITEM } from "@/app/studio/_constants/training-queue";
-import { useMindDialog } from "@/components/mind-dialog/mind-dialog-2";
+import { MindStatusIcon } from "@/components/mind-status-icon";
+import { TrainingResultBadges } from "@/features/mind-widget/components/training-result-badges";
+import { useMindDialog } from "@/features/mind-dialog";
 // import { ExpandableQueueList } from "./expandable-queue-list";
 
 export interface TrainingCompletedStatusProps {
@@ -28,7 +18,7 @@ export function TrainingCompletedStatus({
   failedCount,
   // queueSnapshot = [],
 }: TrainingCompletedStatusProps) {
-  const { openWithTab } = useMindDialog();
+  const { open } = useMindDialog();
   // const [isExpanded, setIsExpanded] = useState(false);
 
   // Calculate total score increase based on completed items
@@ -43,7 +33,7 @@ export function TrainingCompletedStatus({
       <div className='w-full items-center flex justify-center p-2 py-1.5 pr-[12px] gap-1 text-text-tertiary cursor-pointer rounded-full '>
         <div
           className='flex items-center gap-1 relative py-0.5 px-2 bg w-full pl-[3px] group hover:opacity-70 '
-          onClick={() => openWithTab("training-status", "all")}
+          onClick={() => open({ tab: "training-status", filter: "all" })}
           // onClick={handleToggle}
           // role='button'
           tabIndex={0}
@@ -70,8 +60,12 @@ export function TrainingCompletedStatus({
         <TrainingResultBadges
           completedCount={completedCount}
           failedCount={failedCount}
-          onCompletedClick={() => openWithTab("training-status", "completed")}
-          onFailedClick={() => openWithTab("training-status", "failed")}
+          onCompletedClick={() =>
+            open({ tab: "training-status", filter: "completed" })
+          }
+          onFailedClick={() =>
+            open({ tab: "training-status", filter: "failed" })
+          }
         />
         {/* <Tooltip>
           <TooltipTrigger asChild className='shadow-2xl'>
@@ -79,7 +73,7 @@ export function TrainingCompletedStatus({
               className='mr-1 flex items-center gap-1 cursor-pointer group hover:bg-black/5 rounded-sm px-1.5 pl-1 py-0.5'
               onClick={() => {
                 setShowCompletedStatus(false);
-                openWithTab("training-status");
+                open({ tab: "training-status" });
               }}
               role='button'
             >

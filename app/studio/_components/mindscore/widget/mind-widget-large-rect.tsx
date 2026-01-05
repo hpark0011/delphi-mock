@@ -1,26 +1,21 @@
-import { useMindScore } from "@/app/studio/_components/mindscore/mind-score-context";
+import { useMindScore } from "@/features/mind-score";
 import {
   getLevelShadowColors,
   generateShadowString,
-} from "@/app/studio/_utils/mind-shadow-helpers";
+} from "@/features/mind-widget";
 import { cn } from "@/lib/utils";
-import { AnalyticsSectionWrapper } from "@/components/analytics/dashboard-ui";
-import {
-  MindDialog,
-  useMindDialog,
-} from "@/components/mind-dialog/mind-dialog-2";
+import { StudioSectionWrapper } from "@/app/studio/_components/studio-section-wrapper";
+import { useMindDialog, useTrainingQueue } from "@/features/mind-dialog";
 import { MindProgressBar } from "@/app/studio/_components/mindscore/mind-progress-bar";
 import { TrainingCompletedStatus } from "@/app/studio/_components/mindscore/widget/training-completed-status";
-import { QueueItem, useTrainingQueue } from "@/hooks/use-training-queue";
-import { useTrainingStatus } from "@/hooks/use-training-status";
+import { useTrainingState } from "@/hooks/use-training-state";
 import { ActiveTrainingStatus } from "@/app/studio/_components/mindscore/widget/active-training-status";
 import { LastTrainedDate } from "@/app/studio/_components/mindscore/widget/last-trained-date";
-import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { PlusLargeIcon } from "@/delphi-ui/icons";
 
 function MindScoreTrigger() {
-  const { openWithTab } = useMindDialog();
+  const { open } = useMindDialog();
   const {
     current,
     level,
@@ -30,7 +25,7 @@ function MindScoreTrigger() {
     lastIncrement,
     lastDecrement,
   } = useMindScore();
-  const { queueStatus } = useTrainingStatus(false);
+  const { status } = useTrainingState();
 
   // Get level-based colors
   const levelColors = getLevelShadowColors(level);
@@ -64,13 +59,13 @@ function MindScoreTrigger() {
       onMouseLeave={(e) => {
         e.currentTarget.style.boxShadow = "var(--shadow-default)";
       }}
-      onClick={() => openWithTab("add-knowledge")}
+      onClick={() => open({ tab: "add-knowledge" })}
       role='button'
       tabIndex={0}
       onKeyDown={(e) => {
         if (e.key === "Enter" || e.key === " ") {
           e.preventDefault();
-          openWithTab("add-knowledge");
+          open({ tab: "add-knowledge" });
         }
       }}
     >
@@ -84,7 +79,7 @@ function MindScoreTrigger() {
           lastDecrement={lastDecrement}
           className={cn(
             "top-[3px] transition-all duration-100 ease-in relative max-w-[312px]",
-            queueStatus === "active"
+            status === "active"
               ? "opacity-100"
               : "opacity-0 group-hover:opacity-100"
           )}
@@ -121,103 +116,51 @@ function MindScoreTrigger() {
 }
 
 interface TrainingStatusTriggerProps {
-  hasUserReviewed: boolean;
-  setHasUserReviewed: (reviewed: boolean) => void;
   completedCount: number;
   failedCount: number;
-  queue: QueueItem[];
 }
 
 function TrainingStatusTrigger({
-  hasUserReviewed,
-  setHasUserReviewed,
   completedCount,
   failedCount,
-  queue,
 }: TrainingStatusTriggerProps) {
-  // Use centralized queue status hook
-  const { queueStatus } = useTrainingStatus(hasUserReviewed);
+  const { markAsReviewed } = useTrainingQueue();
+  const { status } = useTrainingState();
 
   // Show completed status when queue is finished (all items done, user hasn't reviewed)
-  if (queueStatus === "finished") {
+  if (status === "finished") {
     return (
       <TrainingCompletedStatus
-        setShowCompletedStatus={(show) => setHasUserReviewed(!show)}
+        setShowCompletedStatus={() => markAsReviewed()}
         completedCount={completedCount}
         failedCount={failedCount}
-        // queueSnapshot={queue}
       />
     );
   }
 
   // Show active training status when queue is active
-  if (queueStatus === "active") {
+  if (status === "active") {
     return <ActiveTrainingStatus />;
   }
 
-  // Default: show last trained date (dull state)
+  // Default: show last trained date (idle state)
   return <LastTrainedDate />;
 }
 
 export function MindWidgetLargeRect() {
-  const { queue } = useTrainingQueue();
-  const [hasUserReviewed, setHasUserReviewed] = useState(true); // Start as true (no completion to review)
-  const [completedCount, setCompletedCount] = useState(0);
-  const [failedCount, setFailedCount] = useState(0);
-
-  // Use centralized queue status logic
-  const { queueStatus, finishedCount, totalCount } =
-    useTrainingStatus(hasUserReviewed);
-
-  // Update counts when queue finishes and reset when new items are added
-  useEffect(() => {
-    // Detect when all items finish and user hasn't reviewed yet
-    const allFinished = finishedCount === totalCount && totalCount > 0;
-
-    if (allFinished && hasUserReviewed) {
-      // Queue just finished - capture snapshot counts and mark as unreviewed
-      // Note: We need manual filtering here to create a snapshot of counts
-      // at the moment of completion, which persists even as queue changes
-      const completed = queue.filter(
-        (item) => item.status === "completed"
-      ).length;
-      const failed = queue.filter((item) => item.status === "failed").length;
-      setCompletedCount(completed);
-      setFailedCount(failed);
-      setHasUserReviewed(false); // Mark as unreviewed to show completion status
-    }
-
-    // Reset when new items added (queue becomes active)
-    if (queueStatus === "active" && !hasUserReviewed) {
-      setHasUserReviewed(true); // Reset review state
-      setCompletedCount(0);
-      setFailedCount(0);
-    }
-
-    // Reset when queue is cleared (becomes empty)
-    if (queue.length === 0 && !hasUserReviewed) {
-      setHasUserReviewed(true);
-      setCompletedCount(0);
-      setFailedCount(0);
-    }
-  }, [queueStatus, hasUserReviewed, finishedCount, totalCount, queue]);
+  const { completed: completedCount, failed: failedCount } = useTrainingState();
 
   return (
-    <AnalyticsSectionWrapper
+    <StudioSectionWrapper
       className={cn(
         "w-full p-0.5 mind-area-section flex flex-col items-center bg-linear-to-b from-sand-6 to-sand-3 cursor-default bg-amber-50/12 backdrop-blur-[20px] overflow-hidden transition-all duration-200 text-left opacity-100 hover:bg-amber-50/18 shadow-[0_1px_0.908px_0_rgba(255,255,255,0.15)_inset,0_-1px_0.908px_0_rgba(255,255,255,0.05)_inset]"
       )}
     >
-      <MindDialog defaultTab='training-status'>
-        <MindScoreTrigger />
-        <TrainingStatusTrigger
-          hasUserReviewed={hasUserReviewed}
-          setHasUserReviewed={setHasUserReviewed}
-          completedCount={completedCount}
-          failedCount={failedCount}
-          queue={queue}
-        />
-      </MindDialog>
-    </AnalyticsSectionWrapper>
+      <MindScoreTrigger />
+      <TrainingStatusTrigger
+        completedCount={completedCount}
+        failedCount={failedCount}
+      />
+    </StudioSectionWrapper>
   );
 }

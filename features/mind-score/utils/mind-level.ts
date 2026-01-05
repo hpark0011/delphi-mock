@@ -1,0 +1,60 @@
+export const LEVEL_THRESHOLDS = [
+  { name: "Novice", min: 0 },
+  { name: "Skilled", min: 200 },
+  { name: "Expert", min: 1000 },
+  { name: "Master", min: 2000 },
+  { name: "Sage", min: 3000 },
+  { name: "Legendary", min: 4000 },
+  { name: "Eternal", min: 5000 },
+] as const;
+
+export type LevelName = (typeof LEVEL_THRESHOLDS)[number]["name"];
+
+export function calculateLevel(score: number): LevelName {
+  for (let i = LEVEL_THRESHOLDS.length - 1; i >= 0; i--) {
+    if (score >= LEVEL_THRESHOLDS[i].min) {
+      return LEVEL_THRESHOLDS[i].name;
+    }
+  }
+  return LEVEL_THRESHOLDS[0].name;
+}
+
+export function getCurrentLevelThreshold(score: number): number {
+  for (let i = LEVEL_THRESHOLDS.length - 1; i >= 0; i--) {
+    if (score >= LEVEL_THRESHOLDS[i].min) {
+      return LEVEL_THRESHOLDS[i].min;
+    }
+  }
+  return LEVEL_THRESHOLDS[0].min;
+}
+
+export function getNextLevelThreshold(score: number): number {
+  const currentThreshold = getCurrentLevelThreshold(score);
+  const currentIndex = LEVEL_THRESHOLDS.findIndex(
+    (level) => level.min === currentThreshold
+  );
+  if (currentIndex === LEVEL_THRESHOLDS.length - 1) {
+    return currentThreshold;
+  }
+  return LEVEL_THRESHOLDS[currentIndex + 1].min;
+}
+
+export function getProgressToNextLevel(score: number): number {
+  return Math.max(0, score - getCurrentLevelThreshold(score));
+}
+
+export function getProgressCap(score: number): number {
+  return getNextLevelThreshold(score) - getCurrentLevelThreshold(score);
+}
+
+/**
+ * Calculate progress percentage within current level (0-100)
+ * Returns 100 if at max level (Eternal)
+ */
+export function calculateLevelProgress(score: number): number {
+  const progressCap = getProgressCap(score);
+  if (progressCap === 0) return 100; // At max level
+
+  const progress = getProgressToNextLevel(score);
+  return Math.min(Math.max((progress / progressCap) * 100, 0), 100);
+}

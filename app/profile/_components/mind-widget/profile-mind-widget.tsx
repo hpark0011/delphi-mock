@@ -1,10 +1,8 @@
-import { MindStatusIcon } from "@/components/mind-status-notification";
 import { Button } from "@/components/ui/button";
-import { HomeIcon, PlusLargeIcon, PlusSmallIcon } from "@/delphi-ui/icons";
-import { useTrainingStatus } from "@/hooks/use-training-status";
-import { motion, AnimatePresence } from "framer-motion";
+import { HomeIcon, PlusLargeIcon } from "@/delphi-ui/icons";
+import { motion } from "framer-motion";
 import { useState } from "react";
-import { useMindDialog } from "@/components/mind-dialog/mind-dialog-2";
+import { useMindDialog } from "@/features/mind-dialog";
 
 const SPRING_CONFIG = {
   type: "spring" as const,
@@ -62,8 +60,7 @@ export function ProfileMindWidget({
   const handleExpandWidget = () => {
     setWidgetExpanded((prev) => !prev);
   };
-  const { queueStatus } = useTrainingStatus();
-  const { openWithTab } = useMindDialog();
+  const { open } = useMindDialog();
 
   return (
     <motion.div
@@ -159,7 +156,7 @@ export function ProfileMindWidget({
                 size='sm'
                 className='h-10 text-[15px] relative gap-1.5 rounded-full cursor-pointer flex-1 shadow-none bg-sand-8/20 text-gray-500 hover:bg-sand-8/10 hover:shadow-none'
                 variant='primary'
-                onClick={() => openWithTab("add-knowledge")}
+                onClick={() => open({ tab: "add-knowledge" })}
               >
                 <PlusLargeIcon className='text-gray-500 size-4.5' />
                 <span>Add</span>

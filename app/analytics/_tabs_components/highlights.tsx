@@ -1,6 +1,6 @@
 "use client";
 import { CalendarListItem } from "@/components/analytics/calendar-list-item";
-import { AnalyticsSectionWrapper } from "@/components/analytics/dashboard-ui";
+import { StudioSectionWrapper } from "@/app/studio/_components/studio-section-wrapper";
 import { InsightCard } from "@/components/analytics/insight-card";
 import { ModuleCard, ModuleCardHeader } from "@/components/analytics/module-ui";
 import { QuestionsStack } from "@/components/analytics/questions-stack";
@@ -194,7 +194,7 @@ export function HighlightsTab() {
   };
   return (
     <div className='space-y-4'>
-      {/* <AnalyticsSectionWrapper>
+      {/* <StudioSectionWrapper>
         <ModuleCard className='rounded-[24px]'>
           <ModuleCardHeader className='h-[40px] mb-1'>
             <div className='flex items-center gap-1.5'>
@@ -210,9 +210,9 @@ export function HighlightsTab() {
             <PeopleHighlightsHorizontal />
           </div>
         </ModuleCard>
-      </AnalyticsSectionWrapper> */}
+      </StudioSectionWrapper> */}
 
-      <AnalyticsSectionWrapper>
+      <StudioSectionWrapper>
         <div className='mb-6'>
           <ModuleCard className='rounded-[24px] px-0'>
             <ModuleCardHeader className='border-b border-border-extra-light h-[40px] mb-1 pr-3'>
@@ -406,7 +406,7 @@ export function HighlightsTab() {
           </div>
         </ModuleCard>
       </div> */}
-      </AnalyticsSectionWrapper>
+      </StudioSectionWrapper>
     </div>
   );
 }

@@ -295,12 +295,11 @@
   pointer-events: none;
   background: linear-gradient(
     to bottom,
-    #accdff 0%,
-    #a6c7ff 10%,
-    #8cbaff 25%,
+    #7ab4f4 0%,
+    #4a9cf0 25%,
     #0083ef 50%,
-    #437cff 75%,
-    #accdff 100%
+    #4a9cf0 75%,
+    #7ab4f4 100%
   );
   background-size: 100% 200%;
   background-position: 0% 100%;

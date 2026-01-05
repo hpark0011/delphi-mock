@@ -1,13 +1,11 @@
-import {
-  AnalyticsSectionWrapper,
-  Divider,
-} from "@/components/analytics/dashboard-ui";
+import { Divider } from "@/components/analytics/dashboard-ui";
+import { StudioSectionWrapper } from "@/app/studio/_components/studio-section-wrapper";
 
 import * as React from "react";
 
 export default function EngagementLoading() {
   return (
-    <AnalyticsSectionWrapper className='h-fit'>
+    <StudioSectionWrapper className='h-fit'>
       <div className='animate-pulse'>
         <div className='flex justify-between mb-4 items-center'>
           {[1, 2, 3, 4].map((i) => (
@@ -21,6 +19,6 @@ export default function EngagementLoading() {
           loading....
         </div>
       </div>
-    </AnalyticsSectionWrapper>
+    </StudioSectionWrapper>
   );
 }

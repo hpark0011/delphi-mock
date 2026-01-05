@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { PodcastIcon } from "lucide-react";
-import { AnalyticsSectionWrapper } from "../dashboard-ui";
+import { StudioSectionWrapper } from "@/app/studio/_components/studio-section-wrapper";
 import { cn } from "@/lib/utils";
 
 export function UpgradeBroadcast({
@@ -11,7 +11,7 @@ export function UpgradeBroadcast({
   variant?: "small" | "full";
 }) {
   return (
-    <AnalyticsSectionWrapper className='rounded-[20px]'>
+    <StudioSectionWrapper className='rounded-[20px]'>
       <div
         className={cn(
           "flex flex-col gap-4 relative w-full h-full rounded-[20px] p-3 py-3",
@@ -44,6 +44,6 @@ export function UpgradeBroadcast({
           </div>
         </Button>
       </div>
-    </AnalyticsSectionWrapper>
+    </StudioSectionWrapper>
   );
 }

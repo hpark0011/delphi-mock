@@ -1,6 +1,6 @@
 "use client";
 
-import { DashboardLayout } from "@/components/layouts/dashboard-layout";
+import { Dashboard } from "@/components/layouts/dashboard";
 
 export default function AnalyticsLayout({
   children,
@@ -15,17 +15,19 @@ export default function AnalyticsLayout({
   ];
 
   return (
-    <DashboardLayout
-      showHeader={true}
-      headerTitle='Analytics'
-      showBackButton={true}
-      backButtonHref='/studio'
-      backButtonLabel='Main'
-      showDatePicker={true}
-      showTabs={true}
-      tabs={navItems}
-    >
-      {children}
-    </DashboardLayout>
+    <Dashboard>
+      <Dashboard.Sidebar />
+      <Dashboard.Content className='py-8'>
+        <Dashboard.Header>
+          <Dashboard.BackButton href='/studio'>Main</Dashboard.BackButton>
+          <Dashboard.HeaderRow>
+            <Dashboard.Title>Analytics</Dashboard.Title>
+            <Dashboard.DatePicker />
+          </Dashboard.HeaderRow>
+        </Dashboard.Header>
+        <Dashboard.Tabs items={navItems} />
+        <Dashboard.Main className='mt-4'>{children}</Dashboard.Main>
+      </Dashboard.Content>
+    </Dashboard>
   );
 }

@@ -8,9 +8,7 @@ export const DashboardMainWrapper = ({
   className?: string;
 }) => {
   return (
-    <div className={cn("p-7 h-full dark:bg-black/50", className)}>
-      {children}
-    </div>
+    <div className={cn("h-full dark:bg-black/50", className)}>{children}</div>
   );
 };
 
@@ -22,27 +20,5 @@ export const Divider = ({ className }: { className?: string }) => {
         className
       )}
     />
-  );
-};
-
-export const AnalyticsSectionWrapper = ({
-  children,
-  className,
-  style,
-}: {
-  children: React.ReactNode;
-  className?: string;
-  style?: React.CSSProperties;
-}) => {
-  return (
-    <div
-      className={cn(
-        "bg-[#F6F6F5] dark:bg-[#171715] rounded-[28px] p-1",
-        className
-      )}
-      style={style}
-    >
-      {children}
-    </div>
   );
 };

@@ -1,6 +1,6 @@
 "use client";
 
-import { DashboardLayout } from "@/components/layouts/dashboard-layout";
+import { Dashboard } from "@/components/layouts/dashboard";
 
 export default function ProductsLayout({
   children,
@@ -8,13 +8,11 @@ export default function ProductsLayout({
   children: React.ReactNode;
 }) {
   return (
-    <DashboardLayout
-      showHeader={false}
-      showDatePicker={false}
-      showTabs={false}
-      isFullWidth={false}
-    >
-      {children}
-    </DashboardLayout>
+    <Dashboard>
+      <Dashboard.Sidebar />
+      <Dashboard.Content>
+        <Dashboard.Main>{children}</Dashboard.Main>
+      </Dashboard.Content>
+    </Dashboard>
   );
 }
