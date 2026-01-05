@@ -3,8 +3,6 @@ import { cn } from "@/lib/utils";
 export function DelphiLogo({ className }: { className?: string }) {
   return (
     <svg
-      width={20}
-      height={20}
       viewBox='0 0 30 18'
       fill='none'
       xmlns='http://www.w3.org/2000/svg'
