@@ -11,7 +11,7 @@ export function OnboardingMindWidgetLevel({
 }: OnboardingMindWidgetLevelProps) {
   return (
     <motion.div
-      className='text-[16px] font-[480] text-text-muted'
+      className='text-[16px] font-[480] text-text-muted relative z-10'
       initial={{ opacity: 0, height: 0 }}
       animate={{ opacity: 1, height: "auto" }}
       exit={{ opacity: 0, height: 0 }}

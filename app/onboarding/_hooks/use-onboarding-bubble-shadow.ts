@@ -3,6 +3,8 @@ import {
   getLevelShadowColors,
   generateShadowString,
   generateSmallWidgetShadowString,
+  generateDropShadow,
+  NEUTRAL_COLORS,
   LevelColors,
 } from "../_utils/widget-config";
 import { useWidgetConfig } from "../_context";
@@ -33,6 +35,10 @@ export interface BubbleShadowResult {
   cssVariables: CSSProperties;
   /** Base shadow used when not in animation state. */
   baseShadow: string;
+  /** Drop shadow for the outer bubble container. */
+  dropShadow: string;
+  /** Shadow string for level accent overlay. */
+  shadowString: string;
 }
 
 /**
@@ -51,7 +57,9 @@ export function useOnboardingBubbleShadow({
   return useMemo(() => {
     // Calculate level and get shadow colors
     const level = calculateLevel(mindScore);
-    const levelColors = getLevelShadowColors(level);
+    // Use neutral grayscale colors when mindScore is 0 (no level yet)
+    const levelColors =
+      mindScore === 0 ? NEUTRAL_COLORS : getLevelShadowColors(level);
 
     // Use default neutral shadow when mindScore is 0, otherwise use level-based colored shadows
     const useDefaultShadow = mindScore === 0;
@@ -95,6 +103,12 @@ export function useOnboardingBubbleShadow({
       ? config.neutralShadow
       : `inset 0 1px 8px -2px ${levelColors.light}, inset 0 -4px 6px -2px ${levelColors.medium}, inset 0 -13px 24px -14px ${levelColors.dark}, 0 0 0 0.5px rgba(0,0,0,0.05), 0 10px 20px -5px rgba(0,0,0,0.4), 0 1px 1px 0 rgba(0,0,0,0.15), inset 0 0 6px 0 rgba(255,255,255,0.1)`;
 
+    // Drop shadow for the outer bubble - colored based on level
+    const dropShadow = generateDropShadow(levelColors);
+
+    // Shadow string for the level accent overlay
+    const shadowString = generateSmallWidgetShadowString(levelColors);
+
     return {
       level,
       levelColors,
@@ -104,6 +118,8 @@ export function useOnboardingBubbleShadow({
       innerDivShadow,
       cssVariables,
       baseShadow,
+      dropShadow,
+      shadowString,
     };
   }, [config, isLargeVariant, mindScore]);
 }

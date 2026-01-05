@@ -17,7 +17,7 @@ export function OnboardingMindWidgetScore({
   return (
     <motion.h1
       key='score'
-      className='text-text-primary-inverse tracking-tighter font-semibold flex items-center justify-center h-fit leading-[100%] dark:text-white'
+      className='text-text-primary-inverse tracking-tighter font-semibold flex items-center justify-center h-fit leading-[100%] dark:text-white relative z-10'
       initial={
         shouldRollIn
           ? {

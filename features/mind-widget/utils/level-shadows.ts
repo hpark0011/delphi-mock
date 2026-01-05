@@ -5,6 +5,13 @@ export interface LevelColors {
   dark: string;
 }
 
+// Neutral grayscale colors for when there's no level (mindScore === 0)
+export const NEUTRAL_COLORS: LevelColors = {
+  light: "rgba(200,200,200,1)",
+  medium: "rgba(150,150,150,0.5)",
+  dark: "rgba(100,100,100,1)",
+};
+
 const LEVEL_COLORS: Record<string, LevelColors> = {
   Novice: {
     light: "rgba(255,220,100,1)",
