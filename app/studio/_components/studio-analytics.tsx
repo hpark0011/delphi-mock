@@ -64,7 +64,7 @@ export function StudioAnalytics({ engagements }: { engagements: Engagements }) {
   ];
 
   return (
-    <StudioSectionWrapper className='rounded-[20px] gap-1 flex flex-col w-full'>
+    <StudioSectionWrapper className='rounded-[22px] gap-1 flex flex-col w-full'>
       <Link
         href='/analytics/engagement'
         className='flex items-center justify-between group hover:opacity-80 transition-opacity py-2 pr-2 pl-3'
@@ -87,7 +87,7 @@ export function StudioAnalytics({ engagements }: { engagements: Engagements }) {
               isPositive={metric.isPositive}
             />
             {index < metrics.length - 1 && (
-              <div className='h-[1px] min-h-[1px] bg-sand-5 dark:bg-sand-2' />
+              <div className='h-[1px] min-h-[1px] bg-sand-3 dark:bg-sand-2' />
             )}
           </Fragment>
         ))}
