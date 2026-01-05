@@ -1,9 +1,13 @@
+"use client";
+
 import {
   HomeIcon,
   MindIcon,
   NotificationIcon,
   ProfileIcon,
 } from "@/delphi-ui/icons";
+import { useTrainingQueue } from "@/features/mind-dialog";
+import { useTrainingState } from "@/hooks/use-training-state";
 import { SidebarAddButton } from "./sidebar-add-button";
 import { SidebarNavLink } from "./sidebar-nav-link";
 
@@ -24,6 +28,16 @@ export function SidebarNavItems({
   isActive,
   onAddClick,
 }: SidebarNavItemsProps) {
+  const { status } = useTrainingState();
+  const { markAsReviewed } = useTrainingQueue();
+  const hasNewTraining = status === "finished";
+
+  const handleProfileClick = () => {
+    if (hasNewTraining) {
+      markAsReviewed();
+    }
+  };
+
   return (
     <>
       <SidebarNavLink
@@ -50,6 +64,8 @@ export function SidebarNavItems({
         href={navItems[3].href}
         isActive={isActive(navItems[3].href)}
         label={navItems[3].label}
+        showNotification={hasNewTraining}
+        onClick={handleProfileClick}
       />
     </>
   );
