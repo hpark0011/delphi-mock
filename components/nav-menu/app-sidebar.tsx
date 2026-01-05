@@ -33,7 +33,7 @@ import {
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import * as React from "react";
-import { HeaderLogo } from "./header/header-ui";
+import { HeaderLogo } from "../header/header-ui";
 
 const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
   home: Home,
