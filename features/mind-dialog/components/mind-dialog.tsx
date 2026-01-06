@@ -2,7 +2,7 @@
 
 import { useMindScore } from "@/features/mind-score";
 import { MindProfileButton } from "@/features/mind-widget/components/mind-profile-button";
-import { MindWidgetSmall } from "@/components/mind-widget/mind-widget-small";
+import { MindWidgetSmall } from "@/features/mind-widget";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import type { IconName } from "@/components/ui/icon";
 import { Icon } from "@/components/ui/icon";

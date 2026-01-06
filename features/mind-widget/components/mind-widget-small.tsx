@@ -1,18 +1,18 @@
 "use client";
 
+import { useMindDialog } from "@/features/mind-dialog";
 import { useMindScore } from "@/features/mind-score";
-import {
-  generateSmallWidgetShadowString,
-  generateDropShadow,
-  getLevelShadowColors,
-  MindWidgetScore,
-} from "@/features/mind-widget";
 import { useTrainingState } from "@/hooks/use-training-state";
 import { cn } from "@/lib/utils";
 import { AnimatePresence } from "framer-motion";
 import { useCallback, useState } from "react";
-import { useMindDialog } from "@/features/mind-dialog";
-import { MiniTrainingStatus } from "./training-status-small";
+import {
+  generateSmallWidgetShadowString,
+  generateDropShadow,
+  getLevelShadowColors,
+} from "../utils/level-shadows";
+import { MindWidgetScore } from "./mind-widget-score";
+import { MindTrainingStatusMini } from "./mind-training-status-mini";
 
 interface MindWidgetSmallProps {
   disableClick?: boolean;
@@ -42,7 +42,7 @@ export function MindWidgetSmall({
     open({ tab: "add-knowledge" });
   };
 
-  // Called after MiniTrainingStatus finishes showing "Completed!" for 2 seconds
+  // Called after MindTrainingStatusMini finishes showing "Completed!" for 2 seconds
   const handleWidgetDismiss = useCallback(() => {
     setIsDismissed(true);
   }, []);
@@ -53,7 +53,7 @@ export function MindWidgetSmall({
   const dropShadow = generateDropShadow(levelColors);
 
   return (
-    <div className='flex gap-2 relative justify-start items-center rounded-full bg-sand-10/8'>
+    <div className='flex gap-2 relative justify-start items-center rounded-full bg-sand-10/8 dark:bg-sand-2'>
       {/* Mindscore Trigger */}
       <div
         className={cn(
@@ -67,7 +67,7 @@ export function MindWidgetSmall({
         <div
           onClick={handleClick}
           className={cn(
-            "flex flex-col gap-2 rounded-full overflow-hidden bg-black/87 border-white/20 dark:border-white/3 dark:bg-black/40 w-fit px-2.5 py-1.5 relative justify-center items-center min-w-[52px] h-[40px] z-0",
+            "flex flex-col gap-2 rounded-full overflow-hidden bg-black/87 border-white/20 dark:border-white/3 dark:bg-black w-fit px-2.5 py-1.5 relative justify-center items-center min-w-[52px] h-[40px] z-0",
             !disableClick && "cursor-pointer hover:bg-black/84"
           )}
           style={{
@@ -77,14 +77,14 @@ export function MindWidgetSmall({
           {/* Mindscore Value */}
           <MindWidgetScore
             score={current}
-            className="text-text-primary-inverse dark:text-text-primary"
-            fontSize="text-[16px]"
+            className='text-text-primary-inverse dark:text-text-primary'
+            fontSize='text-[16px]'
           />
         </div>
       </div>
       <AnimatePresence>
         {isWidgetVisible && (
-          <MiniTrainingStatus
+          <MindTrainingStatusMini
             onDismiss={handleWidgetDismiss}
             disableTooltips={disableClick}
           />

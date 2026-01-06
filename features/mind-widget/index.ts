@@ -12,6 +12,12 @@ export { MindWidgetScore } from "./components/mind-widget-score";
 export { MindWidgetLevel } from "./components/mind-widget-level";
 export { TrainingResultBadges } from "./components/training-result-badges";
 export { MindProfileButton } from "./components/mind-profile-button";
+export { MindWidgetSmall } from "./components/mind-widget-small";
+
+// Training Status Components (atomic)
+export { MindTrainingStatusIcon } from "./components/mind-training-status-icon";
+export { MindTrainingStatusLabel } from "./components/mind-training-status-label";
+export { MindTrainingStatusMini } from "./components/mind-training-status-mini";
 
 // Utils
 export {

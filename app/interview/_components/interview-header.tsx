@@ -2,7 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { ExitIcon } from "@/delphi-ui/icons/Exit";
-import { MindWidgetSmall } from "@/components/mind-widget/mind-widget-small";
+import { MindWidgetSmall } from "@/features/mind-widget";
 
 interface InterviewHeaderProps {
   onExit?: () => void;
