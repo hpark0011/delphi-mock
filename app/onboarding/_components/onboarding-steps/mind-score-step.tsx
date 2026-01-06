@@ -9,8 +9,8 @@ export function MindScoreStep() {
       <div className='flex flex-col items-center justify-center gap-8 '>
         {/* Heading and description */}
         <div className='flex flex-col gap-4 items-center justify-center max-w-md'>
-          <h1 className='text-3xl font-medium'>This is your Mind Score.</h1>
-          <p className='text-text-tertiary font-[480] text-center leading-[140%] text-[18px]'>
+          <h1 className='text-4xl font-medium'>This is your Mind Score.</h1>
+          <p className='text-text-tertiary font-[480] text-center leading-[140%]'>
             Add content to your mind to increase your score.
           </p>
         </div>
@@ -25,10 +25,6 @@ export function MindScoreStep() {
           >
             Continue
           </Button>
-        </div>
-
-        <div className='mt-8 flex items-center justify-center '>
-          <OnboardingPrivacyStatement />
         </div>
       </div>
     </div>

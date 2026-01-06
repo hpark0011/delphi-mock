@@ -20,7 +20,9 @@ export function OnboardingMindWidgetHelloLabel() {
         // Alignment
         "items-center justify-center",
         // Sizing
-        "h-fit"
+        "h-fit",
+        // Stacking
+        "relative z-10"
       )}
       initial={{
         opacity: 0,

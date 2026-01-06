@@ -7,15 +7,23 @@ import {
   useOnboardingScore,
   useOnboardingAnimation,
 } from "@/app/onboarding/_context";
+import { ONBOARDING_STEPS_COUNT } from "@/app/onboarding/_utils/onboarding-steps-config";
 import { OnboardingMindWidget } from "./onboarding-mind-widget/onboarding-mind-widget";
+import { OnboardingProgress } from "./onboarding-progress";
 
 export function OnboardingHeader() {
   const { handlePrevious, currentStep } = useOnboardingSteps();
   const { mindScore } = useOnboardingScore();
   const { animationState } = useOnboardingAnimation();
 
+  const progressValue = ((currentStep + 1) / ONBOARDING_STEPS_COUNT) * 100;
+
   return (
     <header className='bg-gradient-to-b from-background via-background/80 to-transparent absolute top-0 left-0 right-0 z-10'>
+      <OnboardingProgress
+        value={progressValue}
+        className='absolute top-0 left-0 right-0'
+      />
       <div className='flex items-start justify-center px-3 h-13 relative w-full'>
         {/* Previous step button */}
         <Button

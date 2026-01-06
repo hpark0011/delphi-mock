@@ -3,7 +3,9 @@ export {
   getLevelShadowColors,
   generateShadowString,
   generateSmallWidgetShadowString,
+  generateDropShadow,
   getLevelSvgShadowColors,
+  NEUTRAL_COLORS,
   type LevelColors,
   type SvgShadowColors,
 } from "@/features/mind-widget";

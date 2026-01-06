@@ -77,7 +77,11 @@ function OnboardingMindWidgetInner({
     <OnboardingMindWidgetContainer>
       <OnboardingMindWidgetWrapper>
         {/* Mind Bubble */}
-        <OnboardingMindWidgetBubble>
+        <OnboardingMindWidgetBubble
+          dropShadow={shadowData.dropShadow}
+          shadowString={shadowData.shadowString}
+          lightColor={shadowData.levelColors.light}
+        >
           {/* Content: Greeting, +10, or Score */}
           <OnboardingMindWidgetContent
             showGreeting={showGreeting}

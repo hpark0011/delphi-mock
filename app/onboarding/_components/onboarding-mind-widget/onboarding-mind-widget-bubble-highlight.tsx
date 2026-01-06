@@ -53,7 +53,7 @@ export function OnboardingMindWidgetBubbleHighlight({
       {/* Hover layer - handles mouse hover shadow transitions (when enabled) */}
       {config.showHoverLayer && (
         <motion.div
-          className='mind-bubble-pill'
+          className='mind-bubble-pill absolute'
           style={hoverShadowVariables}
           animate={{
             top: config.highlightOffset,

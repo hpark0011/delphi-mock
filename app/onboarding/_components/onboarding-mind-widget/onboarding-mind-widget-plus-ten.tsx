@@ -9,7 +9,7 @@ export function OnboardingMindWidgetPlusTen() {
   return (
     <motion.h1
       key='plus-ten'
-      className='text-text-primary-inverse tracking-tighter font-semibold flex items-center justify-center h-fit leading-[100%] dark:text-white'
+      className='text-text-primary-inverse tracking-tighter font-semibold flex items-center justify-center h-fit leading-[100%] dark:text-white relative z-10'
       initial={{
         y: 20,
         opacity: 0,

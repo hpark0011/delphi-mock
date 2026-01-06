@@ -46,8 +46,8 @@ export function NameSearchStep() {
       <div className='flex flex-col items-center justify-center gap-8 w-full'>
         {/* Heading and description */}
         <div className='flex flex-col gap-4 items-center justify-center max-w-md w-full'>
-          <h1 className='text-3xl font-medium'>Tell us about yourself</h1>
-          <p className='text-text-muted font-[480] text-center leading-[140%] text-[15px]'>
+          <h1 className='text-4xl font-medium'>Tell us about yourself</h1>
+          <p className='text-text-muted font-[480] text-center leading-[140%]'>
             We&apos;ll use the basics here to start training Digital Hyunsol.
           </p>
         </div>
@@ -58,7 +58,7 @@ export function NameSearchStep() {
         <div className='flex gap-2 items-center justify-center flex-col w-full'>
           <Button
             size='lg'
-            className='w-full rounded-full max-w-[348px]'
+            className='w-full rounded-full max-w-[348px] h-11 text-[15px]'
             variant='primary'
             onClick={handleContinue}
             disabled={isLoading}
@@ -72,13 +72,13 @@ export function NameSearchStep() {
           <Button
             size='sm'
             variant='ghost'
-            className='hover:bg-transparent text-text-muted'
+            className='hover:bg-transparent text-text-muted text-sm'
           >
             Not you? Search again
           </Button>
         </div>
 
-        <div className='mt-8 flex items-center justify-center '>
+        <div className='absolute bottom-20'>
           <OnboardingPrivacyStatement />
         </div>
       </div>

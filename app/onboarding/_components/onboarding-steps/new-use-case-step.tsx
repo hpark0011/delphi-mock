@@ -47,15 +47,15 @@ export function NewUseCaseStep() {
   };
 
   return (
-    <div className='flex flex-col items-center justify-center h-full'>
+    <div className='flex flex-col items-center justify-center h-full mb-20'>
       <div className='flex flex-col items-center justify-center gap-8 w-full max-w-2xl px-4'>
         {/* Heading and description */}
         <div className='flex flex-col gap-4 items-center justify-center max-w-md w-full'>
-          <h1 className='text-3xl font-medium text-center'>
+          <h1 className='text-4xl font-medium text-center'>
             What should your <br /> Delphi help you do?
           </h1>
           <div className='flex flex-col gap-1 items-center justify-center'>
-            <p className='text-text-muted font-[480] text-center leading-[140%] text-[15px]'>
+            <p className='text-text-muted font-[480] text-center leading-[140%]'>
               Delphi can be shaped in different directions. <br /> Choose up to
               3 areas where you want it to stand out.
             </p>
@@ -89,7 +89,7 @@ export function NewUseCaseStep() {
         <div className='flex flex-col gap-2 items-center justify-center w-full'>
           <Button
             size='lg'
-            className='w-full rounded-full max-w-[348px]'
+            className='w-full rounded-full max-w-[348px] h-11 text-[15px]'
             variant='primary'
             onClick={startAnimation}
             disabled={isLoading}
@@ -102,7 +102,7 @@ export function NewUseCaseStep() {
           </Button>
         </div>
 
-        <div className='mt-8 flex items-center justify-center '>
+        <div className='absolute bottom-0'>
           <OnboardingPrivacyStatement />
         </div>
       </div>

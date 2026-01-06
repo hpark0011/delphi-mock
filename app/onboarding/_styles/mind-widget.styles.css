@@ -1,8 +1,8 @@
 .mind-bubble-wrapper,
 .mind-bubble {
-  border-radius: 80px;
+  border-radius: 120px;
   /* @ts-expect-error - cornerShape is a new CSS property */
-  corner-shape: superellipse(1.02);
+  corner-shape: superellipse(1.3);
 }
 
 /* Luminating animation - pulsing glow while training is active */

@@ -2,7 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { ExitIcon } from "@/delphi-ui/icons/Exit";
-import { MindWidgetSmall } from "@/components/mind-widget/mind-widget-small";
+import { MindWidgetSmall } from "@/features/mind-widget";
 
 interface InterviewHeaderProps {
   onExit?: () => void;
@@ -27,11 +27,13 @@ export function InterviewHeader({
           <Button
             size='sm'
             onClick={onExit}
-            className='gap-1 rounded-full h-7 has-[>svg]:px-3 hover:opacity-70'
+            className='gap-1 rounded-full h-8 has-[>svg]:px-3 hover:opacity-70'
             variant='secondary'
           >
             <ExitIcon className='size-4 text-icon-dark' />
-            {hasResponses ? "Save & Exit" : "Exit"}
+            <span className='hidden lg:inline'>
+              {hasResponses ? "Save & Exit" : "Exit"}
+            </span>
           </Button>
         </div>
       </div>

@@ -2,12 +2,21 @@
 
 import { useWidgetConfig } from "@/app/onboarding/_context";
 import { cn } from "@/lib/utils";
+import {
+  BaseGradientOverlay,
+  GlassEffectHighlight,
+  LevelAccentShadow,
+  LevelAccentGradient,
+} from "@/features/mind-widget";
 import { motion } from "framer-motion";
 import { ReactNode, useMemo, useRef } from "react";
 import { getMotionProps } from "../../_utils/widget-config";
 
 interface OnboardingMindWidgetBubbleProps {
   children: ReactNode;
+  dropShadow?: string;
+  shadowString?: string;
+  lightColor?: string;
 }
 
 /**
@@ -16,6 +25,9 @@ interface OnboardingMindWidgetBubbleProps {
  */
 export function OnboardingMindWidgetBubble({
   children,
+  dropShadow,
+  shadowString,
+  lightColor,
 }: OnboardingMindWidgetBubbleProps) {
   const { config } = useWidgetConfig();
   const motionProps = useMemo(() => getMotionProps(config), [config]);
@@ -33,6 +45,7 @@ export function OnboardingMindWidgetBubble({
         "flex flex-col items-center justify-center",
         "relative"
       )}
+      style={{ boxShadow: dropShadow }}
       initial={motionProps.initial}
       animate={motionProps.animate}
       transition={motionProps.transition}
@@ -50,6 +63,12 @@ export function OnboardingMindWidgetBubble({
       }}
     >
       {children}
+
+      {/* Visual overlay layers */}
+      <BaseGradientOverlay />
+      <GlassEffectHighlight />
+      {shadowString && <LevelAccentShadow shadowString={shadowString} />}
+      {lightColor && <LevelAccentGradient lightColor={lightColor} progress={0} />}
     </motion.div>
   );
 }

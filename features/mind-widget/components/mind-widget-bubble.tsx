@@ -16,7 +16,7 @@ interface MindWidgetBubbleProps {
 }
 
 // Base gradient overlay component
-function BaseGradientOverlay() {
+export function BaseGradientOverlay() {
   return (
     <div
       className={cn(
@@ -32,7 +32,7 @@ function BaseGradientOverlay() {
 }
 
 // Glass effect highlight component
-function GlassEffectHighlight() {
+export function GlassEffectHighlight() {
   return (
     <div
       className={cn(
@@ -54,11 +54,11 @@ function GlassEffectHighlight() {
 }
 
 // Level accent shadow overlay component
-interface LevelAccentShadowProps {
+export interface LevelAccentShadowProps {
   shadowString: string;
 }
 
-function LevelAccentShadow({ shadowString }: LevelAccentShadowProps) {
+export function LevelAccentShadow({ shadowString }: LevelAccentShadowProps) {
   return (
     <div
       className={cn(
@@ -77,12 +77,12 @@ function LevelAccentShadow({ shadowString }: LevelAccentShadowProps) {
 }
 
 // Level accent gradient overlay component
-interface LevelAccentGradientProps {
+export interface LevelAccentGradientProps {
   lightColor: string;
   progress: number; // 0-100, percentage toward next level
 }
 
-function LevelAccentGradient({
+export function LevelAccentGradient({
   lightColor,
   progress,
 }: LevelAccentGradientProps) {
