@@ -67,7 +67,7 @@ export function MindTrainingStatusMini({
               {...SLIDE_ANIMATION}
               className='flex items-center gap-1'
             >
-              <span className='text-[13px] font-medium'>Completed!</span>
+              <span className='text-sm font-medium'>Completed!</span>
               <TrainingResultBadges
                 completedCount={completedCount}
                 failedCount={failedCount}
