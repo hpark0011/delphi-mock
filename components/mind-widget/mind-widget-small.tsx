@@ -3,20 +3,16 @@
 import { useMindScore } from "@/features/mind-score";
 import {
   generateSmallWidgetShadowString,
+  generateDropShadow,
   getLevelShadowColors,
+  MindWidgetScore,
 } from "@/features/mind-widget";
 import { useTrainingState } from "@/hooks/use-training-state";
 import { cn } from "@/lib/utils";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence } from "framer-motion";
 import { useCallback, useState } from "react";
 import { useMindDialog } from "@/features/mind-dialog";
 import { MiniTrainingStatus } from "./training-status-small";
-
-const SPRING_CONFIG = {
-  type: "spring" as const,
-  stiffness: 300,
-  damping: 25,
-};
 
 interface MindWidgetSmallProps {
   disableClick?: boolean;
@@ -33,7 +29,8 @@ export function MindWidgetSmall({
   const [isDismissed, setIsDismissed] = useState(false);
 
   // Show widget when training is active or finished, unless dismissed
-  const isWidgetVisible = (status === "active" || status === "finished") && !isDismissed;
+  const isWidgetVisible =
+    (status === "active" || status === "finished") && !isDismissed;
 
   // Reset dismissed state when status changes to active (new training started)
   if (status === "active" && isDismissed) {
@@ -53,16 +50,18 @@ export function MindWidgetSmall({
   // Get level-based shadow colors
   const levelColors = getLevelShadowColors(level);
   const shadowString = generateSmallWidgetShadowString(levelColors);
+  const dropShadow = generateDropShadow(levelColors);
 
   return (
     <div className='flex gap-2 relative justify-start items-center rounded-full bg-sand-10/8'>
       {/* Mindscore Trigger */}
       <div
         className={cn(
-          "flex items-center p-0.5 bg-sand-10/8 rounded-full transition-all duration-200 w-fit relative",
+          "flex items-center bg-sand-10/8 rounded-full transition-all duration-200 w-fit relative",
           !disableClick && "hover:scale-108 cursor-pointer"
         )}
         onClick={handleClick}
+        style={{ boxShadow: dropShadow }}
       >
         {/* Mindscore Wrapper */}
         <div
@@ -76,34 +75,12 @@ export function MindWidgetSmall({
           }}
         >
           {/* Mindscore Value */}
-          <span className='text-text-primary-inverse dark:text-text-primary text-[16px] font-semibold'>
-            {current}
-          </span>
+          <MindWidgetScore
+            score={current}
+            className="text-text-primary-inverse dark:text-text-primary"
+            fontSize="text-[16px]"
+          />
         </div>
-
-        {/* Mind Area Inner */}
-        <motion.div
-          className='rounded-full absolute'
-          initial={{
-            top: "",
-            left: "",
-            width: "0px",
-            height: "0px",
-            filter: "blur(0px)",
-            boxShadow:
-              "inset 0px -2px 2px 0px rgba(255,255,255,0.9), inset 0px 5px 2px 0px rgba(255,255,255,0.5), inset 0px 4px 4px 0px rgba(255,255,255,0), inset 0px 1px 1px 0.5px rgba(255,255,255,0.7)",
-          }}
-          animate={{
-            top: "1px",
-            left: "1px",
-            width: "calc(100% - 2px)",
-            height: "calc(100% - 2px)",
-            filter: "blur(3px)",
-            boxShadow:
-              "inset 0px -2px 2px 0px rgba(255,255,255,0.9), inset 0px 5px 2px 0px rgba(255,255,255,0.5), inset 0px 4px 4px 0px rgba(255,255,255,0), inset 0px 1px 1px 0.5px rgba(255,255,255,0.7)",
-          }}
-          transition={SPRING_CONFIG}
-        />
       </div>
       <AnimatePresence>
         {isWidgetVisible && (

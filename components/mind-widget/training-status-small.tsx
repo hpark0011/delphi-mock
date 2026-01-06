@@ -1,12 +1,15 @@
 "use client";
 
 import { useMindDialog, type TrainingDocType } from "@/features/mind-dialog";
+import {
+  SLIDE_ANIMATION,
+  TrainingResultBadges,
+} from "@/features/mind-widget";
 import { MindStatusIcon } from "@/components/mind-status-icon";
 import { Icon } from "@/components/ui/icon";
 import { getDocTypeIcon } from "@/utils/doc-type-helpers";
 import { AnimatePresence, motion, type Transition } from "framer-motion";
 import { useLayoutEffect, useRef, useState, useEffect } from "react";
-import { TrainingResultBadges } from "@/features/mind-widget/components/training-result-badges";
 import { useTrainingState } from "@/hooks/use-training-state";
 
 type DisplayState = "learning" | "newItem" | "finished";
@@ -15,13 +18,6 @@ const SPRING_CONFIG: Transition = {
   type: "spring",
   stiffness: 600,
   damping: 30,
-};
-
-const SLIDE_ANIMATION = {
-  initial: { y: 20, opacity: 0, filter: "blur(10px)" },
-  animate: { y: 0, opacity: 1, filter: "blur(0px)" },
-  exit: { y: -20, opacity: 0, filter: "blur(10px)" },
-  transition: { duration: 0.2, ease: "easeInOut" as const },
 };
 
 function StatusIcon({

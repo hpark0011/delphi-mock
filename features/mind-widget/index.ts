@@ -24,3 +24,8 @@ export {
   type LevelColors,
   type SvgShadowColors,
 } from "./utils/level-shadows";
+
+export { SLIDE_ANIMATION, CONTAINER_ANIMATION } from "./utils/animations";
+
+// Additional Components
+export { GlassInnerGlow } from "./components/glass-inner-glow";
