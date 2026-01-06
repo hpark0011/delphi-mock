@@ -33,7 +33,7 @@ export function MindTrainingStatusLabel({
   useLayoutEffect(() => {
     if (measureRef.current) {
       const { width } = measureRef.current.getBoundingClientRect();
-      setLabelWidth(isNewItem ? Math.min(width, 184) : width);
+      setLabelWidth(isNewItem ? Math.min(width, 200) : width);
     }
   }, [labelText, isNewItem]);
 
@@ -42,7 +42,7 @@ export function MindTrainingStatusLabel({
       {/* Hidden copy to measure width */}
       <div
         ref={measureRef}
-        className='absolute invisible whitespace-nowrap text-[13px]'
+        className='absolute invisible whitespace-nowrap text-sm'
       >
         {labelText}
       </div>
@@ -56,7 +56,7 @@ export function MindTrainingStatusLabel({
         <AnimatePresence mode='sync' initial={false}>
           <motion.div
             key={state + labelText}
-            className={`text-[13px] dark:text-white/90 ${isNewItem ? "max-w-[184px] truncate" : "whitespace-nowrap"}`}
+            className={`text-sm dark:text-white/90 ${isNewItem ? "max-w-[204px] truncate" : "whitespace-nowrap"}`}
             initial={{
               y: -20,
               opacity: 0,
