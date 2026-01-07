@@ -4,14 +4,14 @@ import { useMindDialog } from "@/features/mind-dialog";
 import { useTrainingState } from "@/hooks/use-training-state";
 import { cn } from "@/lib/utils";
 import { AnimatePresence } from "framer-motion";
-import { useCallback, useState } from "react";
+import { useState } from "react";
 import {
   generateSmallWidgetShadowString,
   generateDropShadow,
   getLevelShadowColors,
 } from "../utils/level-shadows";
 import { MindWidgetScore } from "./mind-widget-score";
-import { MindTrainingStatusMini } from "./mind-training-status-mini";
+import { MindWidgetTrainingStatus } from "./mind-widget-training-status";
 
 interface MindWidgetSmallProps {
   score?: number;
@@ -44,18 +44,13 @@ export function MindWidgetSmall({
     open({ tab: "add-knowledge" });
   };
 
-  // Called after MindTrainingStatusMini finishes showing "Completed!" for 2 seconds
-  const handleWidgetDismiss = useCallback(() => {
-    setIsDismissed(true);
-  }, []);
-
   // Get level-based shadow colors
   const levelColors = getLevelShadowColors(level);
   const shadowString = generateSmallWidgetShadowString(levelColors);
   const dropShadow = generateDropShadow(levelColors);
 
   return (
-    <div className='flex gap-2 relative justify-start items-center rounded-full bg-sand-10/8 dark:bg-sand-2'>
+    <div className='flex gap-0 relative justify-start items-center rounded-full bg-sand-10/8 dark:bg-sand-2'>
       {/* Mindscore Trigger */}
       <div
         className={cn(
@@ -85,12 +80,7 @@ export function MindWidgetSmall({
         </div>
       </div>
       <AnimatePresence>
-        {isWidgetVisible && (
-          <MindTrainingStatusMini
-            onDismiss={handleWidgetDismiss}
-            disableTooltips={disableClick}
-          />
-        )}
+        {isWidgetVisible && <MindWidgetTrainingStatus variant='small' />}
       </AnimatePresence>
     </div>
   );
