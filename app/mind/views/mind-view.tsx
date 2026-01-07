@@ -11,7 +11,7 @@ export default function MindView() {
     <div className='h-full p-6 max-w-7xl mx-auto pl-[64px]'>
       <VariantsGrid>
         <VariantCard>
-          <div className='flex flex-col items-center justify-center pt-4'>
+          <div className='flex flex-col items-center justify-center pt-2'>
             <MindWidget score={current} level={level} />
           </div>
         </VariantCard>

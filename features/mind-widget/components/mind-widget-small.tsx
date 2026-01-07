@@ -1,5 +1,6 @@
 "use client";
 
+import React from "react";
 import { cn } from "@/lib/utils";
 import { AnimatePresence } from "framer-motion";
 import { calculateLevelProgress } from "@/features/mind-score";
@@ -24,7 +25,7 @@ export function MindWidgetSmall({
   level = "Skilled",
   disableClick = false,
 }: MindWidgetSmallProps) {
-  const { isTrainingVisible, openAddKnowledge } = useMindWidgetState();
+  const { status, isTrainingVisible, openAddKnowledge } = useMindWidgetState();
 
   const handleClick = () => {
     if (disableClick) return;
@@ -57,7 +58,7 @@ export function MindWidgetSmall({
             // Layout
             "flex flex-col gap-2",
             // Shape
-            "rounded-full overflow-hidden",
+            "rounded-full overflow-hidden mind-widget-bubble",
             // Background
             "bg-black/87 dark:bg-black",
             // Border
@@ -71,9 +72,16 @@ export function MindWidgetSmall({
             // Interactive states
             !disableClick && "cursor-pointer hover:bg-black/84"
           )}
-          style={{
-            boxShadow: shadowString.replace(/_/g, " "),
-          }}
+          style={
+            {
+              boxShadow: shadowString.replace(/_/g, " "),
+              "--pill-color-light": levelColors.light,
+              "--pill-color-medium": levelColors.medium,
+              "--pill-color-dark": levelColors.dark,
+            } as React.CSSProperties
+          }
+          data-luminating={status === "active"}
+          data-glowing={status === "finished"}
         >
           {/* Mindscore Value */}
           <div className='relative z-10'>
