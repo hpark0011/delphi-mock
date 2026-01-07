@@ -5,5 +5,5 @@ interface VariantsGridProps {
 }
 
 export function VariantsGrid({ children }: VariantsGridProps) {
-  return <div className='grid grid-cols-4 gap-2'>{children}</div>;
+  return <div className='grid grid-cols-3 gap-2'>{children}</div>;
 }
