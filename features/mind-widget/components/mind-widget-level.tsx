@@ -1,3 +1,4 @@
+import { BrainIcon } from "@/delphi-ui/icons/Brain";
 import { cn } from "@/lib/utils";
 import React from "react";
 
@@ -10,10 +11,11 @@ export function MindWidgetLevel({ level, className }: MindWidgetLevelProps) {
   return (
     <div
       className={cn(
-        "w-full flex items-center justify-center pb-0.5",
+        "w-full flex items-center justify-center pb-0.5 gap-0.5 ml-[-4px]",
         className
       )}
     >
+      <BrainIcon className='size-3.5 text-sand-5 min-w-[14px]' />
       <div className='text-sand-4 dark:text-sand-11 text-[13px] font-[480] text-center leading-[100%] tracking-tight'>
         {level}
       </div>
