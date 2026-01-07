@@ -1,7 +1,6 @@
 "use client";
 
 import { useMindDialog } from "@/features/mind-dialog";
-import { useMindScore } from "@/features/mind-score";
 import { useTrainingState } from "@/hooks/use-training-state";
 import { cn } from "@/lib/utils";
 import { AnimatePresence } from "framer-motion";
@@ -15,14 +14,17 @@ import { MindWidgetScore } from "./mind-widget-score";
 import { MindTrainingStatusMini } from "./mind-training-status-mini";
 
 interface MindWidgetSmallProps {
+  score?: number;
+  level?: string;
   disableClick?: boolean;
 }
 
 export function MindWidgetSmall({
+  score = 20,
+  level = "Skilled",
   disableClick = false,
 }: MindWidgetSmallProps) {
   const { open } = useMindDialog();
-  const { current, level } = useMindScore();
   const { status } = useTrainingState();
 
   // Local override for manual dismissal
@@ -76,7 +78,7 @@ export function MindWidgetSmall({
         >
           {/* Mindscore Value */}
           <MindWidgetScore
-            score={current}
+            score={score}
             className='text-text-primary-inverse dark:text-text-primary'
             fontSize='text-[16px]'
           />
