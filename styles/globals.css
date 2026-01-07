@@ -7,6 +7,7 @@
 @import "./background-colors.css";
 @import "./shadows.css";
 @import "./profile.css";
+@import "@/features/nav-menu/styles/nav-menu.styles.css";
 
 @custom-variant dark (&:is(.dark *));
 

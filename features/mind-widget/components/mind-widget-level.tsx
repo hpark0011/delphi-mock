@@ -15,7 +15,7 @@ export function MindWidgetLevel({ level, className }: MindWidgetLevelProps) {
         className
       )}
     >
-      <BrainIcon className='size-3.5 text-sand-5 min-w-[14px]' />
+      <BrainIcon className='size-4 text-sand-8 min-w-[16px] dark:text-sand-9' />
       <div className='text-sand-4 dark:text-sand-11 text-[13px] font-[480] text-center leading-[100%] tracking-tight'>
         {level}
       </div>

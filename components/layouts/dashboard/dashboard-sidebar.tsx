@@ -1,6 +1,6 @@
 "use client";
 
-import { SimpleSidebar } from "@/components/nav-menu/simple-sidebar";
+import { SimpleSidebar } from "@/features/nav-menu";
 
 export function DashboardSidebar() {
   return <SimpleSidebar />;
