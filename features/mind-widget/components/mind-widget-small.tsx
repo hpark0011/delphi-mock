@@ -2,12 +2,14 @@
 
 import { cn } from "@/lib/utils";
 import { AnimatePresence } from "framer-motion";
+import { calculateLevelProgress } from "@/features/mind-score";
 import { useMindWidgetState } from "../hooks/use-mind-widget-state";
 import {
   generateSmallWidgetShadowString,
   generateDropShadow,
   getLevelShadowColors,
 } from "../utils/level-shadows";
+import { LevelAccentGradient } from "./mind-widget-bubble";
 import { MindWidgetScore } from "./mind-widget-score";
 import { MindWidgetTrainingStatus } from "./mind-widget-training-status";
 
@@ -33,6 +35,9 @@ export function MindWidgetSmall({
   const levelColors = getLevelShadowColors(level);
   const shadowString = generateSmallWidgetShadowString(levelColors);
   const dropShadow = generateDropShadow(levelColors);
+
+  // Calculate progress toward next level
+  const progress = calculateLevelProgress(score);
 
   return (
     <div className='flex gap-0 relative justify-start items-center rounded-full bg-sand-3'>
@@ -71,11 +76,15 @@ export function MindWidgetSmall({
           }}
         >
           {/* Mindscore Value */}
-          <MindWidgetScore
-            score={score}
-            className='text-text-primary-inverse dark:text-text-primary'
-            fontSize='text-[16px]'
-          />
+          <div className='relative z-10'>
+            <MindWidgetScore
+              score={score}
+              className='text-text-primary-inverse dark:text-text-primary'
+              fontSize='text-[16px]'
+            />
+          </div>
+          {/* Progress fill */}
+          <LevelAccentGradient lightColor={levelColors.light} progress={progress} />
         </div>
       </div>
       <AnimatePresence>

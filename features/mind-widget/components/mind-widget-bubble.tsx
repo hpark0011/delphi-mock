@@ -76,16 +76,16 @@ export function LevelAccentShadow({ shadowString }: LevelAccentShadowProps) {
   );
 }
 
-// Level accent gradient overlay component
-export interface LevelAccentGradientProps {
+// Level progress fill - fills bubble from bottom based on progress toward next level
+export interface LevelProgressFillProps {
   lightColor: string;
   progress: number; // 0-100, percentage toward next level
 }
 
-export function LevelAccentGradient({
+export function LevelProgressFill({
   lightColor,
   progress,
-}: LevelAccentGradientProps) {
+}: LevelProgressFillProps) {
   // Clamp progress between 0 and 100
   const fillPercent = Math.min(Math.max(progress, 0), 100);
 
