@@ -107,6 +107,28 @@ export function LevelProgressFill({
   );
 }
 
+// Glow animation overlay - renders on top of other layers for visible inset shadows
+export interface GlowAnimationOverlayProps {
+  queueStatus: "idle" | "active" | "finished";
+}
+
+export function GlowAnimationOverlay({ queueStatus }: GlowAnimationOverlayProps) {
+  return (
+    <div
+      className={cn(
+        // Positioning
+        "absolute inset-0",
+        // Shape
+        "rounded-full mind-widget-bubble",
+        // Interaction
+        "pointer-events-none"
+      )}
+      data-luminating={queueStatus === "active"}
+      data-glowing={queueStatus === "finished"}
+    />
+  );
+}
+
 export function MindWidgetBubble({
   children,
   className,
@@ -151,8 +173,6 @@ export function MindWidgetBubble({
           "--pill-color-dark": levelColors.dark,
         } as React.CSSProperties
       }
-      data-luminating={queueStatus === "active"}
-      data-glowing={queueStatus === "finished"}
       onClick={onClick}
     >
       {children}
@@ -161,6 +181,7 @@ export function MindWidgetBubble({
       <GlassEffectHighlight />
       <LevelAccentShadow shadowString={shadowString} />
       <LevelProgressFill lightColor={levelColors.light} progress={progress} />
+      <GlowAnimationOverlay queueStatus={queueStatus} />
     </div>
   );
 }
