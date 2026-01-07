@@ -6,7 +6,7 @@ export {
   BaseGradientOverlay,
   GlassEffectHighlight,
   LevelAccentShadow,
-  LevelAccentGradient,
+  LevelProgressFill,
 } from "./components/mind-widget-bubble";
 export { MindWidgetScore } from "./components/mind-widget-score";
 export { MindWidgetLevel } from "./components/mind-widget-level";

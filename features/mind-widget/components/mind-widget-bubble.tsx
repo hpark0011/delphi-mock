@@ -160,7 +160,7 @@ export function MindWidgetBubble({
       <BaseGradientOverlay />
       <GlassEffectHighlight />
       <LevelAccentShadow shadowString={shadowString} />
-      <LevelAccentGradient lightColor={levelColors.light} progress={progress} />
+      <LevelProgressFill lightColor={levelColors.light} progress={progress} />
     </div>
   );
 }

@@ -9,7 +9,7 @@ import {
   generateDropShadow,
   getLevelShadowColors,
 } from "../utils/level-shadows";
-import { LevelAccentGradient } from "./mind-widget-bubble";
+import { LevelProgressFill } from "./mind-widget-bubble";
 import { MindWidgetScore } from "./mind-widget-score";
 import { MindWidgetTrainingStatus } from "./mind-widget-training-status";
 
@@ -84,7 +84,7 @@ export function MindWidgetSmall({
             />
           </div>
           {/* Progress fill */}
-          <LevelAccentGradient lightColor={levelColors.light} progress={progress} />
+          <LevelProgressFill lightColor={levelColors.light} progress={progress} />
         </div>
       </div>
       <AnimatePresence>
