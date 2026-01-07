@@ -1,10 +1,8 @@
 "use client";
 
-import { useMindDialog } from "@/features/mind-dialog";
-import { useTrainingState } from "@/hooks/use-training-state";
 import { cn } from "@/lib/utils";
 import { AnimatePresence } from "framer-motion";
-import { useState } from "react";
+import { useMindWidgetState } from "../hooks/use-mind-widget-state";
 import {
   generateSmallWidgetShadowString,
   generateDropShadow,
@@ -24,24 +22,11 @@ export function MindWidgetSmall({
   level = "Skilled",
   disableClick = false,
 }: MindWidgetSmallProps) {
-  const { open } = useMindDialog();
-  const { status } = useTrainingState();
-
-  // Local override for manual dismissal
-  const [isDismissed, setIsDismissed] = useState(false);
-
-  // Show widget when training is active or finished, unless dismissed
-  const isWidgetVisible =
-    (status === "active" || status === "finished") && !isDismissed;
-
-  // Reset dismissed state when status changes to active (new training started)
-  if (status === "active" && isDismissed) {
-    setIsDismissed(false);
-  }
+  const { isTrainingVisible, openAddKnowledge } = useMindWidgetState();
 
   const handleClick = () => {
     if (disableClick) return;
-    open({ tab: "add-knowledge" });
+    openAddKnowledge();
   };
 
   // Get level-based shadow colors
@@ -80,7 +65,7 @@ export function MindWidgetSmall({
         </div>
       </div>
       <AnimatePresence>
-        {isWidgetVisible && <MindWidgetTrainingStatus variant='small' />}
+        {isTrainingVisible && <MindWidgetTrainingStatus variant='small' />}
       </AnimatePresence>
     </div>
   );

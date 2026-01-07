@@ -1,9 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { useMindDialog } from "@/features/mind-dialog";
 import { calculateLevelProgress } from "@/features/mind-score";
-import { useTrainingState } from "@/hooks/use-training-state";
 import { AnimatePresence } from "framer-motion";
 import { MindLevelInfoDialog } from "./components/mind-level-info-dialog";
 import { MindWidgetBubble } from "./components/mind-widget-bubble";
@@ -12,6 +10,7 @@ import { MindWidgetLevel } from "./components/mind-widget-level";
 import { MindWidgetScore } from "./components/mind-widget-score";
 import { MindWidgetTrainingStatus } from "./components/mind-widget-training-status";
 import { MindWidgetWrapper } from "./components/mind-widget-wrapper";
+import { useMindWidgetState } from "./hooks/use-mind-widget-state";
 import "./styles/mind-widget.styles.css";
 
 interface MindWidgetProps {
@@ -23,21 +22,13 @@ export function MindWidget({
   score = 20,
   level = "Skilled",
 }: MindWidgetProps = {}) {
-  const { open } = useMindDialog();
-  const { status } = useTrainingState();
+  const { status, isTrainingVisible, openAddKnowledge } = useMindWidgetState();
 
   // Calculate progress toward next level
   const progress = calculateLevelProgress(score);
 
-  // Derive visibility from status (no state sync needed)
-  const isStatusVisible = status === "active" || status === "finished";
-
   // Dialog state for mind level info
   const [isInfoDialogOpen, setIsInfoDialogOpen] = useState(false);
-
-  const handleMindWidgetClick = () => {
-    open({ tab: "add-knowledge" });
-  };
 
   return (
     <MindWidgetWrapper className='gap-1.5'>
@@ -45,7 +36,7 @@ export function MindWidget({
         className='min-w-[112px] z-10 relative'
         level={level}
         progress={progress}
-        onClick={handleMindWidgetClick}
+        onClick={openAddKnowledge}
         queueStatus={status}
       >
         <div className='relative z-10 flex flex-col h-full gap-1 justify-center items-center p-1.5'>
@@ -58,7 +49,7 @@ export function MindWidget({
 
       {/* Training Status - below bubble */}
       <AnimatePresence>
-        {isStatusVisible ? (
+        {isTrainingVisible ? (
           <MindWidgetTrainingStatus />
         ) : (
           <MindWidgetInfo onClick={() => setIsInfoDialogOpen(true)} />

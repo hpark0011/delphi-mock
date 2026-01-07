@@ -18,6 +18,9 @@ export { MindWidgetSmall } from "./components/mind-widget-small";
 export { MindTrainingStatusIcon } from "./components/mind-training-status-icon";
 export { MindTrainingStatusLabel } from "./components/mind-training-status-label";
 
+// Hooks
+export { useMindWidgetState } from "./hooks/use-mind-widget-state";
+
 // Utils
 export {
   getLevelShadowColors,
