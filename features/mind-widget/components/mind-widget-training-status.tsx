@@ -18,10 +18,12 @@ function createBadgeHandlers(open: (options?: OpenDialogOptions) => void) {
 
 interface MindWidgetTrainingStatusProps {
   variant?: "default" | "small";
+  hasBrainIcon?: boolean;
 }
 
 export function MindWidgetTrainingStatus({
   variant = "default",
+  hasBrainIcon = true,
 }: MindWidgetTrainingStatusProps) {
   const { open } = useMindDialog();
 
@@ -66,6 +68,7 @@ export function MindWidgetTrainingStatus({
               completedCount={completedCount}
               failedCount={failedCount}
               {...badgeHandlers}
+              hasBrainIcon={hasBrainIcon}
             />
           )}
         </AnimatePresence>

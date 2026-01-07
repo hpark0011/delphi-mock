@@ -59,7 +59,7 @@ export function MindWidgetV2({
       {/* Training Status - below bubble */}
       <AnimatePresence>
         {isTrainingVisible ? (
-          <MindWidgetTrainingStatus />
+          <MindWidgetTrainingStatus hasBrainIcon={false} />
         ) : (
           <MindWidgetInfo onClick={() => setIsInfoDialogOpen(true)} />
         )}

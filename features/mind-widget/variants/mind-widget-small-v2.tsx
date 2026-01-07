@@ -13,6 +13,7 @@ import {
 import { LevelProgressFill } from "../components/mind-widget-bubble";
 import { MindWidgetScore } from "../components/mind-widget-score";
 import { MindWidgetTrainingStatus } from "../components/mind-widget-training-status";
+import { BrainIcon } from "@/delphi-ui/icons/Brain";
 
 interface MindWidgetSmallV2Props {
   score?: number;
@@ -86,11 +87,14 @@ export function MindWidgetSmallV2({
         >
           {/* Mindscore Value */}
           <div className='relative z-10'>
-            <MindWidgetScore
-              score={score}
-              className='text-text-primary-inverse dark:text-text-primary'
-              fontSize='text-[16px]'
-            />
+            <div className='flex items-center justify-center gap-0.5'>
+              <BrainIcon className='size-4 text-sand-1/50 min-w-[16px] dark:text-sand-12/50' />
+              <MindWidgetScore
+                score={score}
+                className='text-text-primary-inverse dark:text-text-primary'
+                fontSize='text-[16px]'
+              />
+            </div>
           </div>
           {/* Progress fill */}
           <LevelProgressFill
@@ -100,7 +104,9 @@ export function MindWidgetSmallV2({
         </div>
       </div>
       <AnimatePresence>
-        {isTrainingVisible && <MindWidgetTrainingStatus variant='small' />}
+        {isTrainingVisible && (
+          <MindWidgetTrainingStatus variant='small' hasBrainIcon={false} />
+        )}
       </AnimatePresence>
     </div>
   );
