@@ -1,18 +1,20 @@
 // Components
-export { MindWidget } from "./mind-widget";
-export { MindWidgetWrapper } from "./components/mind-widget-wrapper";
+export { MindProfileButton } from "./components/mind-profile-button";
 export {
-  MindWidgetBubble,
   BaseGradientOverlay,
   GlassEffectHighlight,
   LevelAccentShadow,
   LevelProgressFill,
+  MindWidgetBubble,
 } from "./components/mind-widget-bubble";
-export { MindWidgetScore } from "./components/mind-widget-score";
 export { MindWidgetLevel } from "./components/mind-widget-level";
+export { MindWidgetScore } from "./components/mind-widget-score";
+export { MindWidgetWrapper } from "./components/mind-widget-wrapper";
 export { TrainingResultBadges } from "./components/training-result-badges";
-export { MindProfileButton } from "./components/mind-profile-button";
-export { MindWidgetSmall } from "./components/mind-widget-small";
+export { MindWidget } from "./mind-widget";
+export { MindWidgetSmall } from "./mind-widget-small";
+export { MindWidgetSmallV2 } from "./variants/mind-widget-small-v2";
+export { MindWidgetV2 } from "./variants/mind-widget-v2";
 
 // Training Status Components (atomic)
 export { MindTrainingStatusIcon } from "./components/mind-training-status-icon";
@@ -23,17 +25,17 @@ export { useMindWidgetState } from "./hooks/use-mind-widget-state";
 
 // Utils
 export {
-  getLevelShadowColors,
+  generateDropShadow,
   generateShadowString,
   generateSmallWidgetShadowString,
-  generateDropShadow,
+  getLevelShadowColors,
   getLevelSvgShadowColors,
   NEUTRAL_COLORS,
   type LevelColors,
   type SvgShadowColors,
 } from "./utils/level-shadows";
 
-export { SLIDE_ANIMATION, CONTAINER_ANIMATION } from "./utils/animations";
+export { CONTAINER_ANIMATION, SLIDE_ANIMATION } from "./utils/animations";
 
 // Additional Components
 export { GlassInnerGlow } from "./components/glass-inner-glow";

@@ -4,15 +4,15 @@ import React from "react";
 import { cn } from "@/lib/utils";
 import { AnimatePresence } from "framer-motion";
 import { calculateLevelProgress } from "@/features/mind-score";
-import { useMindWidgetState } from "../hooks/use-mind-widget-state";
+import { useMindWidgetState } from "./hooks/use-mind-widget-state";
 import {
   generateSmallWidgetShadowString,
   generateDropShadow,
   getLevelShadowColors,
-} from "../utils/level-shadows";
-import { LevelProgressFill } from "./mind-widget-bubble";
-import { MindWidgetScore } from "./mind-widget-score";
-import { MindWidgetTrainingStatus } from "./mind-widget-training-status";
+} from "./utils/level-shadows";
+import { LevelProgressFill } from "./components/mind-widget-bubble";
+import { MindWidgetScore } from "./components/mind-widget-score";
+import { MindWidgetTrainingStatus } from "./components/mind-widget-training-status";
 
 interface MindWidgetSmallProps {
   score?: number;
@@ -82,6 +82,7 @@ export function MindWidgetSmall({
           }
           data-luminating={status === "active"}
           data-glowing={status === "finished"}
+          data-size='small'
         >
           {/* Mindscore Value */}
           <div className='relative z-10'>
@@ -92,7 +93,10 @@ export function MindWidgetSmall({
             />
           </div>
           {/* Progress fill */}
-          <LevelProgressFill lightColor={levelColors.light} progress={progress} />
+          <LevelProgressFill
+            lightColor={levelColors.light}
+            progress={progress}
+          />
         </div>
       </div>
       <AnimatePresence>

@@ -20,7 +20,6 @@ export default function MindView() {
             <MindWidgetSmall score={current} level={level} />
           </div>
         </VariantCard>
-        <VariantCard>Item 3</VariantCard>
       </VariantsGrid>
     </div>
   );
