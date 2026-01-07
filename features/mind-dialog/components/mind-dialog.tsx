@@ -51,7 +51,13 @@ interface MindDialogProps {
   defaultTab?: MindDialogTabId;
 }
 
-export function MindDialogHeader({ level }: { level: string }) {
+export function MindDialogHeader({
+  score,
+  level,
+}: {
+  score: number;
+  level: string;
+}) {
   const { clearQueue, markAsReviewed } = useTrainingQueue();
   const { status } = useTrainingState();
   const { close } = useMindDialog();
@@ -74,7 +80,7 @@ export function MindDialogHeader({ level }: { level: string }) {
         <MindProfileButton onClick={onProfileClick} />
       </div>
       <div className='mt-2 flex flex-col items-center justify-center gap-6'>
-        <MindWidgetSmall disableClick />
+        <MindWidgetSmall score={score} level={level} disableClick />
         {/* Mind level */}
         <div className='font-medium text-center text-sand-10'>{level}</div>
       </div>
@@ -119,7 +125,7 @@ export function MindDialogProvider({
   children,
   defaultTab = DEFAULT_MIND_DIALOG_TAB,
 }: MindDialogProps) {
-  const { level } = useMindScore();
+  const { current: score, level } = useMindScore();
   const [isOpen, setIsOpen] = useState(false);
   const [activeTab, setActiveTab] = useState<MindDialogTabId>(defaultTab);
   const [initialFilter, setInitialFilter] = useState<
@@ -180,7 +186,7 @@ export function MindDialogProvider({
             className='w-full flex flex-col h-full min-h-0 gap-0'
           >
             {/* Fixed Header Section */}
-            <MindDialogHeader level={level} />
+            <MindDialogHeader score={score} level={level} />
 
             {/* Scrollable Content Section */}
             <div className='flex-1 overflow-y-auto min-h-0 p-4 pt-2'>
