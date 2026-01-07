@@ -35,7 +35,7 @@ export function MindWidgetSmall({
   const dropShadow = generateDropShadow(levelColors);
 
   return (
-    <div className='flex gap-0 relative justify-start items-center rounded-full bg-sand-10/8 dark:bg-sand-2'>
+    <div className='flex gap-0 relative justify-start items-center rounded-full bg-sand-3'>
       {/* Mindscore Trigger */}
       <div
         className={cn(
@@ -49,7 +49,21 @@ export function MindWidgetSmall({
         <div
           onClick={handleClick}
           className={cn(
-            "flex flex-col gap-2 rounded-full overflow-hidden bg-black/87 border-white/20 dark:border-white/3 dark:bg-black w-fit px-2.5 py-1.5 relative justify-center items-center min-w-[52px] h-[40px] z-0",
+            // Layout
+            "flex flex-col gap-2",
+            // Shape
+            "rounded-full overflow-hidden",
+            // Background
+            "bg-black/87 dark:bg-black",
+            // Border
+            "border-white/20 dark:border-white/3",
+            // Sizing
+            "w-fit min-w-[52px] h-[40px] px-2.5 py-1.5",
+            // Positioning
+            "relative z-0",
+            // Alignment
+            "justify-center items-center",
+            // Interactive states
             !disableClick && "cursor-pointer hover:bg-black/84"
           )}
           style={{
