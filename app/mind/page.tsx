@@ -1,10 +1,8 @@
-export default function MindPage() {
-  return (
-    <div className="flex h-full items-center justify-center">
-      <div className="text-center">
-        <h1 className="text-2xl font-semibold">Mind</h1>
-        <p className="text-muted-foreground mt-2">Coming soon</p>
-      </div>
-    </div>
-  );
+import MindView from "./views/mind-view";
+
+export default async function MindPage() {
+  // Server-side data fetching would go here
+  // const data = await fetchMindData();
+
+  return <MindView />;
 }
