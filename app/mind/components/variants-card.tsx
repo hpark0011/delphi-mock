@@ -1,0 +1,21 @@
+"use client";
+
+import { cn } from "@/lib/utils";
+
+interface VariantCardProps {
+  children: React.ReactNode;
+  className?: string;
+}
+
+export function VariantCard({ children, className }: VariantCardProps) {
+  return (
+    <div
+      className={cn(
+        "border border-sand-3 rounded-xl p-4 hover:bg-sand-2 flex flex-col items-center justify-center",
+        className
+      )}
+    >
+      {children}
+    </div>
+  );
+}
