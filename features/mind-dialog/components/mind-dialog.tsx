@@ -127,7 +127,7 @@ export function MindDialogProvider({
   children,
   defaultTab = DEFAULT_MIND_DIALOG_TAB,
 }: MindDialogProps) {
-  const { current: score, level, progressToNextLevel } = useMindScore();
+  const { current: score, level, levelProgress } = useMindScore();
   const [isOpen, setIsOpen] = useState(false);
   const [activeTab, setActiveTab] = useState<MindDialogTabId>(defaultTab);
   const [initialFilter, setInitialFilter] = useState<
@@ -188,7 +188,7 @@ export function MindDialogProvider({
             className='w-full flex flex-col h-full min-h-0 gap-0'
           >
             {/* Fixed Header Section */}
-            <MindDialogHeader score={score} level={level} progress={progressToNextLevel} />
+            <MindDialogHeader score={score} level={level} progress={levelProgress} />
 
             {/* Scrollable Content Section */}
             <div className='flex-1 overflow-y-auto min-h-0 p-4 pt-2'>

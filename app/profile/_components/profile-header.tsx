@@ -10,7 +10,7 @@ import { ProfileAvatarMenu } from "./profile-avatar-menu";
 
 export function ProfileHeader() {
   const router = useRouter();
-  const { current, level, progressToNextLevel } = useMindScore();
+  const { current, level, levelProgress } = useMindScore();
 
   return (
     <header className='sticky top-0 z-50 w-full select-none pb-1 bg-gradient-to-b from-profile-bg to-transparent'>
@@ -24,7 +24,7 @@ export function ProfileHeader() {
         <MindWidgetSmall
           score={current}
           level={level}
-          progress={progressToNextLevel}
+          progress={levelProgress}
           variant='profile'
         />
         <div className='flex justify-end'>

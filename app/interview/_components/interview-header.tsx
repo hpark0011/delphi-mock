@@ -14,7 +14,7 @@ export function InterviewHeader({
   onExit,
   hasResponses = false,
 }: InterviewHeaderProps) {
-  const { current, level, progressToNextLevel } = useMindScore();
+  const { current, level, levelProgress } = useMindScore();
 
   return (
     <header className='bg-gradient-to-b from-background via-background/80 to-transparent absolute top-0 left-0 right-0 z-10'>
@@ -22,7 +22,7 @@ export function InterviewHeader({
         <div className='flex-1' />
 
         {/* Desktop: Show "Interview" title */}
-        <MindWidgetSmall score={current} level={level} progress={progressToNextLevel} />
+        <MindWidgetSmall score={current} level={level} progress={levelProgress} />
         {/* <h1 className='text-sm font-medium hidden md:block'>Interview</h1> */}
 
         {/* Save & Exit button - right aligned */}
