@@ -15,16 +15,29 @@ import { MindWidgetScore } from "../components/mind-widget-score";
 import { MindWidgetTrainingStatus } from "../components/mind-widget-training-status";
 import { BrainIcon } from "@/delphi-ui/icons/Brain";
 
+const SMALL_WIDGET_VARIANTS = {
+  default: {
+    container: "bg-sand-3",
+  },
+  profile: {
+    container: "bg-sand-4 dark:bg-sand-3",
+  },
+} as const;
+
+type SmallWidgetVariant = keyof typeof SMALL_WIDGET_VARIANTS;
+
 interface MindWidgetSmallV2Props {
   score?: number;
   level?: string;
   disableClick?: boolean;
+  variant?: SmallWidgetVariant;
 }
 
 export function MindWidgetSmallV2({
   score = 20,
   level = "Skilled",
   disableClick = false,
+  variant = "default",
 }: MindWidgetSmallV2Props) {
   const { status, isTrainingVisible, openAddKnowledge } = useMindWidgetState();
 
@@ -41,8 +54,13 @@ export function MindWidgetSmallV2({
   // Calculate progress toward next level
   const progress = calculateLevelProgress(score);
 
+  const variantStyles = SMALL_WIDGET_VARIANTS[variant];
+
   return (
-    <div className='flex gap-0 relative justify-start items-center rounded-full bg-sand-3'>
+    <div className={cn(
+      'flex gap-0 relative justify-start items-center rounded-full',
+      variantStyles.container
+    )}>
       {/* Mindscore Trigger */}
       <div
         className={cn(
@@ -88,7 +106,7 @@ export function MindWidgetSmallV2({
           {/* Mindscore Value */}
           <div className='relative z-10'>
             <div className='flex items-center justify-center gap-0.5'>
-              <BrainIcon className='size-4 text-sand-1/50 min-w-[16px] dark:text-sand-12/50' />
+              <BrainIcon className='size-4.5 text-sand-1/50 min-w-[16px] dark:text-sand-12/50' />
               <MindWidgetScore
                 score={score}
                 className='text-text-primary-inverse dark:text-text-primary'
@@ -105,7 +123,7 @@ export function MindWidgetSmallV2({
       </div>
       <AnimatePresence>
         {isTrainingVisible && (
-          <MindWidgetTrainingStatus variant='small' hasBrainIcon={false} />
+          <MindWidgetTrainingStatus size='small' hasBrainIcon={false} variant={variant} />
         )}
       </AnimatePresence>
     </div>

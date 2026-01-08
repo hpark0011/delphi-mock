@@ -16,14 +16,27 @@ function createBadgeHandlers(open: (options?: OpenDialogOptions) => void) {
   };
 }
 
+const TRAINING_STATUS_VARIANTS = {
+  default: {
+    container: "bg-sand-3",
+  },
+  profile: {
+    container: "bg-sand-4 dark:bg-sand-3",
+  },
+} as const;
+
+type TrainingStatusVariant = keyof typeof TRAINING_STATUS_VARIANTS;
+
 interface MindWidgetTrainingStatusProps {
-  variant?: "default" | "small";
+  size?: "default" | "small";
   hasBrainIcon?: boolean;
+  variant?: TrainingStatusVariant;
 }
 
 export function MindWidgetTrainingStatus({
-  variant = "default",
+  size = "default",
   hasBrainIcon = true,
+  variant = "default",
 }: MindWidgetTrainingStatusProps) {
   const { open } = useMindDialog();
 
@@ -39,11 +52,14 @@ export function MindWidgetTrainingStatus({
   // const handleProfileClick = () => markAsReviewed();
   const badgeHandlers = createBadgeHandlers(open);
 
+  const variantStyles = TRAINING_STATUS_VARIANTS[variant];
+
   return (
     <motion.div
       className={cn(
-        "bg-sand-3 p-1 px-3.5 rounded-2xl min-h-[38px] flex items-center justify-center",
-        variant === "small" && "p-1 pl-3 pr-4"
+        "p-1 px-3.5 rounded-2xl min-h-[38px] flex items-center justify-center",
+        variantStyles.container,
+        size === "small" && "p-1 pl-3 pr-4"
       )}
       initial={CONTAINER_ANIMATION.initial}
       animate={CONTAINER_ANIMATION.animate}

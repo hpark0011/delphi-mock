@@ -6,8 +6,7 @@ import { useMindScore } from "@/features/mind-score";
 import { Button } from "@/components/ui/button";
 import { DelphiCurrentIcon } from "@/delphi-ui/icons/DelphiCurrent";
 import { ProfileMindWidget } from "./mind-widget/profile-mind-widget";
-
-// import { VerticalDivider } from "./vertical-divider";
+import { MindWidgetSmallV2 } from "@/features/mind-widget";
 
 interface ProfileHeaderProps {
   slug: string;
@@ -31,8 +30,8 @@ export function ProfileHeader(_props: ProfileHeaderProps) {
               <DelphiCurrentIcon className='h-3.5 text-icon-dark' />
             </Link>
           </div>
-          <div className='absolute top-[22px] left-1/2 -translate-x-1/2 w-full'>
-            <ProfileMindWidget mindScore={current} level={level} />
+          <div className='absolute top-[22px] left-1/2 -translate-x-1/2 w-full flex justify-center items-center'>
+            <MindWidgetSmallV2 score={current} level={level} variant="profile" />
           </div>
           <div className='flex items-center gap-5'>
             <Button

@@ -1,18 +1,18 @@
 "use client";
 
-import { useMindScore } from "@/features/mind-score";
-import { MindProfileButton } from "@/features/mind-widget/components/mind-profile-button";
-import { MindWidgetSmall } from "@/features/mind-widget";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import type { IconName } from "@/components/ui/icon";
 import { Icon } from "@/components/ui/icon";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { useTrainingQueue } from "../context/training-queue-context";
+import { useMindScore } from "@/features/mind-score";
+import { MindWidgetSmallV2 } from "@/features/mind-widget";
+import { MindProfileButton } from "@/features/mind-widget/components/mind-profile-button";
 import { useTrainingState } from "@/hooks/use-training-state";
 import { cn } from "@/lib/utils";
 import { type TrainingItemStatus } from "@/utils/training-status-helpers";
 import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
 import React, { createContext, useContext, useMemo, useState } from "react";
+import { useTrainingQueue } from "../context/training-queue-context";
 import {
   DEFAULT_MIND_DIALOG_TAB,
   MIND_DIALOG_TABS,
@@ -80,7 +80,7 @@ export function MindDialogHeader({
         <MindProfileButton onClick={onProfileClick} />
       </div>
       <div className='mt-2 flex flex-col items-center justify-center gap-6'>
-        <MindWidgetSmall score={score} level={level} disableClick />
+        <MindWidgetSmallV2 score={score} level={level} disableClick />
         {/* Mind level */}
         <div className='font-medium text-center text-sand-10'>{level}</div>
       </div>
