@@ -1,12 +1,12 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { AnimatePresence, motion } from "framer-motion";
 
 import { DelphiCurrentIcon } from "@/delphi-ui/icons/DelphiCurrent";
 import { useMindDialog } from "@/features/mind-dialog";
 import { useMindScore } from "@/features/mind-score";
 import { AddToMindButton, MindWidgetSmall } from "@/features/mind-widget";
+import { cn } from "@/lib/utils";
 
 import { useMediaQuery, useScrollDirection } from "../_hooks";
 import { ProfileAvatarMenu } from "./profile-avatar-menu";
@@ -43,23 +43,21 @@ export function ProfileHeader() {
           />
 
           {/* Mobile-only add button - visible by default, hides on scroll down */}
-          <AnimatePresence>
-            {isMobile && !isScrollingDown && (
-              <motion.div
-                initial={{ opacity: 0, y: -10, height: 0, marginTop: 0 }}
-                animate={{ opacity: 1, y: 0, height: "auto", marginTop: 4 }}
-                exit={{ opacity: 0, y: -10, height: 0, marginTop: 0 }}
-                transition={{
-                  type: "spring",
-                  stiffness: 400,
-                  damping: 30,
-                  mass: 0.8,
-                }}
-              >
-                <AddToMindButton variant='circular' onClick={handleAddClick} />
-              </motion.div>
-            )}
-          </AnimatePresence>
+          {isMobile && (
+            <div
+              className={cn(
+                "transition-all duration-300",
+                !isScrollingDown
+                  ? "opacity-100 translate-y-0 mt-1 max-h-12"
+                  : "opacity-0 -translate-y-2 mt-0 max-h-0"
+              )}
+              style={{
+                transitionTimingFunction: "cubic-bezier(0.34, 1.56, 0.64, 1)",
+              }}
+            >
+              <AddToMindButton variant='circular' onClick={handleAddClick} />
+            </div>
+          )}
         </div>
 
         {/* Right column - Desktop: add button + avatar, Mobile: avatar only */}
