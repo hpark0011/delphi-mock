@@ -35,24 +35,29 @@ export function ProfileHeader() {
 
         {/* Center column - MindWidget with mobile add button below */}
         <div className='flex flex-col items-center'>
-          <MindWidgetSmall
-            score={current}
-            level={level}
-            progress={levelProgress}
-            variant='profile'
-          />
+          <div className='relative z-10'>
+            <MindWidgetSmall
+              score={current}
+              level={level}
+              progress={levelProgress}
+              variant='profile'
+            />
+          </div>
 
           {/* Mobile-only add button - visible by default, hides on scroll down */}
           {isMobile && (
             <div
               className={cn(
-                "transition-all duration-300",
+                "transition-all mt-1",
                 !isScrollingDown
-                  ? "opacity-100 translate-y-0 mt-1 max-h-12"
-                  : "opacity-0 -translate-y-2 mt-0 max-h-0"
+                  ? "opacity-100 translate-y-0 max-h-12 scale-100"
+                  : "opacity-0 -translate-y-10 max-h-0 scale-75"
               )}
               style={{
-                transitionTimingFunction: "cubic-bezier(0.34, 1.56, 0.64, 1)",
+                transitionDuration: !isScrollingDown ? "600ms" : "300ms",
+                transitionTimingFunction: !isScrollingDown
+                  ? "linear(0, 0.0694, 0.237, 0.4486, 0.6622, 0.8494, 0.9944, 1.0924, 1.146, 1.163, 1.1531, 1.1266, 1.0924, 1.0574, 1.0265, 1.0023, 0.9858, 0.9766, 0.9735, 0.9748, 0.979, 0.9845, 0.9903, 0.9954, 0.9994, 1.0022, 1.0037, 1, 1.0041, 1.0035, 1.0026, 1.0017, 1.0008, 1.0001, 0.9997, 1, 1)"
+                  : "ease-out",
               }}
             >
               <AddToMindButton variant='circular' onClick={handleAddClick} />

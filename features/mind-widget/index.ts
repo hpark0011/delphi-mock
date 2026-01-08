@@ -14,6 +14,7 @@ export { MindWidgetWrapper } from "./components/mind-widget-wrapper";
 export { TrainingResultBadges } from "./components/training-result-badges";
 export { MindWidget } from "./variants/mind-widget";
 export { MindWidgetSmall } from "./variants/mind-widget-small";
+export { MindWidgetSmallVertical } from "./variants/mind-widget-small-vertical";
 
 // Training Status Components (atomic)
 export { MindTrainingStatusIcon } from "./components/mind-training-status-icon";
