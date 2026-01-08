@@ -1,4 +1,5 @@
 // Components
+export { AddToMindButton } from "./components/add-to-mind-button";
 export { MindProfileButton } from "./components/mind-profile-button";
 export {
   BaseGradientOverlay,
@@ -11,9 +12,9 @@ export { MindWidgetLevel } from "./components/mind-widget-level";
 export { MindWidgetScore } from "./components/mind-widget-score";
 export { MindWidgetWrapper } from "./components/mind-widget-wrapper";
 export { TrainingResultBadges } from "./components/training-result-badges";
-export { MindWidget } from "./mind-widget";
-export { MindWidgetSmallV2 } from "./variants/mind-widget-small-v2";
-export { MindWidgetV2 } from "./variants/mind-widget-v2";
+export { MindWidget } from "./variants/mind-widget";
+export { MindWidgetSmall } from "./variants/mind-widget-small";
+export { MindWidgetSmallVertical } from "./variants/mind-widget-small-vertical";
 
 // Training Status Components (atomic)
 export { MindTrainingStatusIcon } from "./components/mind-training-status-icon";

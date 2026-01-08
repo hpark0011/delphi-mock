@@ -2,7 +2,9 @@
 
 import { Button } from "@/components/ui/button";
 import { ExitIcon } from "@/delphi-ui/icons/Exit";
-import { MindWidgetSmallV2 } from "@/features/mind-widget";
+import { useMindScore } from "@/features/mind-score";
+import { MindWidgetSmallVertical } from "@/features/mind-widget";
+import { useInterviewContext } from "../_context/interview-context";
 
 interface InterviewHeaderProps {
   onExit?: () => void;
@@ -13,13 +15,21 @@ export function InterviewHeader({
   onExit,
   hasResponses = false,
 }: InterviewHeaderProps) {
+  const { current, level, levelProgress } = useMindScore();
+  const { isScrollingDown } = useInterviewContext();
+
   return (
     <header className='bg-gradient-to-b from-background via-background/80 to-transparent absolute top-0 left-0 right-0 z-10'>
-      <div className='flex items-center justify-between px-3 h-13'>
+      <div className='flex items-start justify-between px-3 py-4'>
         <div className='flex-1' />
 
         {/* Desktop: Show "Interview" title */}
-        <MindWidgetSmallV2 />
+        <MindWidgetSmallVertical
+          score={current}
+          level={level}
+          progress={levelProgress}
+          isScrollingDown={isScrollingDown}
+        />
         {/* <h1 className='text-sm font-medium hidden md:block'>Interview</h1> */}
 
         {/* Save & Exit button - right aligned */}

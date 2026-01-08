@@ -30,7 +30,9 @@
       "Bash(wc:*)",
       "Bash(timeout 10 pnpm dev:*)",
       "mcp__playwright__browser_evaluate",
-      "Bash(grep:*)"
+      "Bash(grep:*)",
+      "Bash(curl:*)",
+      "mcp__playwright__browser_console_messages"
     ],
     "deny": [],
     "ask": []

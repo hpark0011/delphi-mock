@@ -1,6 +1,7 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
+import { useContainerScrollDirection } from "@/hooks/use-container-scroll-direction";
 import {
   TopicSidebar,
   ConversationDisplay,
@@ -15,7 +16,9 @@ interface InterviewViewProps {
 
 export function InterviewView({ userName = "Hyunsol" }: InterviewViewProps) {
   const [recording, setRecording] = useState(false);
-  const { setHasResponses } = useInterviewContext();
+  const { setHasResponses, setIsScrollingDown } = useInterviewContext();
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const isScrollingDown = useContainerScrollDirection(scrollContainerRef);
 
   const {
     topics,
@@ -41,6 +44,11 @@ export function InterviewView({ userName = "Hyunsol" }: InterviewViewProps) {
     setHasResponses(hasAnswers);
   }, [topics, setHasResponses]);
 
+  // Sync scroll direction to context for header
+  useEffect(() => {
+    setIsScrollingDown(isScrollingDown);
+  }, [isScrollingDown, setIsScrollingDown]);
+
   const sidebarTopics = topics.map((t) => ({
     id: t.id,
     title: t.title,
@@ -58,7 +66,7 @@ export function InterviewView({ userName = "Hyunsol" }: InterviewViewProps) {
       />
 
       <div className="flex-1 flex flex-col relative">
-        <div className="flex-1 overflow-y-auto">
+        <div ref={scrollContainerRef} className="flex-1 overflow-y-auto">
           <ConversationDisplay
             title={currentTopic?.title ?? "Interview"}
             messages={messages}

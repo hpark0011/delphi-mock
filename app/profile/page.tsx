@@ -1,11 +1,7 @@
 import React from "react";
 import { ProfileBackgroundWrapper } from "./_components/profile-background-wrapper";
-import ProfileView from "@/app/profile/_components/profile-view";
-import {
-  mockProfile,
-  mockOrganizations,
-  mockCloneOptions,
-} from "./_lib/mock-profile-data";
+import { ProfileView } from "@/app/profile/_view/profile-view";
+import { mockProfile, mockOrganizations } from "./_lib/mock-profile-data";
 
 export default function ProfilePage() {
   return (
@@ -13,7 +9,6 @@ export default function ProfilePage() {
       <ProfileView
         profile={mockProfile}
         organizations={mockOrganizations}
-        cloneOptions={mockCloneOptions}
         slug='hyunsol'
         canVoiceCall={true}
       />

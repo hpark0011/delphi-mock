@@ -1,5 +1,6 @@
 "use client";
 
+import { useTheme } from "next-themes";
 import { useTransitionRouter } from "next-view-transitions";
 import { useCallback, useEffect, useMemo, useState } from "react";
 
@@ -216,6 +217,7 @@ function ProfileChatInputMobile({
   const [inputValue, setInputValue] = useState("");
   const [showInput, setShowInput] = useState(false);
 
+  const { resolvedTheme } = useTheme();
   const router = useTransitionRouter();
   const currentQuestionIndex = useQuestionRotation(questions);
   const isScrollingDown = useScrollDirection();
@@ -277,7 +279,8 @@ function ProfileChatInputMobile({
           style={{
             borderRadius: showInput ? "32px" : "60px",
             boxShadow: "var(--profile-shadow-container)",
-            backgroundColor: "white",
+            backgroundColor:
+              resolvedTheme === "dark" ? "var(--sand-4)" : "white",
             transition:
               "width var(--profile-transition-smooth), transform var(--profile-transition-smooth), border-radius var(--profile-transition-smooth), height var(--profile-transition-smooth)",
           }}
@@ -293,24 +296,19 @@ function ProfileChatInputMobile({
                 <button
                   type='button'
                   onClick={handleTalkClick}
-                  className='mobile-button flex-1 flex items-center justify-center h-full px-4 rounded-[9381875px] font-medium btn-active text-white overflow-hidden'
+                  className='mobile-button flex-1 flex items-center justify-center h-full px-4 rounded-[9381875px] font-medium btn-active text-white overflow-hidden bg-sand-10'
                 >
                   <CallIcon className='size-5 flex-shrink-0' />
-                  <span className='mobile-text text-base'>Talk</span>
+                  <span className='mobile-text text-white'>Talk</span>
                 </button>
               )}
               <button
                 type='button'
                 onClick={handleAskClick}
-                className={cn(
-                  "mobile-button flex items-center justify-center h-full px-4 rounded-[9381875px] font-medium text-sand-12 overflow-hidden",
-                  canVoiceCall
-                    ? "flex-1 btn-inactive"
-                    : "flex-1 btn-active-accent text-white"
-                )}
+                className='mobile-button flex-1 flex items-center justify-center h-full px-4 rounded-[9381875px] font-medium btn-active-accent text-white overflow-hidden'
               >
                 <ChatAltIcon className='size-5 flex-shrink-0' />
-                <span className='mobile-text text-base'>Ask</span>
+                <span className='mobile-text text-white'>Ask</span>
               </button>
             </div>
           ) : (
@@ -466,7 +464,9 @@ function ProfileChatInputDesktop({
           }
         >
           <ShieldCheckIcon className='size-4' />
-          <span>{firstName}&apos;s Delphi will answer your calls & messages</span>
+          <span>
+            {firstName}&apos;s Delphi will answer your calls & messages
+          </span>
         </div>
         <div
           className='absolute z-0 -ml-5 -mr-5 inset-0 -mt-10 -mb-10'

@@ -14,12 +14,14 @@ import {
   getNextLevelThreshold,
   getProgressToNextLevel,
   getProgressCap,
+  calculateLevelProgress,
 } from "../utils/mind-level";
 
 interface MindScoreContextType {
   current: number;
   level: string;
   progressToNextLevel: number;
+  levelProgress: number;
   nextLevelThreshold: number;
   progressCap: number;
   lastIncrement: number | null;
@@ -86,12 +88,17 @@ export function MindScoreProvider({
     [current]
   );
   const progressCap = useMemo(() => getProgressCap(current), [current]);
+  const levelProgress = useMemo(
+    () => calculateLevelProgress(current),
+    [current]
+  );
 
   const value = useMemo(
     () => ({
       current,
       level,
       progressToNextLevel,
+      levelProgress,
       nextLevelThreshold,
       progressCap,
       lastIncrement,
@@ -105,6 +112,7 @@ export function MindScoreProvider({
       current,
       level,
       progressToNextLevel,
+      levelProgress,
       nextLevelThreshold,
       progressCap,
       lastIncrement,
