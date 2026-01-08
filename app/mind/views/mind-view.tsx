@@ -1,5 +1,6 @@
 "use client";
 
+import { PlaceholderParagraphs } from "../components/placeholder-paragraphs";
 import { VariantCard } from "../components/variants-card";
 import { VariantsGrid } from "../components/variants-grid";
 import {
@@ -31,12 +32,9 @@ export default function MindView() {
       </VariantsGrid>
 
       <VariantsGrid>
-        <VariantCard className='p-0'>
+        <VariantCard className='p-0 h-[480px]'>
           <div className='relative w-full h-full'>
-            <div className='w-full h-full overflow-y-auto'>
-              <div className='h-[400px]' />
-            </div>
-            <div className='absolute inset-0 flex items-center justify-center pointer-events-none'>
+            <div className='absolute top-0 inset-x-0 flex items-center justify-center pointer-events-none bg-gradient-to-b from-sand-1 to-transparent py-4'>
               <div className='pointer-events-auto'>
                 <MindWidgetSmallVertical
                   score={current}
@@ -44,6 +42,10 @@ export default function MindView() {
                   progress={levelProgress}
                 />
               </div>
+            </div>
+            <div className='w-full h-full overflow-y-auto px-12 py-[160px]'>
+              <h2 className='text-2xl font-semibold mb-4'>Sample Content</h2>
+              <PlaceholderParagraphs />
             </div>
           </div>
         </VariantCard>
