@@ -31,12 +31,7 @@ export function ProfileView({
 }: ProfileViewProps) {
   return (
     <div className='min-h-screen flex flex-col bg-[var(--profile-bg)]'>
-      <ProfileHeader
-        slug={slug}
-        customWarning={cloneOptions.customWarning}
-        name={profile.name}
-        headline={profile.headline}
-      />
+      <ProfileHeader />
       <div className='tracking-[-0.015em] p-6 pt-0 pb-32 flex-1'>
         <div className='mx-auto max-w-2xl'>
           <ProfileImage imageUrl={profile.imageUrl} alt={`${slug} profile`} />
