@@ -16,7 +16,7 @@ interface ProfileHeaderProps {
 export function ProfileHeader(_props: ProfileHeaderProps) {
   return (
     <header className='pointer-events-none sticky top-0 z-50 w-full select-none pb-1 bg-gradient-to-b from-profile-bg to-transparent'>
-      <nav className='pointer-events-none flex items-center justify-between px-6 py-6 [&>*]:pointer-events-auto relative'>
+      <nav className='pointer-events-none grid grid-cols-[1fr_auto_1fr] items-center px-6 py-6 [&>*]:pointer-events-auto'>
         <div className='flex items-center gap-3'>
           <Link
             href='/studio'
@@ -25,9 +25,8 @@ export function ProfileHeader(_props: ProfileHeaderProps) {
             <DelphiCurrentIcon className='h-3.5 text-icon-dark' />
           </Link>
         </div>
-        <div className='absolute top-[22px] left-1/2 -translate-x-1/2 w-full flex justify-center items-center'>
-          <MindWidgetSmall variant='profile' />
-        </div>
+        <MindWidgetSmall variant='profile' />
+        <div />
       </nav>
     </header>
   );
