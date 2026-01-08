@@ -2,7 +2,7 @@
 
 import { VariantCard } from "../components/variants-card";
 import { VariantsGrid } from "../components/variants-grid";
-import { MindWidgetSmallV2, MindWidgetV2 } from "@/features/mind-widget";
+import { MindWidgetSmallV2, MindWidget } from "@/features/mind-widget";
 import { useMindScore } from "@/features/mind-score";
 
 export default function MindView() {
@@ -12,7 +12,7 @@ export default function MindView() {
       <VariantsGrid>
         <VariantCard>
           <div className='flex flex-col items-center justify-center pt-2'>
-            <MindWidgetV2 score={current} level={level} />
+            <MindWidget score={current} level={level} />
           </div>
         </VariantCard>
         <VariantCard>

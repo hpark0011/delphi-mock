@@ -29,13 +29,11 @@ type TrainingStatusVariant = keyof typeof TRAINING_STATUS_VARIANTS;
 
 interface MindWidgetTrainingStatusProps {
   size?: "default" | "small";
-  hasBrainIcon?: boolean;
   variant?: TrainingStatusVariant;
 }
 
 export function MindWidgetTrainingStatus({
   size = "default",
-  hasBrainIcon = true,
   variant = "default",
 }: MindWidgetTrainingStatusProps) {
   const { open } = useMindDialog();
@@ -84,7 +82,6 @@ export function MindWidgetTrainingStatus({
               completedCount={completedCount}
               failedCount={failedCount}
               {...badgeHandlers}
-              hasBrainIcon={hasBrainIcon}
             />
           )}
         </AnimatePresence>

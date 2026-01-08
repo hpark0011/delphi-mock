@@ -120,7 +120,7 @@ export function MindWidgetSmallV2({
       </div>
       <AnimatePresence>
         {isTrainingVisible && (
-          <MindWidgetTrainingStatus size='small' hasBrainIcon={false} variant={variant} />
+          <MindWidgetTrainingStatus size='small' variant={variant} />
         )}
       </AnimatePresence>
     </div>

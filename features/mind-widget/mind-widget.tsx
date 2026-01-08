@@ -12,6 +12,8 @@ import { MindWidgetTrainingStatus } from "./components/mind-widget-training-stat
 import { MindWidgetWrapper } from "./components/mind-widget-wrapper";
 import { useMindWidgetState } from "./hooks/use-mind-widget-state";
 import "./styles/mind-widget.styles.css";
+import { BrainIcon } from "@/delphi-ui/icons/Brain";
+import { cn } from "@/lib/utils";
 
 interface MindWidgetProps {
   score?: number;
@@ -43,7 +45,14 @@ export function MindWidget({
           <div className='flex items-center justify-center gap-0.5'>
             <MindWidgetScore score={score} fontSize='text-2xl' />
           </div>
-          <MindWidgetLevel level={level} />
+          <div
+            className={cn(
+              "w-full flex items-center justify-center pb-0.5 gap-0.5 ml-[-4px]"
+            )}
+          >
+            <BrainIcon className='size-4 text-sand-1/50 min-w-[16px] dark:text-sand-12/50' />
+            <MindWidgetLevel level={level} />
+          </div>
         </div>
       </MindWidgetBubble>
 
