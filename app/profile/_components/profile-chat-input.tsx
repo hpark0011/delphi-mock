@@ -293,7 +293,7 @@ function ProfileChatInputMobile({
                 <button
                   type='button'
                   onClick={handleTalkClick}
-                  className='mobile-button flex-1 flex items-center justify-center h-full px-4 rounded-[9381875px] font-medium btn-active text-white overflow-hidden'
+                  className='mobile-button flex-1 flex items-center justify-center h-full px-4 rounded-[9381875px] font-medium btn-active text-white overflow-hidden bg-sand-10'
                 >
                   <CallIcon className='size-5 flex-shrink-0' />
                   <span className='mobile-text text-base'>Talk</span>
@@ -466,7 +466,9 @@ function ProfileChatInputDesktop({
           }
         >
           <ShieldCheckIcon className='size-4' />
-          <span>{firstName}&apos;s Delphi will answer your calls & messages</span>
+          <span>
+            {firstName}&apos;s Delphi will answer your calls & messages
+          </span>
         </div>
         <div
           className='absolute z-0 -ml-5 -mr-5 inset-0 -mt-10 -mb-10'
