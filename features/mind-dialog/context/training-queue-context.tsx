@@ -56,6 +56,8 @@ interface TrainingQueueContextType {
   retryItem: (itemId: string) => void;
   hasUserReviewed: boolean;
   markAsReviewed: () => void;
+  isTrainingVisible: boolean;
+  setIsTrainingVisible: (visible: boolean) => void;
 }
 
 const TrainingQueueContext = createContext<TrainingQueueContextType | null>(
@@ -72,6 +74,7 @@ export function TrainingQueueProvider({
   const { incrementScore, setLastTrainingDate } = useMindScore();
   const [queue, setQueue] = useState<QueueItem[]>([]);
   const [hasUserReviewed, setHasUserReviewed] = useState(true);
+  const [isTrainingVisible, setIsTrainingVisible] = useState(true);
 
   /**
    * Helper: Updates a specific queue item's properties
@@ -118,6 +121,7 @@ export function TrainingQueueProvider({
 
   const addToQueue = useCallback((items: QueueItemInput[]) => {
     setHasUserReviewed(true);
+    setIsTrainingVisible(true);
     const newItems: QueueItem[] = items.map((item) => {
       // Calculate duration: use provided duration or default based on docType
       const duration = item.duration ?? getDurationByDocType(item.docType);
@@ -181,6 +185,8 @@ export function TrainingQueueProvider({
       retryItem,
       hasUserReviewed,
       markAsReviewed,
+      isTrainingVisible,
+      setIsTrainingVisible,
     }),
     [
       queue,
@@ -190,6 +196,7 @@ export function TrainingQueueProvider({
       retryItem,
       hasUserReviewed,
       markAsReviewed,
+      isTrainingVisible,
     ]
   );
 

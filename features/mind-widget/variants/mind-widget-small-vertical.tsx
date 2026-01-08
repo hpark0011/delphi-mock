@@ -1,9 +1,9 @@
 "use client";
 
-import { ScrollRevealWrapper } from "@/components/ui/scroll-reveal-wrapper";
 import { BrainIcon } from "@/delphi-ui/icons/Brain";
 import { cn } from "@/lib/utils";
-import { AnimatePresence } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
+import { useEffect } from "react";
 import { LevelProgressFill } from "../components/mind-widget-bubble";
 import { MindWidgetPill } from "../components/mind-widget-pill";
 import { MindWidgetScore } from "../components/mind-widget-score";
@@ -14,6 +14,19 @@ import {
   generateSmallWidgetShadowString,
   getLevelShadowColors,
 } from "../utils/level-shadows";
+
+// Spring animation for training status visibility transitions
+const trainingStatusAnimation = {
+  initial: { opacity: 1, y: -10, scale: 0.75 },
+  animate: { opacity: 1, y: 0, scale: 1 },
+  exit: { opacity: 1, y: -10, scale: 0.75 },
+  transition: {
+    type: "spring" as const,
+    stiffness: 300,
+    damping: 25,
+    mass: 1,
+  },
+};
 
 interface MindWidgetSmallVerticalProps {
   score?: number;
@@ -30,7 +43,13 @@ export function MindWidgetSmallVertical({
   disableClick = false,
   isScrollingDown = false,
 }: MindWidgetSmallVerticalProps) {
-  const { status, isTrainingVisible, openAddKnowledge } = useMindWidgetState();
+  const { status, isTrainingVisible, setIsTrainingVisible, openAddKnowledge } =
+    useMindWidgetState();
+
+  // Control training status visibility based on scroll direction
+  useEffect(() => {
+    setIsTrainingVisible(!isScrollingDown);
+  }, [isScrollingDown, setIsTrainingVisible]);
 
   const handleClick = () => {
     if (disableClick) return;
@@ -41,6 +60,9 @@ export function MindWidgetSmallVertical({
   const levelColors = getLevelShadowColors(level);
   const shadowString = generateSmallWidgetShadowString(levelColors);
   const dropShadow = generateDropShadow(levelColors);
+
+  // Only show training status when not idle and visibility is enabled
+  const shouldShowTrainingStatus = status !== "idle" && isTrainingVisible;
 
   return (
     <div
@@ -84,13 +106,13 @@ export function MindWidgetSmallVertical({
           />
         </MindWidgetPill>
       </div>
-      <ScrollRevealWrapper isScrollingDown={isScrollingDown}>
-        <AnimatePresence>
-          {isTrainingVisible && (
+      <AnimatePresence>
+        {shouldShowTrainingStatus && (
+          <motion.div {...trainingStatusAnimation}>
             <MindWidgetTrainingStatus size='default' variant='vertical' />
-          )}
-        </AnimatePresence>
-      </ScrollRevealWrapper>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }

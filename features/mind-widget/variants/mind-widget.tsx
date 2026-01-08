@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { calculateLevelProgress } from "@/features/mind-score";
-import { AnimatePresence } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { MindLevelInfoDialog } from "../components/mind-level-info-dialog";
 import { MindWidgetBubble } from "../components/mind-widget-bubble";
 import { MindWidgetInfo } from "../components/mind-widget-info";
@@ -14,6 +14,19 @@ import { useMindWidgetState } from "../hooks/use-mind-widget-state";
 import "../styles/mind-widget.styles.css";
 import { BrainIcon } from "@/delphi-ui/icons/Brain";
 import { cn } from "@/lib/utils";
+
+// Spring animation for training status visibility transitions
+const trainingStatusAnimation = {
+  initial: { opacity: 1, y: -10, scale: 0.75 },
+  animate: { opacity: 1, y: 0, scale: 1 },
+  exit: { opacity: 1, y: -10, scale: 0.75 },
+  transition: {
+    type: "spring" as const,
+    stiffness: 300,
+    damping: 25,
+    mass: 1,
+  },
+};
 
 interface MindWidgetProps {
   score?: number;
@@ -31,6 +44,9 @@ export function MindWidget({
 
   // Dialog state for mind level info
   const [isInfoDialogOpen, setIsInfoDialogOpen] = useState(false);
+
+  // Only show training status when not idle and visibility is enabled
+  const shouldShowTrainingStatus = status !== "idle" && isTrainingVisible;
 
   return (
     <MindWidgetWrapper className='gap-0.5'>
@@ -58,8 +74,10 @@ export function MindWidget({
 
       {/* Training Status - below bubble */}
       <AnimatePresence>
-        {isTrainingVisible ? (
-          <MindWidgetTrainingStatus />
+        {shouldShowTrainingStatus ? (
+          <motion.div {...trainingStatusAnimation}>
+            <MindWidgetTrainingStatus />
+          </motion.div>
         ) : (
           <MindWidgetInfo onClick={() => setIsInfoDialogOpen(true)} />
         )}

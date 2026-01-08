@@ -2,7 +2,7 @@
 
 import React from "react";
 import { cn } from "@/lib/utils";
-import { AnimatePresence } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { useMindWidgetState } from "../hooks/use-mind-widget-state";
 import {
   generateSmallWidgetShadowString,
@@ -25,6 +25,19 @@ const SMALL_WIDGET_VARIANTS = {
 } as const;
 
 type SmallWidgetVariant = keyof typeof SMALL_WIDGET_VARIANTS;
+
+// Spring animation for training status visibility transitions
+const trainingStatusAnimation = {
+  initial: { opacity: 1, y: -10, scale: 0.75 },
+  animate: { opacity: 1, y: 0, scale: 1 },
+  exit: { opacity: 1, y: -10, scale: 0.75 },
+  transition: {
+    type: "spring" as const,
+    stiffness: 300,
+    damping: 25,
+    mass: 1,
+  },
+};
 
 interface MindWidgetSmallProps {
   score?: number;
@@ -54,6 +67,9 @@ export function MindWidgetSmall({
   const dropShadow = generateDropShadow(levelColors);
 
   const variantStyles = SMALL_WIDGET_VARIANTS[variant];
+
+  // Only show training status when not idle and visibility is enabled
+  const shouldShowTrainingStatus = status !== "idle" && isTrainingVisible;
 
   return (
     <div
@@ -99,8 +115,10 @@ export function MindWidgetSmall({
         </MindWidgetPill>
       </div>
       <AnimatePresence>
-        {isTrainingVisible && (
-          <MindWidgetTrainingStatus size='small' variant={variant} />
+        {shouldShowTrainingStatus && (
+          <motion.div {...trainingStatusAnimation}>
+            <MindWidgetTrainingStatus size='small' variant={variant} />
+          </motion.div>
         )}
       </AnimatePresence>
     </div>
