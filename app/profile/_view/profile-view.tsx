@@ -26,7 +26,7 @@ export function ProfileView({
   return (
     <div className='min-h-screen flex flex-col bg-[var(--profile-bg)]'>
       <ProfileHeader />
-      <div className='tracking-[-0.015em] p-6 pt-0 pb-32 flex-1'>
+      <div className='tracking-[-0.015em] p-6 pt-8 pb-32 flex-1'>
         <div className='mx-auto max-w-2xl'>
           <ProfileImage imageUrl={profile.imageUrl} alt={`${slug} profile`} />
           <ProfileName name={profile.name} />
