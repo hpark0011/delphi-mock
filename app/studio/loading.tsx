@@ -1,78 +1,103 @@
 "use client";
+
 import { StudioSectionWrapper } from "@/app/studio/_components/studio-section-wrapper";
 import { usePathname } from "next/navigation";
-
 import EngagementLoading from "@/app/analytics/engagement/loading";
-import { MindSolidIcon } from "@/delphi-ui/icons/MindSolid";
 
-export default function AnalyticsLoading() {
+export default function StudioLoading() {
   const pathname = usePathname();
-  // Check if we're on the studio home page or a detail page
   const isHomePage = pathname === "/studio";
 
   if (isHomePage) {
     return (
-      <div className='space-y-6 px-13'>
-        {/* Header Section */}
-
-        <div>
-          <h1 className='text-[24px] leading-[1.2] font-medium mb-2 text-[#21201C] dark:text-[#EEEEEC] px-3'>
-            Good Afternoon, Han!
-          </h1>
+      <div className='px-4 max-w-2xl relative mx-auto'>
+        {/* Header skeleton (MindWidget) */}
+        <div className='hidden lg:block sticky top-0 z-50 w-full px-4 py-4 left-0'>
+          <div className='flex flex-col gap-2 items-center justify-center'>
+            <div className='animate-pulse bg-light/50 rounded-full size-16' />
+          </div>
         </div>
 
-        {/* Top Section: Training and Mind Score */}
-        <div className='flex gap-2'>
-          <div className='w-full flex flex-col gap-2'>
-            {/* Train your Delphi Section */}
-            <StudioSectionWrapper className='w-full p-2 rounded-[20px]'>
-              {/* Header */}
-              <div className='space-y-2 w-full'>
-                <div className='flex items-center justify-between'>
-                  <div className='flex items-center gap-3 p-2'>
-                    <div className='w-8 h-8 bg-[#FF8D28]/10 rounded-full flex items-center justify-center'>
-                      <MindSolidIcon className='size-6 text-[#FF8D28]' />
-                    </div>
-                    <h2 className='text-lg font-medium'>Train your Delphi</h2>
-                  </div>
-                  <div className='flex items-end text-xs text-[#8D8D86] dark:text-neutral-400 flex-col mr-4'>
-                    <div className='animate-pulse h-2 w-[120px] rounded-xs bg-light' />
-                  </div>
-                </div>
-
-                {/* Cards */}
-                <div className='grid grid-cols-2 gap-2'>
-                  {[1, 2, 3, 4, 5, 6, 7, 8].map((i) => (
-                    <div
-                      key={i}
-                      className='animate-pulse bg-light/50 rounded-[20px] flex-1 h-[144px]'
-                    />
-                  ))}
-                </div>
-              </div>
-            </StudioSectionWrapper>
-
-            <StudioSectionWrapper className='p-4 py-3 rounded-[20px] flex gap-3 flex-row items-center justify-between'>
-              {/* Bottom Section - Next Actions */}
-              <div className='flex items-center gap-2'>
-                <div className='flex items-center gap-2 size-8 bg-[#F1F0EF] dark:bg-light rounded-full justify-center'>
-                  <span className='text-[#8D8D86] dark:text-neutral-500'>
-                    ▶
-                  </span>
-                </div>
-                <div className='text-[#8D8D86]'>Next up</div>
-              </div>
-              <div className='text-[#8D8D86] pr-2'>Test your Delphi</div>
-            </StudioSectionWrapper>
+        <div className='relative z-10 py-20'>
+          {/* Greeting skeleton */}
+          <div className='px-4 mb-8'>
+            <div className='animate-pulse h-9 w-64 rounded-lg bg-light/50 mx-auto' />
           </div>
 
-          <div className='flex flex-col space-y-2 w-full max-w-[360px]'>
-            <StudioSectionWrapper className='p-4 py-3 rounded-[20px] flex gap-3 flex-row items-center justify-between'>
-              <div className='flex w-full h-[222px]' />
-            </StudioSectionWrapper>
-            <StudioSectionWrapper className='p-4 py-3 rounded-[20px] flex gap-3 flex-row items-center justify-between'>
-              <div className='flex w-full h-[166px]' />
-            </StudioSectionWrapper>
+          <div className='flex gap-2'>
+            <div className='w-full flex flex-col gap-2'>
+              {/* Tasks skeleton */}
+              <StudioSectionWrapper className='w-full p-1.5 rounded-[24px]'>
+                <div className='space-y-2 w-full'>
+                  <div className='flex items-center justify-between'>
+                    <div className='flex items-center gap-2.5 p-2'>
+                      <div className='animate-pulse w-8 h-8 bg-light/50 rounded-lg' />
+                      <div className='animate-pulse h-5 w-28 rounded bg-light/50' />
+                    </div>
+                  </div>
+                  <div className='grid grid-cols-2 gap-2'>
+                    {[1, 2].map((i) => (
+                      <div
+                        key={i}
+                        className='animate-pulse bg-light/50 rounded-[20px] h-[100px]'
+                      />
+                    ))}
+                  </div>
+                </div>
+              </StudioSectionWrapper>
+
+              {/* Analytics and Highlights */}
+              <div className='flex lg:flex-row gap-2 flex-col'>
+                {/* Analytics skeleton */}
+                <StudioSectionWrapper className='rounded-[22px] gap-1 flex flex-col w-full'>
+                  <div className='flex items-center justify-between py-2 pr-2 pl-3'>
+                    <div className='animate-pulse h-4 w-32 rounded bg-light/50' />
+                    <div className='animate-pulse size-4 rounded bg-light/50' />
+                  </div>
+                  <div className='flex flex-col rounded-[18px] overflow-hidden shadow-card-primary bg-card'>
+                    {[1, 2].map((i) => (
+                      <div key={i}>
+                        <div className='p-3.5 py-3 pr-3'>
+                          <div className='flex w-full flex-col gap-2'>
+                            <div className='animate-pulse h-4 w-24 rounded bg-light/50' />
+                            <div className='flex items-center justify-between'>
+                              <div className='animate-pulse h-7 w-16 rounded bg-light/50' />
+                              <div className='animate-pulse h-6 w-14 rounded-full bg-light/50' />
+                            </div>
+                          </div>
+                        </div>
+                        {i < 2 && (
+                          <div className='h-[1px] min-h-[1px] bg-sand-3 dark:bg-sand-2' />
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                </StudioSectionWrapper>
+
+                {/* Highlights skeleton */}
+                <StudioSectionWrapper className='rounded-[22px] gap-1 flex flex-col w-full'>
+                  <div className='flex items-center justify-between py-2 pr-2 pl-3'>
+                    <div className='animate-pulse h-4 w-20 rounded bg-light/50' />
+                    <div className='animate-pulse size-4 rounded bg-light/50' />
+                  </div>
+                  <div className='flex flex-col rounded-[18px] overflow-hidden shadow-card-primary bg-card'>
+                    {[1, 2, 3, 4].map((i) => (
+                      <div key={i}>
+                        <div className='p-3.5 py-3 pr-3'>
+                          <div className='flex w-full items-center justify-between'>
+                            <div className='animate-pulse h-4 w-32 rounded bg-light/50' />
+                            <div className='animate-pulse h-6 w-8 rounded-full bg-light/50' />
+                          </div>
+                        </div>
+                        {i < 4 && (
+                          <div className='h-[1px] bg-[#EBEBE9] dark:bg-[#171715]' />
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                </StudioSectionWrapper>
+              </div>
+            </div>
           </div>
         </div>
       </div>

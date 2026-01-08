@@ -14,6 +14,7 @@ interface TrainingStatusActiveProps {
   failedCount: number;
   onCompletedClick: () => void;
   onFailedClick: () => void;
+  hasBrainIcon?: boolean;
 }
 
 export function TrainingStatusActive({
@@ -23,6 +24,7 @@ export function TrainingStatusActive({
   failedCount,
   onCompletedClick,
   onFailedClick,
+  hasBrainIcon = true,
 }: TrainingStatusActiveProps) {
   return (
     <motion.div
@@ -55,7 +57,10 @@ export function TrainingStatusActive({
             exit={SLIDE_ANIMATION.exit}
             transition={SLIDE_ANIMATION.transition}
           >
-            <MindWidgetStatusLearning activeCount={activeCount} />
+            <MindWidgetStatusLearning
+              activeCount={activeCount}
+              hasIcon={hasBrainIcon}
+            />
           </motion.div>
         )}
       </AnimatePresence>

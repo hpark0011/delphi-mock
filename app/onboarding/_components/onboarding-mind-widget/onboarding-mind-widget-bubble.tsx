@@ -6,7 +6,7 @@ import {
   BaseGradientOverlay,
   GlassEffectHighlight,
   LevelAccentShadow,
-  LevelAccentGradient,
+  LevelProgressFill,
 } from "@/features/mind-widget";
 import { motion } from "framer-motion";
 import { ReactNode, useMemo, useRef } from "react";
@@ -68,7 +68,7 @@ export function OnboardingMindWidgetBubble({
       <BaseGradientOverlay />
       <GlassEffectHighlight />
       {shadowString && <LevelAccentShadow shadowString={shadowString} />}
-      {lightColor && <LevelAccentGradient lightColor={lightColor} progress={0} />}
+      {lightColor && <LevelProgressFill lightColor={lightColor} progress={0} />}
     </motion.div>
   );
 }

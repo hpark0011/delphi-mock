@@ -1,16 +1,19 @@
 import { MindStatusIcon } from "@/components/mind-status-icon";
+import "../styles/mind-widget.styles.css";
 
 interface MindWidgetStatusLearningProps {
   activeCount: number;
+  hasIcon?: boolean;
 }
 
 export function MindWidgetStatusLearning({
   activeCount,
+  hasIcon = false,
 }: MindWidgetStatusLearningProps) {
   return (
     <div className='flex items-center gap-[3px]'>
-      <MindStatusIcon status='active' />
-      <span className='text-sm text-sand-10 dark:text-sand-11 whitespace-nowrap hover:text-blue-500'>
+      {hasIcon && <MindStatusIcon status='active' />}
+      <span className='text-sm learning-text-shimmer whitespace-nowrap'>
         Learning {activeCount}
       </span>
     </div>

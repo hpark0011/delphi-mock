@@ -8,7 +8,6 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { SidebarHamburgerMenu } from "./sidebar-hamburger-menu";
 import { SidebarNavItems } from "./sidebar-nav-items";
-import "./styles/nav-menu.styles.css";
 
 export function SimpleSidebar() {
   const pathname = usePathname();

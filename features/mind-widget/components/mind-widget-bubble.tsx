@@ -76,16 +76,16 @@ export function LevelAccentShadow({ shadowString }: LevelAccentShadowProps) {
   );
 }
 
-// Level accent gradient overlay component
-export interface LevelAccentGradientProps {
+// Level progress fill - fills bubble from bottom based on progress toward next level
+export interface LevelProgressFillProps {
   lightColor: string;
   progress: number; // 0-100, percentage toward next level
 }
 
-export function LevelAccentGradient({
+export function LevelProgressFill({
   lightColor,
   progress,
-}: LevelAccentGradientProps) {
+}: LevelProgressFillProps) {
   // Clamp progress between 0 and 100
   const fillPercent = Math.min(Math.max(progress, 0), 100);
 
@@ -103,6 +103,28 @@ export function LevelAccentGradient({
         height: `${fillPercent}%`,
         background: `linear-gradient(to top, ${lightColor.replace("1)", "0.6)")} 0%, ${lightColor.replace("1)", "0.1)")} 100%)`,
       }}
+    />
+  );
+}
+
+// Glow animation overlay - renders on top of other layers for visible inset shadows
+export interface GlowAnimationOverlayProps {
+  queueStatus: "idle" | "active" | "finished";
+}
+
+export function GlowAnimationOverlay({ queueStatus }: GlowAnimationOverlayProps) {
+  return (
+    <div
+      className={cn(
+        // Positioning
+        "absolute inset-0",
+        // Shape
+        "rounded-full mind-widget-bubble",
+        // Interaction
+        "pointer-events-none"
+      )}
+      data-luminating={queueStatus === "active"}
+      data-glowing={queueStatus === "finished"}
     />
   );
 }
@@ -151,8 +173,6 @@ export function MindWidgetBubble({
           "--pill-color-dark": levelColors.dark,
         } as React.CSSProperties
       }
-      data-luminating={queueStatus === "active"}
-      data-glowing={queueStatus === "finished"}
       onClick={onClick}
     >
       {children}
@@ -160,7 +180,8 @@ export function MindWidgetBubble({
       <BaseGradientOverlay />
       <GlassEffectHighlight />
       <LevelAccentShadow shadowString={shadowString} />
-      <LevelAccentGradient lightColor={levelColors.light} progress={progress} />
+      <LevelProgressFill lightColor={levelColors.light} progress={progress} />
+      <GlowAnimationOverlay queueStatus={queueStatus} />
     </div>
   );
 }

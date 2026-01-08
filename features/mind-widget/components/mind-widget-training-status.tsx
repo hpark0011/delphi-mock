@@ -1,16 +1,12 @@
 "use client";
 
-import {
-  useMindDialog,
-  useTrainingQueue,
-  type OpenDialogOptions,
-} from "@/features/mind-dialog";
-import { MindProfileButton } from "./mind-profile-button";
+import { useMindDialog, type OpenDialogOptions } from "@/features/mind-dialog";
 import { useTrainingState } from "@/hooks/use-training-state";
 import { AnimatePresence, motion } from "framer-motion";
-import { TrainingStatusFinished } from "./training-status-finished";
-import { TrainingStatusActive } from "./training-status-active";
 import { CONTAINER_ANIMATION } from "../utils/animations";
+import { TrainingStatusActive } from "./training-status-active";
+import { TrainingStatusFinished } from "./training-status-finished";
+import { cn } from "@/lib/utils";
 
 function createBadgeHandlers(open: (options?: OpenDialogOptions) => void) {
   return {
@@ -20,7 +16,28 @@ function createBadgeHandlers(open: (options?: OpenDialogOptions) => void) {
   };
 }
 
-export function MindWidgetTrainingStatus() {
+const TRAINING_STATUS_VARIANTS = {
+  default: {
+    container: "bg-sand-3",
+  },
+  profile: {
+    container: "bg-sand-4 dark:bg-sand-3",
+  },
+} as const;
+
+type TrainingStatusVariant = keyof typeof TRAINING_STATUS_VARIANTS;
+
+interface MindWidgetTrainingStatusProps {
+  size?: "default" | "small";
+  hasBrainIcon?: boolean;
+  variant?: TrainingStatusVariant;
+}
+
+export function MindWidgetTrainingStatus({
+  size = "default",
+  hasBrainIcon = true,
+  variant = "default",
+}: MindWidgetTrainingStatusProps) {
   const { open } = useMindDialog();
 
   const {
@@ -35,9 +52,15 @@ export function MindWidgetTrainingStatus() {
   // const handleProfileClick = () => markAsReviewed();
   const badgeHandlers = createBadgeHandlers(open);
 
+  const variantStyles = TRAINING_STATUS_VARIANTS[variant];
+
   return (
     <motion.div
-      className='bg-sand-3 p-1 px-3.5 rounded-2xl min-h-[38px] flex items-center justify-center'
+      className={cn(
+        "p-1 px-3.5 rounded-2xl min-h-[38px] flex items-center justify-center",
+        variantStyles.container,
+        size === "small" && "p-1 pl-3 pr-4"
+      )}
       initial={CONTAINER_ANIMATION.initial}
       animate={CONTAINER_ANIMATION.animate}
       exit={CONTAINER_ANIMATION.exit}
@@ -61,6 +84,7 @@ export function MindWidgetTrainingStatus() {
               completedCount={completedCount}
               failedCount={failedCount}
               {...badgeHandlers}
+              hasBrainIcon={hasBrainIcon}
             />
           )}
         </AnimatePresence>

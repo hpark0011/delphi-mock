@@ -2,12 +2,10 @@
 
 import { Link } from "next-view-transitions";
 
-import { useMindScore } from "@/features/mind-score";
 import { Button } from "@/components/ui/button";
 import { DelphiCurrentIcon } from "@/delphi-ui/icons/DelphiCurrent";
 import { ProfileMindWidget } from "./mind-widget/profile-mind-widget";
-
-// import { VerticalDivider } from "./vertical-divider";
+import { MindWidgetSmallV2 } from "@/features/mind-widget";
 
 interface ProfileHeaderProps {
   slug: string;
@@ -18,7 +16,6 @@ interface ProfileHeaderProps {
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export function ProfileHeader(_props: ProfileHeaderProps) {
-  const { current, level } = useMindScore();
   return (
     <>
       <header className='pointer-events-none sticky top-0 z-50 w-full select-none pb-1 bg-gradient-to-b from-profile-bg to-transparent'>
@@ -31,8 +28,8 @@ export function ProfileHeader(_props: ProfileHeaderProps) {
               <DelphiCurrentIcon className='h-3.5 text-icon-dark' />
             </Link>
           </div>
-          <div className='absolute top-[22px] left-1/2 -translate-x-1/2 w-full'>
-            <ProfileMindWidget mindScore={current} level={level} />
+          <div className='absolute top-[22px] left-1/2 -translate-x-1/2 w-full flex justify-center items-center'>
+            <MindWidgetSmallV2 variant="profile" />
           </div>
           <div className='flex items-center gap-5'>
             <Button
