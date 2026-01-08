@@ -6,6 +6,8 @@ import { DelphiCurrentIcon } from "@/delphi-ui/icons/DelphiCurrent";
 import { useMindScore } from "@/features/mind-score";
 import { MindWidgetSmall } from "@/features/mind-widget";
 
+import { ProfileAvatarMenu } from "./profile-avatar-menu";
+
 export function ProfileHeader() {
   const router = useRouter();
   const { current, level, progressToNextLevel } = useMindScore();
@@ -25,7 +27,9 @@ export function ProfileHeader() {
           progress={progressToNextLevel}
           variant='profile'
         />
-        <div />
+        <div className='flex justify-end'>
+          <ProfileAvatarMenu />
+        </div>
       </nav>
     </header>
   );

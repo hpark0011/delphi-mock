@@ -27,7 +27,7 @@ export function TrainingStatusFinished({
       className='flex items-center gap-1'
     >
       <span className='text-[15px] font-medium text-sand-10 dark:text-sand-11 hover:text-blue-500'>
-        Completed!
+        Done!
       </span>
       <TrainingResultBadges
         completedCount={completedCount}

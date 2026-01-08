@@ -19,7 +19,7 @@ const SMALL_WIDGET_VARIANTS = {
     container: "bg-sand-3",
   },
   profile: {
-    container: "bg-sand-4 dark:bg-sand-3",
+    container: "bg-sand-12/3 dark:bg-sand-3 backdrop-blur-lg",
   },
 } as const;
 
@@ -55,10 +55,12 @@ export function MindWidgetSmall({
   const variantStyles = SMALL_WIDGET_VARIANTS[variant];
 
   return (
-    <div className={cn(
-      'flex gap-0 relative justify-start items-center rounded-full',
-      variantStyles.container
-    )}>
+    <div
+      className={cn(
+        "flex gap-0 relative justify-start items-center rounded-full",
+        variantStyles.container
+      )}
+    >
       {/* Mindscore Trigger */}
       <div
         className={cn(

@@ -21,7 +21,7 @@ const TRAINING_STATUS_VARIANTS = {
     container: "bg-sand-3",
   },
   profile: {
-    container: "bg-sand-4 dark:bg-sand-3",
+    container: "bg-transparent",
   },
 } as const;
 
