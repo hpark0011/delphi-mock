@@ -51,7 +51,7 @@ export function SimpleSidebar() {
       </aside>
 
       {/* Mobile Top Header */}
-      <header className='bg-background/95 supports-[backdrop-filter]:bg-background/60 fixed left-0 right-0 top-0 z-40 flex lg:h-14 h-[108px] items-start lg:items-center justify-between px-4 backdrop-blur lg:hidden'>
+      <header className='bg-gradient-to-b from-background via-background/80 to-transparent fixed left-0 right-0 top-0 z-40 flex lg:h-14 h-[108px] items-start lg:items-center justify-between px-4 lg:hidden'>
         <Link href='/' aria-label='Home' className='mt-2 lg:mt-0'>
           <DelphiLogo className='text-foreground size-6' />
         </Link>

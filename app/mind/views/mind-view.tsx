@@ -1,5 +1,6 @@
 "use client";
 
+import { useRef } from "react";
 import { PlaceholderParagraphs } from "../components/placeholder-paragraphs";
 import { VariantCard } from "../components/variants-card";
 import { VariantsGrid } from "../components/variants-grid";
@@ -9,9 +10,12 @@ import {
   MindWidgetSmallVertical,
 } from "@/features/mind-widget";
 import { useMindScore } from "@/features/mind-score";
+import { useContainerScrollDirection } from "@/hooks/use-container-scroll-direction";
 
 export default function MindView() {
   const { current, level, levelProgress } = useMindScore();
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const isScrollingDown = useContainerScrollDirection(scrollContainerRef);
   return (
     <div className='h-full p-6 max-w-7xl mx-auto pl-[64px] space-y-6'>
       <VariantsGrid>
@@ -34,16 +38,20 @@ export default function MindView() {
       <VariantsGrid>
         <VariantCard className='p-0 h-[480px]'>
           <div className='relative w-full h-full'>
-            <div className='absolute top-0 inset-x-0 flex items-center justify-center pointer-events-none bg-gradient-to-b from-sand-1 to-transparent py-4'>
+            <div className='absolute top-0 inset-x-0 flex items-center justify-center pointer-events-none bg-gradient-to-b from-sand-1 to-transparent dark:from-black py-4'>
               <div className='pointer-events-auto'>
                 <MindWidgetSmallVertical
                   score={current}
                   level={level}
                   progress={levelProgress}
+                  isScrollingDown={isScrollingDown}
                 />
               </div>
             </div>
-            <div className='w-full h-full overflow-y-auto px-12 py-[160px]'>
+            <div
+              ref={scrollContainerRef}
+              className='w-full h-full overflow-y-auto px-12 py-[160px]'
+            >
               <h2 className='text-2xl font-semibold mb-4'>Sample Content</h2>
               <PlaceholderParagraphs />
             </div>

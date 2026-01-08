@@ -40,7 +40,7 @@ export function MindWidgetPill({
         // Shape
         "rounded-full overflow-hidden mind-widget-bubble",
         // Background
-        "bg-black/87 dark:bg-black",
+        "bg-black",
         // Border
         "border-white/20 dark:border-white/3",
         // Sizing

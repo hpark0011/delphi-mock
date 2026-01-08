@@ -14,6 +14,7 @@ import { MindWidgetPill } from "../components/mind-widget-pill";
 import { MindWidgetScore } from "../components/mind-widget-score";
 import { MindWidgetTrainingStatus } from "../components/mind-widget-training-status";
 import { BrainIcon } from "@/delphi-ui/icons/Brain";
+import { ScrollRevealWrapper } from "@/components/ui/scroll-reveal-wrapper";
 
 const SMALL_WIDGET_VARIANTS = {
   default: {
@@ -32,6 +33,7 @@ interface MindWidgetSmallVerticalProps {
   progress?: number;
   disableClick?: boolean;
   variant?: SmallWidgetVariant;
+  isScrollingDown?: boolean;
 }
 
 export function MindWidgetSmallVertical({
@@ -40,6 +42,7 @@ export function MindWidgetSmallVertical({
   progress = 0,
   disableClick = false,
   variant = "default",
+  isScrollingDown = false,
 }: MindWidgetSmallVerticalProps) {
   const { status, isTrainingVisible, openAddKnowledge } = useMindWidgetState();
 
@@ -64,7 +67,7 @@ export function MindWidgetSmallVertical({
       {/* Mindscore Trigger */}
       <div
         className={cn(
-          "flex items-center bg-sand-10/8 rounded-full transition-all duration-200 w-fit relative",
+          "flex items-center bg-sand-10/8 rounded-full transition-all duration-200 w-fit relative z-10",
           !disableClick && "hover:scale-108 cursor-pointer"
         )}
         onClick={handleClick}
@@ -97,11 +100,13 @@ export function MindWidgetSmallVertical({
           />
         </MindWidgetPill>
       </div>
-      <AnimatePresence>
-        {isTrainingVisible && (
-          <MindWidgetTrainingStatus size='small' variant='vertical' />
-        )}
-      </AnimatePresence>
+      <ScrollRevealWrapper isScrollingDown={isScrollingDown}>
+        <AnimatePresence>
+          {isTrainingVisible && (
+            <MindWidgetTrainingStatus size='small' variant='vertical' />
+          )}
+        </AnimatePresence>
+      </ScrollRevealWrapper>
     </div>
   );
 }

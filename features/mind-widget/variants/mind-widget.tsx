@@ -33,7 +33,7 @@ export function MindWidget({
   const [isInfoDialogOpen, setIsInfoDialogOpen] = useState(false);
 
   return (
-    <MindWidgetWrapper className='gap-1.5'>
+    <MindWidgetWrapper className='gap-0.5'>
       <MindWidgetBubble
         className='min-w-[112px] z-10 relative'
         level={level}

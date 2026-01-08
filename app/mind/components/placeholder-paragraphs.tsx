@@ -17,7 +17,7 @@ export function PlaceholderParagraphs({
         PLACEHOLDER_TEXTS.map((text, textIndex) => (
           <p
             key={`${repeatIndex}-${textIndex}`}
-            className='mb-4 text-sand-12/80 text-[18px] tracking-tight'
+            className='mb-4 text-sand-12/70 text-[18px] tracking-tight'
           >
             {text}
           </p>
