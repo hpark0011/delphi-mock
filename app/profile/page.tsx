@@ -1,6 +1,6 @@
 import React from "react";
 import { ProfileBackgroundWrapper } from "./_components/profile-background-wrapper";
-import ProfileView from "@/app/profile/_components/profile-view";
+import { ProfileView } from "@/app/profile/_components/profile-view";
 import {
   mockProfile,
   mockOrganizations,
