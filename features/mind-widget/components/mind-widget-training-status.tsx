@@ -62,7 +62,7 @@ export function MindWidgetTrainingStatus({
   return (
     <motion.div
       className={cn(
-        "p-1 px-4 rounded-2xl min-h-[38px] flex items-center justify-center whitespace-nowrap",
+        "p-1 px-4 rounded-2xl min-h-[40px] flex items-center justify-center whitespace-nowrap h-10",
         variantStyles.container,
         size === "small" && "p-1 pl-3 pr-4"
       )}
