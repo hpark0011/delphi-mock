@@ -28,6 +28,19 @@ const trainingStatusAnimation = {
   },
 };
 
+// Animation for info component
+const infoAnimation = {
+  initial: { opacity: 0, y: -10, scale: 0.95 },
+  animate: { opacity: 1, y: 0, scale: 1 },
+  exit: { opacity: 0, y: -10, scale: 0.95 },
+  transition: {
+    type: "spring" as const,
+    stiffness: 300,
+    damping: 25,
+    mass: 1,
+  },
+};
+
 interface MindWidgetProps {
   score?: number;
   level?: string;
@@ -73,13 +86,15 @@ export function MindWidget({
       </MindWidgetBubble>
 
       {/* Training Status - below bubble */}
-      <AnimatePresence>
+      <AnimatePresence mode="wait">
         {shouldShowTrainingStatus ? (
-          <motion.div {...trainingStatusAnimation}>
+          <motion.div key="training-status" {...trainingStatusAnimation}>
             <MindWidgetTrainingStatus />
           </motion.div>
         ) : (
-          <MindWidgetInfo onClick={() => setIsInfoDialogOpen(true)} />
+          <motion.div key="info" {...infoAnimation}>
+            <MindWidgetInfo onClick={() => setIsInfoDialogOpen(true)} />
+          </motion.div>
         )}
       </AnimatePresence>
 
