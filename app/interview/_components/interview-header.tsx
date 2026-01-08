@@ -33,7 +33,7 @@ export function InterviewHeader({
         {/* <h1 className='text-sm font-medium hidden md:block'>Interview</h1> */}
 
         {/* Save & Exit button - right aligned */}
-        <div className='flex-1 flex justify-end'>
+        <div className='flex-1 flex justify-end mt-1'>
           <Button
             size='sm'
             onClick={onExit}
