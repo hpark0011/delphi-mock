@@ -47,7 +47,7 @@ export function ProfileHeader() {
             {isMobile && !isScrollingDown && (
               <motion.div
                 initial={{ opacity: 0, y: -10, height: 0, marginTop: 0 }}
-                animate={{ opacity: 1, y: 0, height: "auto", marginTop: 8 }}
+                animate={{ opacity: 1, y: 0, height: "auto", marginTop: 4 }}
                 exit={{ opacity: 0, y: -10, height: 0, marginTop: 0 }}
                 transition={{
                   type: "spring",

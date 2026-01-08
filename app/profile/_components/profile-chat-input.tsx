@@ -302,12 +302,7 @@ function ProfileChatInputMobile({
               <button
                 type='button'
                 onClick={handleAskClick}
-                className={cn(
-                  "mobile-button flex items-center justify-center h-full px-4 rounded-[9381875px] font-medium text-sand-12 overflow-hidden",
-                  canVoiceCall
-                    ? "flex-1 btn-inactive"
-                    : "flex-1 btn-active-accent text-white"
-                )}
+                className='mobile-button flex-1 flex items-center justify-center h-full px-4 rounded-[9381875px] font-medium btn-active-accent text-white overflow-hidden'
               >
                 <ChatAltIcon className='size-5 flex-shrink-0' />
                 <span className='mobile-text text-base'>Ask</span>
