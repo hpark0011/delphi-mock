@@ -3,7 +3,7 @@
 import React from "react";
 import { cn } from "@/lib/utils";
 import { AnimatePresence } from "framer-motion";
-import { calculateLevelProgress } from "@/features/mind-score";
+import { useMindScore } from "@/features/mind-score";
 import { useMindWidgetState } from "./hooks/use-mind-widget-state";
 import {
   generateSmallWidgetShadowString,
@@ -15,16 +15,13 @@ import { MindWidgetScore } from "./components/mind-widget-score";
 import { MindWidgetTrainingStatus } from "./components/mind-widget-training-status";
 
 interface MindWidgetSmallProps {
-  score?: number;
-  level?: string;
   disableClick?: boolean;
 }
 
 export function MindWidgetSmall({
-  score = 20,
-  level = "Skilled",
   disableClick = false,
 }: MindWidgetSmallProps) {
+  const { current: score, level, progressToNextLevel } = useMindScore();
   const { status, isTrainingVisible, openAddKnowledge } = useMindWidgetState();
 
   const handleClick = () => {
@@ -37,8 +34,8 @@ export function MindWidgetSmall({
   const shadowString = generateSmallWidgetShadowString(levelColors);
   const dropShadow = generateDropShadow(levelColors);
 
-  // Calculate progress toward next level
-  const progress = calculateLevelProgress(score);
+  // Progress toward next level (from context)
+  const progress = progressToNextLevel;
 
   return (
     <div className='flex gap-0 relative justify-start items-center rounded-full bg-sand-3'>

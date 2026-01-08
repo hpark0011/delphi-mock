@@ -3,7 +3,7 @@
 import React from "react";
 import { cn } from "@/lib/utils";
 import { AnimatePresence } from "framer-motion";
-import { calculateLevelProgress } from "@/features/mind-score";
+import { useMindScore } from "@/features/mind-score";
 import { useMindWidgetState } from "../hooks/use-mind-widget-state";
 import {
   generateSmallWidgetShadowString,
@@ -27,18 +27,15 @@ const SMALL_WIDGET_VARIANTS = {
 type SmallWidgetVariant = keyof typeof SMALL_WIDGET_VARIANTS;
 
 interface MindWidgetSmallV2Props {
-  score?: number;
-  level?: string;
   disableClick?: boolean;
   variant?: SmallWidgetVariant;
 }
 
 export function MindWidgetSmallV2({
-  score = 20,
-  level = "Skilled",
   disableClick = false,
   variant = "default",
 }: MindWidgetSmallV2Props) {
+  const { current: score, level, progressToNextLevel } = useMindScore();
   const { status, isTrainingVisible, openAddKnowledge } = useMindWidgetState();
 
   const handleClick = () => {
@@ -51,8 +48,8 @@ export function MindWidgetSmallV2({
   const shadowString = generateSmallWidgetShadowString(levelColors);
   const dropShadow = generateDropShadow(levelColors);
 
-  // Calculate progress toward next level
-  const progress = calculateLevelProgress(score);
+  // Progress toward next level (from context)
+  const progress = progressToNextLevel;
 
   const variantStyles = SMALL_WIDGET_VARIANTS[variant];
 

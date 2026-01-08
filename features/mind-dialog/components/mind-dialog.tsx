@@ -80,7 +80,7 @@ export function MindDialogHeader({
         <MindProfileButton onClick={onProfileClick} />
       </div>
       <div className='mt-2 flex flex-col items-center justify-center gap-6'>
-        <MindWidgetSmallV2 score={score} level={level} disableClick />
+        <MindWidgetSmallV2 disableClick />
         {/* Mind level */}
         <div className='font-medium text-center text-sand-10'>{level}</div>
       </div>

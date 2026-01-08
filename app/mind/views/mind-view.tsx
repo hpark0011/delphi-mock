@@ -22,7 +22,7 @@ export default function MindView() {
         </VariantCard>
         <VariantCard>
           <div className='flex flex-col items-center justify-center'>
-            <MindWidgetSmall score={current} level={level} />
+            <MindWidgetSmall />
           </div>
         </VariantCard> */}
 
@@ -33,7 +33,7 @@ export default function MindView() {
         </VariantCard>
         <VariantCard>
           <div className='flex flex-col items-center justify-center pt-2'>
-            <MindWidgetSmallV2 score={current} level={level} />
+            <MindWidgetSmallV2 />
           </div>
         </VariantCard>
       </VariantsGrid>
