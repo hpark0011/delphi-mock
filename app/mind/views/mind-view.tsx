@@ -6,7 +6,7 @@ import { MindWidgetSmall, MindWidget } from "@/features/mind-widget";
 import { useMindScore } from "@/features/mind-score";
 
 export default function MindView() {
-  const { current, level } = useMindScore();
+  const { current, level, progressToNextLevel } = useMindScore();
   return (
     <div className='h-full p-6 max-w-7xl mx-auto pl-[64px]'>
       <VariantsGrid>
@@ -17,7 +17,7 @@ export default function MindView() {
         </VariantCard>
         <VariantCard>
           <div className='flex flex-col items-center justify-center pt-2'>
-            <MindWidgetSmall />
+            <MindWidgetSmall score={current} level={level} progress={progressToNextLevel} />
           </div>
         </VariantCard>
       </VariantsGrid>

@@ -1,23 +1,18 @@
-import { ProfileBio } from "./profile-bio";
-import { ProfileChatInput } from "./profile-chat-input";
-import { ProfileFooter } from "./profile-footer";
-import { ProfileHeader } from "./profile-header";
-import { ProfileHeadline } from "./profile-headline";
-import { ProfileImage } from "./profile-image";
-import { ProfileName } from "./profile-name";
-import { ProfileQuestions } from "./profile-questions";
-import { ProfileSocials } from "./profile-socials";
+import { ProfileBio } from "../_components/profile-bio";
+import { ProfileChatInput } from "../_components/profile-chat-input";
+import { ProfileFooter } from "../_components/profile-footer";
+import { ProfileHeader } from "../_components/profile-header";
+import { ProfileHeadline } from "../_components/profile-headline";
+import { ProfileImage } from "../_components/profile-image";
+import { ProfileName } from "../_components/profile-name";
+import { ProfileQuestions } from "../_components/profile-questions";
+import { ProfileSocials } from "../_components/profile-socials";
 
-import type {
-  Profile,
-  Organization,
-  CloneOptions,
-} from "@/app/profile/_lib/types";
+import type { Organization, Profile } from "@/app/profile/_lib/types";
 
 interface ProfileViewProps {
   profile: Profile;
   organizations: Organization[];
-  cloneOptions: CloneOptions;
   slug: string;
   canVoiceCall: boolean;
 }
@@ -25,7 +20,6 @@ interface ProfileViewProps {
 export function ProfileView({
   profile,
   organizations,
-  cloneOptions,
   slug,
   canVoiceCall,
 }: ProfileViewProps) {

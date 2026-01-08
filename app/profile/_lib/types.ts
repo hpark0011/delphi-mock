@@ -32,5 +32,5 @@ export interface Organization {
 }
 
 export interface CloneOptions {
-  customWarning?: string | null;
+  customWarning: string | null;
 }
