@@ -23,6 +23,9 @@ const TRAINING_STATUS_VARIANTS = {
   profile: {
     container: "bg-transparent",
   },
+  vertical: {
+    container: "bg-sand-3 shadow-xs",
+  },
 } as const;
 
 type TrainingStatusVariant = keyof typeof TRAINING_STATUS_VARIANTS;

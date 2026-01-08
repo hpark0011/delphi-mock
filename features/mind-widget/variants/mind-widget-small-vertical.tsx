@@ -99,7 +99,7 @@ export function MindWidgetSmallVertical({
       </div>
       <AnimatePresence>
         {isTrainingVisible && (
-          <MindWidgetTrainingStatus size='small' variant={variant} />
+          <MindWidgetTrainingStatus size='small' variant='vertical' />
         )}
       </AnimatePresence>
     </div>
