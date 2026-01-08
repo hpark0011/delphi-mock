@@ -3,8 +3,8 @@
 import { VariantCard } from "../components/variants-card";
 import { VariantsGrid } from "../components/variants-grid";
 import {
-  MindWidget,
-  MindWidgetSmall,
+  // MindWidget,
+  // MindWidgetSmall,
   MindWidgetSmallV2,
   MindWidgetV2,
 } from "@/features/mind-widget";
@@ -15,7 +15,7 @@ export default function MindView() {
   return (
     <div className='h-full p-6 max-w-7xl mx-auto pl-[64px]'>
       <VariantsGrid>
-        <VariantCard>
+        {/* <VariantCard>
           <div className='flex flex-col items-center justify-center pt-2'>
             <MindWidget score={current} level={level} />
           </div>
@@ -24,7 +24,7 @@ export default function MindView() {
           <div className='flex flex-col items-center justify-center'>
             <MindWidgetSmall score={current} level={level} />
           </div>
-        </VariantCard>
+        </VariantCard> */}
 
         <VariantCard>
           <div className='flex flex-col items-center justify-center pt-2'>

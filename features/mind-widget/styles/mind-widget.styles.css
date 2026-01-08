@@ -110,10 +110,10 @@
 /* Text shimmer animation for "Learning" label */
 @keyframes text-shimmer {
   0% {
-    background-position: -100% 0;
+    background-position: 100% 0;
   }
   100% {
-    background-position: 200% 0;
+    background-position: -100% 0;
   }
 }
 
@@ -128,15 +128,15 @@
   background-clip: text;
   -webkit-background-clip: text;
   color: transparent;
-  animation: text-shimmer 2s ease-in-out infinite;
+  animation: text-shimmer 1s linear infinite;
 }
 
 :is(.dark) .learning-text-shimmer {
   background: linear-gradient(
     90deg,
-    var(--sand-8) 0%,
+    var(--sand-7) 0%,
     var(--sand-12) 50%,
-    var(--sand-8) 100%
+    var(--sand-7) 100%
   );
   background-size: 200% 100%;
   background-clip: text;
