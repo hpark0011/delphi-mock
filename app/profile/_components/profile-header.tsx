@@ -2,9 +2,9 @@
 
 import { useMindDialog } from "@/features/mind-dialog";
 import { useMindScore } from "@/features/mind-score";
-import { MindWidgetSmall } from "@/features/mind-widget";
+import { MindWidgetSmallVertical } from "@/features/mind-widget";
 
-import { useMediaQuery } from "../_hooks";
+import { useMediaQuery, useScrollDirection } from "../_hooks";
 import { ProfileAddButtonMobile } from "./profile-add-button-mobile";
 import { ProfileHeaderActions } from "./profile-header-actions";
 import { ProfileNavLogo } from "./profile-nav-logo";
@@ -13,6 +13,7 @@ export function ProfileHeader() {
   const { open: openMindDialog } = useMindDialog();
   const { current, level, levelProgress } = useMindScore();
   const isMobile = useMediaQuery("(max-width: 767px)");
+  const isScrollingDown = useScrollDirection();
 
   const handleAddClick = () => {
     openMindDialog({ tab: "add-knowledge" });
@@ -27,11 +28,11 @@ export function ProfileHeader() {
         {/* Center column - MindWidget with mobile add button */}
         <div className='flex flex-col items-center'>
           <div className='relative z-10'>
-            <MindWidgetSmall
+            <MindWidgetSmallVertical
               score={current}
               level={level}
               progress={levelProgress}
-              variant='profile'
+              isScrollingDown={isScrollingDown}
             />
           </div>
 
@@ -40,7 +41,7 @@ export function ProfileHeader() {
 
         {/* Right column - Desktop add button + avatar */}
         <ProfileHeaderActions
-          showAddButton={!isMobile}
+          showAddButton={true}
           onAddClick={handleAddClick}
         />
       </nav>

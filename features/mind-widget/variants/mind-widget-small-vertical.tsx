@@ -1,38 +1,25 @@
 "use client";
 
-import React from "react";
+import { ScrollRevealWrapper } from "@/components/ui/scroll-reveal-wrapper";
+import { BrainIcon } from "@/delphi-ui/icons/Brain";
 import { cn } from "@/lib/utils";
 import { AnimatePresence } from "framer-motion";
-import { useMindWidgetState } from "../hooks/use-mind-widget-state";
-import {
-  generateSmallWidgetShadowString,
-  generateDropShadow,
-  getLevelShadowColors,
-} from "../utils/level-shadows";
 import { LevelProgressFill } from "../components/mind-widget-bubble";
 import { MindWidgetPill } from "../components/mind-widget-pill";
 import { MindWidgetScore } from "../components/mind-widget-score";
 import { MindWidgetTrainingStatus } from "../components/mind-widget-training-status";
-import { BrainIcon } from "@/delphi-ui/icons/Brain";
-import { ScrollRevealWrapper } from "@/components/ui/scroll-reveal-wrapper";
-
-const SMALL_WIDGET_VARIANTS = {
-  default: {
-    container: "bg-sand-3",
-  },
-  profile: {
-    container: "bg-sand-12/3 dark:bg-sand-3 backdrop-blur-lg",
-  },
-} as const;
-
-type SmallWidgetVariant = keyof typeof SMALL_WIDGET_VARIANTS;
+import { useMindWidgetState } from "../hooks/use-mind-widget-state";
+import {
+  generateDropShadow,
+  generateSmallWidgetShadowString,
+  getLevelShadowColors,
+} from "../utils/level-shadows";
 
 interface MindWidgetSmallVerticalProps {
   score?: number;
   level?: string;
   progress?: number;
   disableClick?: boolean;
-  variant?: SmallWidgetVariant;
   isScrollingDown?: boolean;
 }
 
@@ -41,7 +28,6 @@ export function MindWidgetSmallVertical({
   level = "Skilled",
   progress = 0,
   disableClick = false,
-  variant = "default",
   isScrollingDown = false,
 }: MindWidgetSmallVerticalProps) {
   const { status, isTrainingVisible, openAddKnowledge } = useMindWidgetState();
@@ -55,8 +41,6 @@ export function MindWidgetSmallVertical({
   const levelColors = getLevelShadowColors(level);
   const shadowString = generateSmallWidgetShadowString(levelColors);
   const dropShadow = generateDropShadow(levelColors);
-
-  const variantStyles = SMALL_WIDGET_VARIANTS[variant];
 
   return (
     <div
