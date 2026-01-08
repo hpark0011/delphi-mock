@@ -2,9 +2,7 @@
 
 import { Link } from "next-view-transitions";
 
-import { Button } from "@/components/ui/button";
 import { DelphiCurrentIcon } from "@/delphi-ui/icons/DelphiCurrent";
-import { ProfileMindWidget } from "./mind-widget/profile-mind-widget";
 import { MindWidgetSmallV2 } from "@/features/mind-widget";
 
 interface ProfileHeaderProps {
@@ -30,15 +28,6 @@ export function ProfileHeader(_props: ProfileHeaderProps) {
           </div>
           <div className='absolute top-[22px] left-1/2 -translate-x-1/2 w-full flex justify-center items-center'>
             <MindWidgetSmallV2 variant="profile" />
-          </div>
-          <div className='flex items-center gap-5'>
-            <Button
-              variant='secondary'
-              size='sm'
-              className='transition-colors  bg-[#ECE6E3] rounded-full text-text-muted shadow-none h-10 text-[16px]'
-            >
-              <span className='text-[16px] font-medium'>Share</span>
-            </Button>
           </div>
         </nav>
       </header>
