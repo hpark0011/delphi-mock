@@ -1,4 +1,5 @@
 import { CircleDashedIcon } from "lucide-react";
+import Link from "next/link";
 import { TrainingCard } from "../_libs/mock-studio-data";
 
 interface StudioTaskCardProps {
@@ -7,7 +8,10 @@ interface StudioTaskCardProps {
 
 export function StudioTaskCard({ card }: StudioTaskCardProps) {
   return (
-    <div className='group p-3 rounded-[20px] bg-card dark:bg-[#262626] hover:bg-[#EBEBE9] dark:hover:bg-[#2C2C2A] transition-colors cursor-pointer shadow-card-primary flex flex-col gap-3 w-full'>
+    <Link
+      href='/interview'
+      className='group p-3 rounded-[20px] bg-card dark:bg-[#262626] hover:bg-[#EBEBE9] dark:hover:bg-[#2C2C2A] transition-colors cursor-pointer shadow-card-primary flex flex-col gap-3 w-full'
+    >
       <CircleDashedIcon className='size-5 min-h-5 text-icon-light' />
       <div className='flex flex-col w-full h-full'>
         <h3 className='font-medium text-[#21201C] dark:text-[#EEEEEC]'>
@@ -17,6 +21,6 @@ export function StudioTaskCard({ card }: StudioTaskCardProps) {
           {card.description}
         </p>
       </div>
-    </div>
+    </Link>
   );
 }
