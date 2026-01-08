@@ -19,7 +19,7 @@ export function ProfileHeader() {
 
   return (
     <header className='sticky top-0 z-50 w-full select-none pb-1 bg-gradient-to-b from-profile-bg to-transparent'>
-      <nav className='pointer-events-none grid grid-cols-[1fr_auto_1fr] items-start lg:items-center px-4 lg:px-6 py-4 [&>*]:pointer-events-auto'>
+      <nav className='pointer-events-none grid grid-cols-[1fr_auto_1fr] items-start px-4 lg:px-6 py-4 [&>*]:pointer-events-auto'>
         {/* Left column - Navigation logo */}
         <ProfileNavLogo />
 

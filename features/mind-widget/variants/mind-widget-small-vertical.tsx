@@ -87,7 +87,7 @@ export function MindWidgetSmallVertical({
       <ScrollRevealWrapper isScrollingDown={isScrollingDown}>
         <AnimatePresence>
           {isTrainingVisible && (
-            <MindWidgetTrainingStatus size='small' variant='vertical' />
+            <MindWidgetTrainingStatus size='default' variant='vertical' />
           )}
         </AnimatePresence>
       </ScrollRevealWrapper>
