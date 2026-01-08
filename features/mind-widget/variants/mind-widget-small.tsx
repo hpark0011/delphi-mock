@@ -26,17 +26,12 @@ const SMALL_WIDGET_VARIANTS = {
 
 type SmallWidgetVariant = keyof typeof SMALL_WIDGET_VARIANTS;
 
-// Spring animation for training status visibility transitions
+// Width expansion/collapse animation (matches onboarding style)
 const trainingStatusAnimation = {
-  initial: { opacity: 1, y: -10, scale: 0.75 },
-  animate: { opacity: 1, y: 0, scale: 1 },
-  exit: { opacity: 1, y: -10, scale: 0.75 },
-  transition: {
-    type: "spring" as const,
-    stiffness: 300,
-    damping: 25,
-    mass: 1,
-  },
+  initial: { width: 0, opacity: 0 },
+  animate: { width: "auto", opacity: 1 },
+  exit: { width: 0, opacity: 0 },
+  transition: { duration: 0.25, ease: "easeInOut" as const },
 };
 
 interface MindWidgetSmallProps {
@@ -72,7 +67,15 @@ export function MindWidgetSmall({
   const shouldShowTrainingStatus = status !== "idle" && isTrainingVisible;
 
   return (
-    <div
+    <motion.div
+      layout
+      transition={{
+        layout: {
+          type: "spring",
+          stiffness: 300,
+          damping: 30,
+        },
+      }}
       className={cn(
         "flex gap-0 relative justify-start items-center rounded-full",
         variantStyles.container
@@ -116,11 +119,11 @@ export function MindWidgetSmall({
       </div>
       <AnimatePresence>
         {shouldShowTrainingStatus && (
-          <motion.div {...trainingStatusAnimation}>
+          <motion.div className='overflow-hidden' {...trainingStatusAnimation}>
             <MindWidgetTrainingStatus size='small' variant={variant} />
           </motion.div>
         )}
       </AnimatePresence>
-    </div>
+    </motion.div>
   );
 }
