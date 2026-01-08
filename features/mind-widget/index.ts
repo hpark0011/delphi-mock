@@ -1,4 +1,5 @@
 // Components
+export { AddToMindButton } from "./components/add-to-mind-button";
 export { MindProfileButton } from "./components/mind-profile-button";
 export {
   BaseGradientOverlay,
