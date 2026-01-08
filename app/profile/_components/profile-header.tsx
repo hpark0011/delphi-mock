@@ -1,6 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
+import { AnimatePresence, motion } from "framer-motion";
 
 import { DelphiCurrentIcon } from "@/delphi-ui/icons/DelphiCurrent";
 import { useMindDialog } from "@/features/mind-dialog";
@@ -41,22 +42,24 @@ export function ProfileHeader() {
             variant='profile'
           />
 
-          {/* Mobile-only add button - slides in/out based on scroll */}
-          {isMobile && (
-            <div
-              className='transition-all duration-300 ease-out'
-              style={{
-                maxHeight: isScrollingDown ? "48px" : "0px",
-                opacity: isScrollingDown ? 1 : 0,
-                marginTop: isScrollingDown ? "8px" : "0px",
-                transform: isScrollingDown
-                  ? "translateY(0)"
-                  : "translateY(-8px)",
-              }}
-            >
-              <AddToMindButton variant='circular' onClick={handleAddClick} />
-            </div>
-          )}
+          {/* Mobile-only add button - visible by default, hides on scroll down */}
+          <AnimatePresence>
+            {isMobile && !isScrollingDown && (
+              <motion.div
+                initial={{ opacity: 0, y: -10, height: 0, marginTop: 0 }}
+                animate={{ opacity: 1, y: 0, height: "auto", marginTop: 8 }}
+                exit={{ opacity: 0, y: -10, height: 0, marginTop: 0 }}
+                transition={{
+                  type: "spring",
+                  stiffness: 400,
+                  damping: 30,
+                  mass: 0.8,
+                }}
+              >
+                <AddToMindButton variant='circular' onClick={handleAddClick} />
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
 
         {/* Right column - Desktop: add button + avatar, Mobile: avatar only */}
