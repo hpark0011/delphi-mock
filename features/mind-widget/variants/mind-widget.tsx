@@ -3,15 +3,15 @@
 import React, { useState } from "react";
 import { calculateLevelProgress } from "@/features/mind-score";
 import { AnimatePresence } from "framer-motion";
-import { MindLevelInfoDialog } from "./components/mind-level-info-dialog";
-import { MindWidgetBubble } from "./components/mind-widget-bubble";
-import { MindWidgetInfo } from "./components/mind-widget-info";
-import { MindWidgetLevel } from "./components/mind-widget-level";
-import { MindWidgetScore } from "./components/mind-widget-score";
-import { MindWidgetTrainingStatus } from "./components/mind-widget-training-status";
-import { MindWidgetWrapper } from "./components/mind-widget-wrapper";
-import { useMindWidgetState } from "./hooks/use-mind-widget-state";
-import "./styles/mind-widget.styles.css";
+import { MindLevelInfoDialog } from "../components/mind-level-info-dialog";
+import { MindWidgetBubble } from "../components/mind-widget-bubble";
+import { MindWidgetInfo } from "../components/mind-widget-info";
+import { MindWidgetLevel } from "../components/mind-widget-level";
+import { MindWidgetScore } from "../components/mind-widget-score";
+import { MindWidgetTrainingStatus } from "../components/mind-widget-training-status";
+import { MindWidgetWrapper } from "../components/mind-widget-wrapper";
+import { useMindWidgetState } from "../hooks/use-mind-widget-state";
+import "../styles/mind-widget.styles.css";
 import { BrainIcon } from "@/delphi-ui/icons/Brain";
 import { cn } from "@/lib/utils";
 

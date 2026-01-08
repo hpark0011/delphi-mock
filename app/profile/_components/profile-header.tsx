@@ -3,7 +3,7 @@
 import { Link } from "next-view-transitions";
 
 import { DelphiCurrentIcon } from "@/delphi-ui/icons/DelphiCurrent";
-import { MindWidgetSmallV2 } from "@/features/mind-widget";
+import { MindWidgetSmall } from "@/features/mind-widget";
 
 interface ProfileHeaderProps {
   slug: string;
@@ -26,7 +26,7 @@ export function ProfileHeader(_props: ProfileHeaderProps) {
           </Link>
         </div>
         <div className='absolute top-[22px] left-1/2 -translate-x-1/2 w-full flex justify-center items-center'>
-          <MindWidgetSmallV2 variant='profile' />
+          <MindWidgetSmall variant='profile' />
         </div>
       </nav>
     </header>

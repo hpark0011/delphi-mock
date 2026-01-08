@@ -5,7 +5,7 @@ import type { IconName } from "@/components/ui/icon";
 import { Icon } from "@/components/ui/icon";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useMindScore } from "@/features/mind-score";
-import { MindWidgetSmallV2 } from "@/features/mind-widget";
+import { MindWidgetSmall } from "@/features/mind-widget";
 import { MindProfileButton } from "@/features/mind-widget/components/mind-profile-button";
 import { useTrainingState } from "@/hooks/use-training-state";
 import { cn } from "@/lib/utils";
@@ -80,7 +80,7 @@ export function MindDialogHeader({
         <MindProfileButton onClick={onProfileClick} />
       </div>
       <div className='mt-2 flex flex-col items-center justify-center gap-6'>
-        <MindWidgetSmallV2 disableClick />
+        <MindWidgetSmall disableClick />
         {/* Mind level */}
         <div className='font-medium text-center text-sand-10'>{level}</div>
       </div>

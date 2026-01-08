@@ -26,15 +26,15 @@ const SMALL_WIDGET_VARIANTS = {
 
 type SmallWidgetVariant = keyof typeof SMALL_WIDGET_VARIANTS;
 
-interface MindWidgetSmallV2Props {
+interface MindWidgetSmallProps {
   disableClick?: boolean;
   variant?: SmallWidgetVariant;
 }
 
-export function MindWidgetSmallV2({
+export function MindWidgetSmall({
   disableClick = false,
   variant = "default",
-}: MindWidgetSmallV2Props) {
+}: MindWidgetSmallProps) {
   const { current: score, level, progressToNextLevel } = useMindScore();
   const { status, isTrainingVisible, openAddKnowledge } = useMindWidgetState();
 
