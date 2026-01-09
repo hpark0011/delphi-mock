@@ -83,7 +83,7 @@ export function MindWidgetTrainingStatus({
   return (
     <motion.div
       className={cn(
-        "p-1 rounded-2xl flex items-center justify-center whitespace-nowrap h-10",
+        "rounded-2xl flex items-center justify-center whitespace-nowrap h-10",
         variantStyles.container
       )}
       initial={CONTAINER_ANIMATION.initial}
