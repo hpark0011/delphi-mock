@@ -8,7 +8,7 @@ import { MindWidgetBubble } from "../components/mind-widget-bubble";
 import { MindWidgetInfo } from "../components/mind-widget-info";
 import { MindWidgetLevel } from "../components/mind-widget-level";
 import { MindWidgetScore } from "../components/mind-widget-score";
-import { MindWidgetTrainingStatus } from "../components/mind-widget-training-status";
+import { MindWidgetTrainingStatusV2 } from "../components/mind-widget-training-status-v2";
 import { MindWidgetWrapper } from "../components/mind-widget-wrapper";
 import { verticalSpringAnimation, infoFadeAnimation } from "../animations";
 import type { MindWidgetDefaultInternalProps } from "../types";
@@ -52,7 +52,7 @@ export function MindWidgetDefaultWithAdd({
       <AnimatePresence mode='wait'>
         {shouldShowTrainingStatus ? (
           <motion.div key='training-status' {...verticalSpringAnimation}>
-            <MindWidgetTrainingStatus />
+            <MindWidgetTrainingStatusV2 variant='small' />
           </motion.div>
         ) : (
           <motion.div key='info' {...infoFadeAnimation}>

@@ -1,18 +1,18 @@
 "use client";
 
-import React from "react";
-import { AnimatePresence, motion } from "framer-motion";
 import { BrainIcon } from "@/delphi-ui/icons/Brain";
-import { MindWidgetBubble } from "../components/mind-widget-bubble";
-import { MindWidgetScore } from "../components/mind-widget-score";
-import { MindWidgetTrainingStatus } from "../components/mind-widget-training-status";
-import { MindWidgetWrapper } from "../components/mind-widget-wrapper";
+import { AnimatePresence, motion } from "framer-motion";
+import React from "react";
 import {
   horizontalExpandAnimation,
   verticalSpringAnimation,
 } from "../animations";
-import type { MindWidgetCompactInternalProps } from "../types";
 import { AddToMindButton } from "../components/add-to-mind-button";
+import { MindWidgetBubble } from "../components/mind-widget-bubble";
+import { MindWidgetScore } from "../components/mind-widget-score";
+import { MindWidgetTrainingStatusV2 } from "../components/mind-widget-training-status-v2";
+import { MindWidgetWrapper } from "../components/mind-widget-wrapper";
+import type { MindWidgetCompactInternalProps } from "../types";
 
 const DIRECTION_CONFIG = {
   horizontal: {
@@ -67,7 +67,7 @@ export function MindWidgetCompactWithAdd({
       <AnimatePresence>
         {shouldShowTrainingStatus && (
           <motion.div {...config.animation}>
-            <MindWidgetTrainingStatus variant={config.trainingVariant} />
+            <MindWidgetTrainingStatusV2 variant={config.trainingVariant} />
           </motion.div>
         )}
       </AnimatePresence>
