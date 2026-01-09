@@ -8,8 +8,8 @@ import {
 } from "@/features/mind-widget";
 import { MindWidgetSubtle } from "@/features/mind-widget/mind-widget-subtle";
 import { MindWidgetWithAdd } from "@/features/mind-widget/mind-widget-with-add";
-import { useContainerScrollDirection } from "@/hooks/use-container-scroll-direction";
-import { useRef } from "react";
+import { useContainerScrollDirectionElement } from "@/hooks/use-container-scroll-direction";
+import { useCallback, useState } from "react";
 import { PlaceholderParagraphs } from "../components/placeholder-paragraphs";
 import { VariantCard } from "../components/variants-card";
 import { VariantsCardTitle } from "../components/variants-card-title";
@@ -17,8 +17,19 @@ import { VariantsGrid } from "../components/variants-grid";
 
 export default function MindView() {
   const { current } = useMindScore();
-  const scrollContainerRef = useRef<HTMLDivElement>(null);
-  const isScrollingDown = useContainerScrollDirection(scrollContainerRef);
+
+  // Track scroll container as state so changes trigger re-renders
+  const [scrollContainer, setScrollContainer] = useState<HTMLDivElement | null>(
+    null
+  );
+
+  // Callback ref updates state when element changes (e.g., on tab switch)
+  const scrollContainerRef = useCallback((node: HTMLDivElement | null) => {
+    setScrollContainer(node);
+  }, []);
+
+  // Use element-based hook that reacts to container changes
+  const isScrollingDown = useContainerScrollDirectionElement(scrollContainer);
 
   // Control training visibility based on scroll direction
   useScrollAwareTrainingVisibility(isScrollingDown);

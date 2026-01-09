@@ -3,10 +3,8 @@
 import { Button } from "@/components/ui/button";
 import { ExitIcon } from "@/delphi-ui/icons/Exit";
 import { useMindScore } from "@/features/mind-score";
-import {
-  MindWidget,
-  useScrollAwareTrainingVisibility,
-} from "@/features/mind-widget";
+import { useScrollAwareTrainingVisibility } from "@/features/mind-widget";
+import { MindWidgetSubtle } from "@/features/mind-widget/mind-widget-subtle";
 import { useInterviewContext } from "../_context/interview-context";
 
 interface InterviewHeaderProps {
@@ -30,8 +28,7 @@ export function InterviewHeader({
         <div className='flex-1' />
 
         {/* Desktop: Show "Interview" title */}
-        <MindWidget score={current} variant="compact-vertical" />
-        {/* <h1 className='text-sm font-medium hidden md:block'>Interview</h1> */}
+        <MindWidgetSubtle score={current} variant='compact-vertical' />
 
         {/* Save & Exit button - right aligned */}
         <div className='flex-1 flex justify-end mt-1'>
