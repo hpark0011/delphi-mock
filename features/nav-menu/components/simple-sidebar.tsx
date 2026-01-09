@@ -12,7 +12,7 @@ import { SidebarNavItems } from "./sidebar-nav-items";
 export function SimpleSidebar() {
   const pathname = usePathname();
   const { open: openMindDialog } = useMindDialog();
-  const { current, level } = useMindScore();
+  const { current } = useMindScore();
 
   const isStudioRoute = pathname === "/studio";
 
@@ -59,7 +59,7 @@ export function SimpleSidebar() {
         {/* MindWidget on studio route */}
         {isStudioRoute && (
           <div className='absolute top-2 left-1/2 -translate-x-1/2 overflow-visible'>
-            <MindWidget score={current} level={level} />
+            <MindWidget score={current} />
           </div>
         )}
 

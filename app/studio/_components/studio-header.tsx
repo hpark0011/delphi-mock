@@ -6,7 +6,7 @@ import { useScrollDirection } from "@/app/profile/_hooks";
 import { cn } from "@/lib/utils";
 
 export function StudioHeader() {
-  const { current, level } = useMindScore();
+  const { current } = useMindScore();
   const isScrollingDown = useScrollDirection();
 
   useScrollAwareTrainingVisibility(isScrollingDown);
@@ -19,7 +19,7 @@ export function StudioHeader() {
         "bg-linear-to-b from-background via-background/80 to-transparent dark:from-black dark:via-black/30"
       )}
     >
-      <MindWidget score={current} level={level} />
+      <MindWidget score={current} />
     </div>
   );
 }

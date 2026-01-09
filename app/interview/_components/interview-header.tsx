@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { ExitIcon } from "@/delphi-ui/icons/Exit";
 import { useMindScore } from "@/features/mind-score";
 import {
-  MindWidgetSmallVertical,
+  MindWidget,
   useScrollAwareTrainingVisibility,
 } from "@/features/mind-widget";
 import { useInterviewContext } from "../_context/interview-context";
@@ -18,7 +18,7 @@ export function InterviewHeader({
   onExit,
   hasResponses = false,
 }: InterviewHeaderProps) {
-  const { current, level, levelProgress } = useMindScore();
+  const { current } = useMindScore();
   const { isScrollingDown } = useInterviewContext();
 
   // Control training visibility based on scroll direction
@@ -30,11 +30,7 @@ export function InterviewHeader({
         <div className='flex-1' />
 
         {/* Desktop: Show "Interview" title */}
-        <MindWidgetSmallVertical
-          score={current}
-          level={level}
-          progress={levelProgress}
-        />
+        <MindWidget score={current} variant="compact-vertical" />
         {/* <h1 className='text-sm font-medium hidden md:block'>Interview</h1> */}
 
         {/* Save & Exit button - right aligned */}

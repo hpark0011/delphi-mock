@@ -6,16 +6,14 @@ import { VariantCard } from "../components/variants-card";
 import { VariantsCardTitle } from "../components/variants-card-title";
 import { VariantsGrid } from "../components/variants-grid";
 import {
-  MindWidgetSmall,
   MindWidget,
-  MindWidgetSmallVertical,
   useScrollAwareTrainingVisibility,
 } from "@/features/mind-widget";
 import { useMindScore } from "@/features/mind-score";
 import { useContainerScrollDirection } from "@/hooks/use-container-scroll-direction";
 
 export default function MindView() {
-  const { current, level, levelProgress } = useMindScore();
+  const { current } = useMindScore();
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const isScrollingDown = useContainerScrollDirection(scrollContainerRef);
 
@@ -28,17 +26,13 @@ export default function MindView() {
         <VariantCard>
           <VariantsCardTitle>Default: Studio home</VariantsCardTitle>
           <div className='flex flex-col items-center justify-center pt-2'>
-            <MindWidget score={current} level={level} />
+            <MindWidget score={current} />
           </div>
         </VariantCard>
         <VariantCard>
-          <VariantsCardTitle>Small: Mind dialog</VariantsCardTitle>
+          <VariantsCardTitle>Compact: Mind dialog</VariantsCardTitle>
           <div className='flex flex-col items-center justify-center pt-2'>
-            <MindWidgetSmall
-              score={current}
-              level={level}
-              progress={levelProgress}
-            />
+            <MindWidget score={current} variant="compact" />
           </div>
         </VariantCard>
       </VariantsGrid>
@@ -46,16 +40,12 @@ export default function MindView() {
       <VariantsGrid>
         <VariantCard className='p-0 h-[480px]'>
           <VariantsCardTitle>
-            Vertical: Profile, IM, Onboarding
+            Compact Vertical: Profile, IM, Onboarding
           </VariantsCardTitle>
           <div className='relative w-full h-full'>
             <div className='absolute top-0 inset-x-0 flex items-center justify-center pointer-events-none bg-gradient-to-b from-sand-1 to-transparent dark:from-black py-4'>
               <div className='pointer-events-auto'>
-                <MindWidgetSmallVertical
-                  score={current}
-                  level={level}
-                  progress={levelProgress}
-                />
+                <MindWidget score={current} variant="compact-vertical" />
               </div>
             </div>
             <div

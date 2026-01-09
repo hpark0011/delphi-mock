@@ -3,7 +3,7 @@
 import { useMindDialog } from "@/features/mind-dialog";
 import { useMindScore } from "@/features/mind-score";
 import {
-  MindWidgetSmallVertical,
+  MindWidget,
   useScrollAwareTrainingVisibility,
 } from "@/features/mind-widget";
 
@@ -13,7 +13,7 @@ import { ProfileNavLogo } from "./profile-nav-logo";
 
 export function ProfileHeader() {
   const { open: openMindDialog } = useMindDialog();
-  const { current, level, levelProgress } = useMindScore();
+  const { current } = useMindScore();
   const isScrollingDown = useScrollDirection();
 
   // Control training visibility based on scroll direction
@@ -32,11 +32,7 @@ export function ProfileHeader() {
         {/* Center column - MindWidget */}
         <div className='flex flex-col items-center justify-start overflow-visible'>
           <div className='relative z-10'>
-            <MindWidgetSmallVertical
-              score={current}
-              level={level}
-              progress={levelProgress}
-            />
+            <MindWidget score={current} variant="compact-vertical" />
           </div>
         </div>
 

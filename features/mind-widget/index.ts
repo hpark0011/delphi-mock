@@ -6,11 +6,6 @@ export type {
   MindWidgetContainerStyle,
 } from "./types";
 
-// Deprecated legacy exports (for backward compatibility)
-// These now wrap the unified MindWidget component
-export { MindWidgetSmall } from "./variants/mind-widget-small";
-export { MindWidgetSmallVertical } from "./variants/mind-widget-small-vertical";
-
 // Components
 export { AddToMindButton } from "./components/add-to-mind-button";
 export { MindProfileButton } from "./components/mind-profile-button";

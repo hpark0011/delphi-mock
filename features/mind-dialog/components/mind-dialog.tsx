@@ -5,7 +5,7 @@ import type { IconName } from "@/components/ui/icon";
 import { Icon } from "@/components/ui/icon";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useMindScore } from "@/features/mind-score";
-import { MindWidgetSmall } from "@/features/mind-widget";
+import { MindWidget } from "@/features/mind-widget";
 import { MindProfileButton } from "@/features/mind-widget/components/mind-profile-button";
 import { useTrainingState } from "@/hooks/use-training-state";
 import { cn } from "@/lib/utils";
@@ -54,11 +54,9 @@ interface MindDialogProps {
 export function MindDialogHeader({
   score,
   level,
-  progress,
 }: {
   score: number;
   level: string;
-  progress: number;
 }) {
   const { clearQueue, markAsReviewed } = useTrainingQueue();
   const { status } = useTrainingState();
@@ -82,7 +80,7 @@ export function MindDialogHeader({
         <MindProfileButton onClick={onProfileClick} />
       </div>
       <div className='mt-2 flex flex-col items-center justify-center gap-6'>
-        <MindWidgetSmall score={score} level={level} progress={progress} disableClick />
+        <MindWidget score={score} variant="compact" disableClick />
         {/* Mind level */}
         <div className='font-medium text-center text-sand-10'>{level}</div>
       </div>
@@ -188,7 +186,7 @@ export function MindDialogProvider({
             className='w-full flex flex-col h-full min-h-0 gap-0'
           >
             {/* Fixed Header Section */}
-            <MindDialogHeader score={score} level={level} progress={levelProgress} />
+            <MindDialogHeader score={score} level={level} />
 
             {/* Scrollable Content Section */}
             <div className='flex-1 overflow-y-auto min-h-0 p-4 pt-2'>
