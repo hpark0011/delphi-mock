@@ -16,43 +16,16 @@ function createBadgeHandlers(open: (options?: OpenDialogOptions) => void) {
   };
 }
 
+const BASE_CONTAINER = cn("bg-sand-3", "min-h-7 h-7");
+const SHADOW_STYLES = cn(
+  "shadow-[inset_0_0.5px_1.5px_1px_rgba(255,255,255,0.8),_0_8px_16px_-4px_rgba(0,0,0,0.1)]",
+  "dark:shadow-[inset_0_0.5px_1.5px_1px_rgba(255,255,255,0.1),_0_8px_16px_-4px_rgba(0,0,0,0.3)]"
+);
+
 const TRAINING_STATUS_VARIANTS = {
-  default: {
-    container: cn(
-      // Background
-      "bg-sand-3",
-      // Sizing
-      "min-h-7 h-7",
-      // Spacing
-      "px-3",
-      // Shadow / Effects
-      "shadow-[inset_0_0.5px_1.5px_1px_rgba(255,255,255,0.8),_0_8px_16px_-4px_rgba(0,0,0,0.1)]",
-      "dark:shadow-[inset_0_0.5px_1.5px_1px_rgba(255,255,255,0.1),_0_8px_16px_-4px_rgba(0,0,0,0.3)]"
-    ),
-  },
-  vertical: {
-    container: cn(
-      // Background
-      "bg-sand-3",
-      // Sizing
-      "min-h-7 h-7",
-      // Spacing
-      "px-3",
-      // Shadow / Effects
-      "shadow-[inset_0_0.5px_1.5px_1px_rgba(255,255,255,0.8),_0_8px_16px_-4px_rgba(0,0,0,0.1)]",
-      "dark:shadow-[inset_0_0.5px_1.5px_1px_rgba(255,255,255,0.1),_0_8px_16px_-4px_rgba(0,0,0,0.3)]"
-    ),
-  },
-  small: {
-    container: cn(
-      // Background
-      "bg-sand-3",
-      // Sizing
-      "min-h-7 h-7",
-      // Spacing
-      "px-4 pl-3"
-    ),
-  },
+  default: { container: cn(BASE_CONTAINER, "px-3", SHADOW_STYLES) },
+  vertical: { container: cn(BASE_CONTAINER, "px-3", SHADOW_STYLES) },
+  small: { container: cn(BASE_CONTAINER, "px-4 pl-3") },
 } as const;
 
 type TrainingStatusVariant = keyof typeof TRAINING_STATUS_VARIANTS;
@@ -75,7 +48,6 @@ export function MindWidgetTrainingStatus({
   } = useTrainingState();
 
   const handleClick = () => open({ tab: "training-status" });
-  // const handleProfileClick = () => markAsReviewed();
   const badgeHandlers = createBadgeHandlers(open);
 
   const variantStyles = TRAINING_STATUS_VARIANTS[variant];

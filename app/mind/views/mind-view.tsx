@@ -3,7 +3,7 @@
 import { useRef } from "react";
 import { PlaceholderParagraphs } from "../components/placeholder-paragraphs";
 import { VariantCard } from "../components/variants-card";
-import VariantsCardTitle from "../components/variants-card-title";
+import { VariantsCardTitle } from "../components/variants-card-title";
 import { VariantsGrid } from "../components/variants-grid";
 import {
   MindWidgetSmall,
