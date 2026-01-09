@@ -41,7 +41,7 @@ export function MindWidgetCompactWithAdd({
 
   return (
     <MindWidgetWrapper variant={config.wrapperVariant}>
-      <div className='relative flex items-center justify-center'>
+      <div className='relative flex items-center justify-center z-10'>
         <AddToMindButton onClick={handleClick} variant='circular' />
         <MindWidgetBubble
           variant='compact'
@@ -51,7 +51,7 @@ export function MindWidgetCompactWithAdd({
           queueStatus={status}
           disableClick={disableClick}
         >
-          <div className='relative z-10'>
+          <div className='relative'>
             <div className='flex items-center justify-center gap-0.5'>
               <BrainIcon className='size-4.5 text-sand-1/50 min-w-[16px] dark:text-sand-12/50' />
               <MindWidgetScore

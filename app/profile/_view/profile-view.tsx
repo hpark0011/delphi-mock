@@ -1,7 +1,7 @@
+import { ProfileHeaderV2 } from "@/app/profile-v2/_components/profile-header-v2";
 import { ProfileBio } from "../_components/profile-bio";
 import { ProfileChatInput } from "../_components/profile-chat-input";
 import { ProfileFooter } from "../_components/profile-footer";
-import { ProfileHeader } from "../_components/profile-header";
 import { ProfileHeadline } from "../_components/profile-headline";
 import { ProfileImage } from "../_components/profile-image";
 import { ProfileName } from "../_components/profile-name";
@@ -25,7 +25,7 @@ export function ProfileView({
 }: ProfileViewProps) {
   return (
     <div className='min-h-screen flex flex-col bg-[var(--profile-bg)]'>
-      <ProfileHeader />
+      <ProfileHeaderV2 />
       <div className='tracking-[-0.015em] p-6 pt-8 pb-32 flex-1'>
         <div className='mx-auto max-w-2xl'>
           <ProfileImage imageUrl={profile.imageUrl} alt={`${slug} profile`} />
