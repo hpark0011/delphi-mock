@@ -1,120 +1,44 @@
 "use client";
 
 import React from "react";
-import { cn } from "@/lib/utils";
-import { AnimatePresence, motion } from "framer-motion";
-import { useMindWidgetState } from "../hooks/use-mind-widget-state";
-import {
-  generateSmallWidgetShadowString,
-  generateDropShadow,
-  getLevelShadowColors,
-} from "../utils/level-shadows";
-import { LevelProgressFill } from "../components/mind-widget-bubble";
-import { MindWidgetPill } from "../components/mind-widget-pill";
-import { MindWidgetScore } from "../components/mind-widget-score";
-import { MindWidgetTrainingStatus } from "../components/mind-widget-training-status";
-import { horizontalExpandAnimation } from "../animations";
-import { BrainIcon } from "@/delphi-ui/icons/Brain";
+import { MindWidget as UnifiedMindWidget } from "../mind-widget";
+import type { MindWidgetContainerStyle } from "../types";
 
-const SMALL_WIDGET_VARIANTS = {
-  default: {
-    container: "bg-sand-3",
-  },
-  profile: {
-    container: "bg-sand-12/3 dark:bg-sand-3 backdrop-blur-lg",
-  },
-} as const;
-
-type SmallWidgetVariant = keyof typeof SMALL_WIDGET_VARIANTS;
-
-interface MindWidgetSmallProps {
+interface MindWidgetSmallLegacyProps {
   score?: number;
   level?: string;
+  /** @deprecated Progress is now calculated internally from score */
   progress?: number;
   disableClick?: boolean;
-  variant?: SmallWidgetVariant;
+  variant?: "default" | "profile";
 }
 
+/**
+ * @deprecated Use `MindWidget` from `@/features/mind-widget` with `variant="compact"` instead.
+ *
+ * @example
+ * // Before (deprecated)
+ * import { MindWidgetSmall } from "@/features/mind-widget";
+ * <MindWidgetSmall score={150} level="Skilled" progress={50} disableClick />
+ *
+ * // After (recommended)
+ * import { MindWidget } from "@/features/mind-widget";
+ * <MindWidget score={150} variant="compact" disableClick />
+ */
 export function MindWidgetSmall({
   score = 20,
-  level = "Skilled",
-  progress = 0,
+  level,
+  progress: _progress, // Ignored - calculated internally now
   disableClick = false,
   variant = "default",
-}: MindWidgetSmallProps) {
-  const { status, shouldShowTrainingStatus, openAddKnowledge } =
-    useMindWidgetState();
-
-  const handleClick = () => {
-    if (disableClick) return;
-    openAddKnowledge();
-  };
-
-  // Get level-based shadow colors
-  const levelColors = getLevelShadowColors(level);
-  const shadowString = generateSmallWidgetShadowString(levelColors);
-  const dropShadow = generateDropShadow(levelColors);
-
-  const variantStyles = SMALL_WIDGET_VARIANTS[variant];
-
+}: MindWidgetSmallLegacyProps) {
   return (
-    <motion.div
-      layout
-      transition={{
-        layout: {
-          type: "spring",
-          stiffness: 300,
-          damping: 30,
-        },
-      }}
-      className={cn(
-        "flex gap-0 relative justify-start items-center rounded-full",
-        variantStyles.container
-      )}
-    >
-      {/* Mindscore Trigger */}
-      <div
-        className={cn(
-          "flex items-center bg-sand-10/8 rounded-full transition-all duration-200 w-fit relative",
-          !disableClick && "hover:scale-108 cursor-pointer"
-        )}
-        onClick={handleClick}
-        style={{ boxShadow: dropShadow }}
-      >
-        {/* Mindscore Wrapper */}
-        <MindWidgetPill
-          onClick={handleClick}
-          disableClick={disableClick}
-          shadowString={shadowString}
-          levelColors={levelColors}
-          status={status}
-          size='small'
-        >
-          {/* Mindscore Value */}
-          <div className='relative z-10'>
-            <div className='flex items-center justify-center gap-0.5'>
-              <BrainIcon className='size-4.5 text-sand-1/50 min-w-[16px] dark:text-sand-12/50' />
-              <MindWidgetScore
-                score={score}
-                className='text-text-primary-inverse dark:text-text-primary'
-                fontSize='text-[16px]'
-              />
-            </div>
-          </div>
-          {/* Progress fill */}
-          <LevelProgressFill
-            lightColor={levelColors.light}
-            progress={progress}
-          />
-        </MindWidgetPill>
-      </div>
-      <AnimatePresence>
-        {shouldShowTrainingStatus && (
-          <motion.div className="overflow-hidden" {...horizontalExpandAnimation}>
-            <MindWidgetTrainingStatus variant="small" />
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </motion.div>
+    <UnifiedMindWidget
+      score={score}
+      level={level}
+      variant="compact"
+      containerStyle={variant as MindWidgetContainerStyle}
+      disableClick={disableClick}
+    />
   );
 }

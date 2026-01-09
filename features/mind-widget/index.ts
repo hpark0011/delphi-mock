@@ -1,3 +1,16 @@
+// Primary unified export
+export { MindWidget } from "./mind-widget";
+export type {
+  MindWidgetProps,
+  MindWidgetVariant,
+  MindWidgetContainerStyle,
+} from "./types";
+
+// Deprecated legacy exports (for backward compatibility)
+// These now wrap the unified MindWidget component
+export { MindWidgetSmall } from "./variants/mind-widget-small";
+export { MindWidgetSmallVertical } from "./variants/mind-widget-small-vertical";
+
 // Components
 export { AddToMindButton } from "./components/add-to-mind-button";
 export { MindProfileButton } from "./components/mind-profile-button";
@@ -12,9 +25,6 @@ export { MindWidgetLevel } from "./components/mind-widget-level";
 export { MindWidgetScore } from "./components/mind-widget-score";
 export { MindWidgetWrapper } from "./components/mind-widget-wrapper";
 export { TrainingResultBadges } from "./components/training-result-badges";
-export { MindWidget } from "./variants/mind-widget";
-export { MindWidgetSmall } from "./variants/mind-widget-small";
-export { MindWidgetSmallVertical } from "./variants/mind-widget-small-vertical";
 
 // Training Status Components (atomic)
 export { MindTrainingStatusIcon } from "./components/mind-training-status-icon";
@@ -22,6 +32,7 @@ export { MindTrainingStatusLabel } from "./components/mind-training-status-label
 
 // Hooks
 export { useMindWidgetState } from "./hooks/use-mind-widget-state";
+export { useLevelColors } from "./hooks/use-level-colors";
 export { useScrollAwareTrainingVisibility } from "./hooks/use-scroll-aware-training-visibility";
 
 // Utils
