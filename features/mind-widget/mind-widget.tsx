@@ -24,10 +24,6 @@ import type { MindWidgetProps } from "./types";
  * <MindWidget score={150} variant="compact-vertical" />
  *
  * @example
- * // With profile container style (only for compact variant)
- * <MindWidget score={150} variant="compact" containerStyle="profile" />
- *
- * @example
  * // Disabled click (display only)
  * <MindWidget score={150} variant="compact" disableClick />
  */
@@ -35,9 +31,7 @@ export function MindWidget({
   score = 20,
   level,
   variant = "default",
-  containerStyle = "default",
   disableClick = false,
-  className,
 }: MindWidgetProps) {
   // Derive level from score if not provided
   const derivedLevel = level ?? calculateLevel(score);
@@ -58,37 +52,44 @@ export function MindWidget({
     openAddKnowledge();
   }, [disableClick, openAddKnowledge]);
 
-  // Common props for all variants
-  const commonProps = {
-    score,
-    progress,
-    disableClick,
-    className,
-    status,
-    shouldShowTrainingStatus,
-    handleClick,
-  };
-
   // Render appropriate variant
   switch (variant) {
     case "compact":
       return (
         <MindWidgetCompact
-          {...commonProps}
+          score={score}
+          progress={progress}
+          disableClick={disableClick}
+          status={status}
+          shouldShowTrainingStatus={shouldShowTrainingStatus}
+          handleClick={handleClick}
           {...levelColors}
           direction="horizontal"
-          containerStyle={containerStyle}
         />
       );
     case "compact-vertical":
       return (
         <MindWidgetCompact
-          {...commonProps}
+          score={score}
+          progress={progress}
+          disableClick={disableClick}
+          status={status}
+          shouldShowTrainingStatus={shouldShowTrainingStatus}
+          handleClick={handleClick}
           {...levelColors}
           direction="vertical"
         />
       );
     default:
-      return <MindWidgetDefault {...commonProps} level={derivedLevel} />;
+      return (
+        <MindWidgetDefault
+          score={score}
+          level={derivedLevel}
+          progress={progress}
+          status={status}
+          shouldShowTrainingStatus={shouldShowTrainingStatus}
+          handleClick={handleClick}
+        />
+      );
   }
 }

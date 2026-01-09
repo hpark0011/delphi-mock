@@ -3,7 +3,6 @@
 import React, { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { BrainIcon } from "@/delphi-ui/icons/Brain";
-import { cn } from "@/lib/utils";
 import { MindLevelInfoDialog } from "../components/mind-level-info-dialog";
 import { MindWidgetBubble } from "../components/mind-widget-bubble";
 import { MindWidgetInfo } from "../components/mind-widget-info";
@@ -19,7 +18,6 @@ export function MindWidgetDefault({
   score,
   level,
   progress,
-  className,
   status,
   shouldShowTrainingStatus,
   handleClick,
@@ -28,7 +26,7 @@ export function MindWidgetDefault({
   const [isInfoDialogOpen, setIsInfoDialogOpen] = useState(false);
 
   return (
-    <MindWidgetWrapper className={cn("gap-0.5", className)}>
+    <MindWidgetWrapper className="gap-0.5">
       <MindWidgetBubble
         className="min-w-[112px] z-10 relative"
         level={level}
@@ -40,11 +38,7 @@ export function MindWidgetDefault({
           <div className="flex items-center justify-center gap-0.5">
             <MindWidgetScore score={score} fontSize="text-2xl" />
           </div>
-          <div
-            className={cn(
-              "w-full flex items-center justify-center pb-0.5 gap-0.5 ml-[-4px]"
-            )}
-          >
+          <div className="w-full flex items-center justify-center pb-0.5 gap-0.5 ml-[-4px]">
             <BrainIcon className="size-4 text-sand-1/50 min-w-[16px] dark:text-sand-12/50" />
             <MindWidgetLevel level={level} />
           </div>

@@ -1,10 +1,6 @@
 // Primary unified export
 export { MindWidget } from "./mind-widget";
-export type {
-  MindWidgetProps,
-  MindWidgetVariant,
-  MindWidgetContainerStyle,
-} from "./types";
+export type { MindWidgetProps, MindWidgetVariant } from "./types";
 
 // Components
 export { AddToMindButton } from "./components/add-to-mind-button";

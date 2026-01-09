@@ -14,11 +14,6 @@ import {
 } from "../animations";
 import type { MindWidgetCompactInternalProps } from "../types";
 
-const CONTAINER_STYLE_CLASSES = {
-  default: "bg-sand-3",
-  profile: "bg-sand-12/3 dark:bg-sand-3 backdrop-blur-lg",
-} as const;
-
 const DIRECTION_CONFIG = {
   horizontal: {
     containerClass: "flex gap-0 relative justify-start items-center rounded-full",
@@ -40,8 +35,6 @@ export function MindWidgetCompact({
   score,
   progress,
   disableClick,
-  className,
-  containerStyle,
   direction,
   status,
   shouldShowTrainingStatus,
@@ -52,12 +45,6 @@ export function MindWidgetCompact({
 }: MindWidgetCompactInternalProps) {
   const config = DIRECTION_CONFIG[direction];
   const isHorizontal = direction === "horizontal";
-
-  const containerClassName = cn(
-    config.containerClass,
-    isHorizontal && containerStyle && CONTAINER_STYLE_CLASSES[containerStyle],
-    className
-  );
 
   const content = (
     <>
@@ -109,12 +96,12 @@ export function MindWidgetCompact({
         transition={{
           layout: { type: "spring", stiffness: 300, damping: 30 },
         }}
-        className={containerClassName}
+        className={config.containerClass}
       >
         {content}
       </motion.div>
     );
   }
 
-  return <div className={containerClassName}>{content}</div>;
+  return <div className={config.containerClass}>{content}</div>;
 }

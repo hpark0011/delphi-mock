@@ -3,9 +3,6 @@ import type { LevelColors } from "./utils/level-shadows";
 // Widget variants
 export type MindWidgetVariant = "default" | "compact" | "compact-vertical";
 
-// Container style options (only applies to 'compact' variant)
-export type MindWidgetContainerStyle = "default" | "profile";
-
 // Training status types
 export type TrainingStatus = "idle" | "active" | "finished";
 
@@ -20,12 +17,8 @@ export interface MindWidgetProps {
   level?: string;
   /** Visual variant */
   variant?: MindWidgetVariant;
-  /** Container background style (only applies to 'compact' variant) */
-  containerStyle?: MindWidgetContainerStyle;
   /** Disable click interaction */
   disableClick?: boolean;
-  /** Additional class names */
-  className?: string;
 }
 
 // Internal props passed to default variant
@@ -33,8 +26,6 @@ export interface MindWidgetDefaultInternalProps {
   score: number;
   level: string;
   progress: number;
-  disableClick: boolean;
-  className?: string;
   status: TrainingStatus;
   shouldShowTrainingStatus: boolean;
   handleClick: () => void;
@@ -45,8 +36,6 @@ export interface MindWidgetCompactInternalProps {
   score: number;
   progress: number;
   disableClick: boolean;
-  className?: string;
-  containerStyle?: MindWidgetContainerStyle;
   direction: CompactDirection;
   status: TrainingStatus;
   shouldShowTrainingStatus: boolean;
