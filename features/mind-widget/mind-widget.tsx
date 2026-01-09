@@ -3,7 +3,6 @@
 import React, { useCallback } from "react";
 import { calculateLevel, calculateLevelProgress } from "@/features/mind-score";
 import { useMindWidgetState } from "./hooks/use-mind-widget-state";
-import { useLevelColors } from "./hooks/use-level-colors";
 import { MindWidgetDefault } from "./variants/mind-widget-default";
 import { MindWidgetCompact } from "./variants/mind-widget-compact";
 import type { MindWidgetProps } from "./types";
@@ -42,9 +41,6 @@ export function MindWidget({
   const { status, shouldShowTrainingStatus, openAddKnowledge } =
     useMindWidgetState();
 
-  // Level-based colors and shadows
-  const levelColors = useLevelColors(level);
-
   // Shared click handler
   const handleClick = useCallback(() => {
     if (disableClick) return;
@@ -57,12 +53,12 @@ export function MindWidget({
       return (
         <MindWidgetCompact
           score={score}
+          level={level}
           progress={progress}
           disableClick={disableClick}
           status={status}
           shouldShowTrainingStatus={shouldShowTrainingStatus}
           handleClick={handleClick}
-          {...levelColors}
           direction="horizontal"
         />
       );
@@ -70,12 +66,12 @@ export function MindWidget({
       return (
         <MindWidgetCompact
           score={score}
+          level={level}
           progress={progress}
           disableClick={disableClick}
           status={status}
           shouldShowTrainingStatus={shouldShowTrainingStatus}
           handleClick={handleClick}
-          {...levelColors}
           direction="vertical"
         />
       );

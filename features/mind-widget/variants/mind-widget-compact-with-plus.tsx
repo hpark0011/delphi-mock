@@ -32,7 +32,7 @@ const DIRECTION_CONFIG = {
   },
 } as const;
 
-export function MindWidgetCompact({
+export function MindWidgetCompactWithPlus({
   score,
   level,
   progress,

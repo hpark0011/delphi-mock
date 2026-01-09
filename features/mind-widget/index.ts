@@ -23,7 +23,6 @@ export { MindTrainingStatusLabel } from "./components/mind-training-status-label
 
 // Hooks
 export { useMindWidgetState } from "./hooks/use-mind-widget-state";
-export { useLevelColors } from "./hooks/use-level-colors";
 export { useScrollAwareTrainingVisibility } from "./hooks/use-scroll-aware-training-visibility";
 
 // Utils

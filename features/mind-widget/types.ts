@@ -1,5 +1,3 @@
-import type { LevelColors } from "./utils/level-shadows";
-
 // Widget variants
 export type MindWidgetVariant = "default" | "compact" | "compact-vertical";
 
@@ -32,13 +30,11 @@ export interface MindWidgetDefaultInternalProps {
 // Internal props passed to compact variants
 export interface MindWidgetCompactInternalProps {
   score: number;
+  level: string;
   progress: number;
   disableClick: boolean;
   direction: CompactDirection;
   status: TrainingStatus;
   shouldShowTrainingStatus: boolean;
   handleClick: () => void;
-  levelColors: LevelColors;
-  shadowString: string;
-  dropShadow: string;
 }
