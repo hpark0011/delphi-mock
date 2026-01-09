@@ -5,7 +5,7 @@ import { calculateLevel, calculateLevelProgress } from "@/features/mind-score";
 import { useMindWidgetState } from "./hooks/use-mind-widget-state";
 import { MindWidgetDefault } from "./variants/mind-widget-default";
 import { MindWidgetCompact } from "./variants/mind-widget-compact";
-import type { MindWidgetProps } from "./types";
+import type { CompactDirection, MindWidgetProps } from "./types";
 
 /**
  * Unified MindWidget component with variant support.
@@ -30,61 +30,43 @@ export function MindWidget({
   score = 20,
   variant = "default",
   disableClick = false,
-}: MindWidgetProps) {
-  // Derive level from score
+}: MindWidgetProps): React.JSX.Element {
   const level = calculateLevel(score);
-
-  // Always calculate progress internally
   const progress = calculateLevelProgress(score);
-
-  // Shared state and handlers
   const { status, shouldShowTrainingStatus, openAddKnowledge } =
     useMindWidgetState();
 
-  // Shared click handler
   const handleClick = useCallback(() => {
     if (disableClick) return;
     openAddKnowledge();
   }, [disableClick, openAddKnowledge]);
 
-  // Render appropriate variant
-  switch (variant) {
-    case "compact":
-      return (
-        <MindWidgetCompact
-          score={score}
-          level={level}
-          progress={progress}
-          disableClick={disableClick}
-          status={status}
-          shouldShowTrainingStatus={shouldShowTrainingStatus}
-          handleClick={handleClick}
-          direction="horizontal"
-        />
-      );
-    case "compact-vertical":
-      return (
-        <MindWidgetCompact
-          score={score}
-          level={level}
-          progress={progress}
-          disableClick={disableClick}
-          status={status}
-          shouldShowTrainingStatus={shouldShowTrainingStatus}
-          handleClick={handleClick}
-          direction="vertical"
-        />
-      );
-    default:
-      return (
-        <MindWidgetDefault
-          score={score}
-          level={level}
-          progress={progress}
-          status={status}
-          shouldShowTrainingStatus={shouldShowTrainingStatus}
-          handleClick={handleClick}
-        />
-      );
+  if (variant === "default") {
+    return (
+      <MindWidgetDefault
+        score={score}
+        level={level}
+        progress={progress}
+        status={status}
+        shouldShowTrainingStatus={shouldShowTrainingStatus}
+        handleClick={handleClick}
+      />
+    );
   }
+
+  const direction: CompactDirection =
+    variant === "compact-vertical" ? "vertical" : "horizontal";
+
+  return (
+    <MindWidgetCompact
+      score={score}
+      level={level}
+      progress={progress}
+      disableClick={disableClick}
+      status={status}
+      shouldShowTrainingStatus={shouldShowTrainingStatus}
+      handleClick={handleClick}
+      direction={direction}
+    />
+  );
 }

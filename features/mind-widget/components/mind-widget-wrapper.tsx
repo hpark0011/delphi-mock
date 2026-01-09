@@ -4,26 +4,21 @@ import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
 import React from "react";
 
-type WrapperVariant = "default" | "compact-horizontal" | "compact-vertical";
+export type WrapperVariant = "default" | "compact-horizontal" | "compact-vertical";
 
-const VARIANT_CONFIG = {
-  default: {
-    className: cn(
-      // Layout
-      "flex flex-col items-center h-fit gap-0.5 min-w-[160px] p-4 pt-0 pb-3",
-      // Background
-      "bg-transparent"
-    ),
-    useMotion: false,
-  },
-  "compact-horizontal": {
-    className: "flex gap-0 relative justify-start items-center rounded-full bg-sand-3",
-    useMotion: true,
-  },
-  "compact-vertical": {
-    className: "flex-col gap-0.5 relative justify-center items-center rounded-full flex",
-    useMotion: false,
-  },
+const VARIANT_STYLES: Record<WrapperVariant, string> = {
+  default: cn(
+    "flex flex-col items-center h-fit gap-0.5 min-w-[160px] p-4 pt-0 pb-3",
+    "bg-transparent"
+  ),
+  "compact-horizontal":
+    "flex gap-0 relative justify-start items-center rounded-full bg-sand-3",
+  "compact-vertical":
+    "flex flex-col gap-0.5 relative justify-center items-center rounded-full",
+};
+
+const MOTION_TRANSITION = {
+  layout: { type: "spring", stiffness: 300, damping: 30 },
 } as const;
 
 interface MindWidgetWrapperProps {
@@ -36,26 +31,21 @@ export function MindWidgetWrapper({
   children,
   className,
   variant = "default",
-}: MindWidgetWrapperProps) {
-  const config = VARIANT_CONFIG[variant];
+}: MindWidgetWrapperProps): React.JSX.Element {
+  const variantClassName = cn(VARIANT_STYLES[variant], className);
 
-  if (config.useMotion) {
+  // Only compact-horizontal uses motion for layout animations
+  if (variant === "compact-horizontal") {
     return (
       <motion.div
         layout
-        transition={{
-          layout: { type: "spring", stiffness: 300, damping: 30 },
-        }}
-        className={cn(config.className, className)}
+        transition={MOTION_TRANSITION}
+        className={variantClassName}
       >
         {children}
       </motion.div>
     );
   }
 
-  return (
-    <div className={cn(config.className, className)}>
-      {children}
-    </div>
-  );
+  return <div className={variantClassName}>{children}</div>;
 }

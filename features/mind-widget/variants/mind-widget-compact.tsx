@@ -35,7 +35,7 @@ export function MindWidgetCompact({
   status,
   shouldShowTrainingStatus,
   handleClick,
-}: MindWidgetCompactInternalProps) {
+}: MindWidgetCompactInternalProps): React.JSX.Element {
   const config = DIRECTION_CONFIG[direction];
 
   return (

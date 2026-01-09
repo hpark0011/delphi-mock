@@ -17,8 +17,8 @@ export interface MindWidgetProps {
   disableClick?: boolean;
 }
 
-// Internal props passed to default variant
-export interface MindWidgetDefaultInternalProps {
+// Shared internal props for all variant components
+interface MindWidgetInternalBaseProps {
   score: number;
   level: string;
   progress: number;
@@ -27,14 +27,13 @@ export interface MindWidgetDefaultInternalProps {
   handleClick: () => void;
 }
 
+// Internal props passed to default variant
+export interface MindWidgetDefaultInternalProps
+  extends MindWidgetInternalBaseProps {}
+
 // Internal props passed to compact variants
-export interface MindWidgetCompactInternalProps {
-  score: number;
-  level: string;
-  progress: number;
+export interface MindWidgetCompactInternalProps
+  extends MindWidgetInternalBaseProps {
   disableClick: boolean;
   direction: CompactDirection;
-  status: TrainingStatus;
-  shouldShowTrainingStatus: boolean;
-  handleClick: () => void;
 }

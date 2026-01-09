@@ -21,8 +21,7 @@ export function MindWidgetDefault({
   status,
   shouldShowTrainingStatus,
   handleClick,
-}: MindWidgetDefaultInternalProps) {
-  // Dialog state for mind level info
+}: MindWidgetDefaultInternalProps): React.JSX.Element {
   const [isInfoDialogOpen, setIsInfoDialogOpen] = useState(false);
 
   return (
