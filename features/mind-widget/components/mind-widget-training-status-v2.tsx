@@ -4,8 +4,8 @@ import { useMindDialog, type OpenDialogOptions } from "@/features/mind-dialog";
 import { useTrainingState } from "@/hooks/use-training-state";
 import { AnimatePresence, motion } from "framer-motion";
 import { CONTAINER_ANIMATION } from "../utils/animations";
-import { TrainingStatusActive } from "./training-status-active";
-import { TrainingStatusFinished } from "./training-status-finished";
+import { TrainingStatusActiveV2 } from "./training-status-active-v2";
+import { TrainingStatusFinishedV2 } from "./training-status-finished-v2";
 import { cn } from "@/lib/utils";
 
 function createBadgeHandlers(open: (options?: OpenDialogOptions) => void) {
@@ -34,7 +34,7 @@ interface MindWidgetTrainingStatusProps {
   variant?: TrainingStatusVariant;
 }
 
-export function MindWidgetTrainingStatus({
+export function MindWidgetTrainingStatusV2({
   variant = "default",
 }: MindWidgetTrainingStatusProps) {
   const { open } = useMindDialog();
@@ -69,13 +69,13 @@ export function MindWidgetTrainingStatus({
       >
         <AnimatePresence mode='wait'>
           {status === "finished" ? (
-            <TrainingStatusFinished
+            <TrainingStatusFinishedV2
               completedCount={completedCount}
               failedCount={failedCount}
               {...badgeHandlers}
             />
           ) : (
-            <TrainingStatusActive
+            <TrainingStatusActiveV2
               recentlyAddedItem={recentlyAddedItem}
               activeCount={activeCount}
               completedCount={completedCount}
