@@ -41,11 +41,11 @@ export function MindWidgetCompact({
   return (
     <MindWidgetWrapper variant={config.wrapperVariant}>
       <MindWidgetBubble
+        variant="compact"
         level={level}
         progress={progress}
         onClick={handleClick}
         queueStatus={status}
-        size="compact"
         disableClick={disableClick}
       >
         <div className="relative z-10">

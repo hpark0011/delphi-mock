@@ -6,16 +6,15 @@ import {
 import { cn } from "@/lib/utils";
 import React from "react";
 
-type BubbleSize = "default" | "compact";
+type BubbleVariant = "default" | "compact";
 
 interface MindWidgetBubbleProps {
   children: React.ReactNode;
-  className?: string;
   level: string;
   progress?: number;
   onClick?: () => void;
   queueStatus?: "idle" | "active" | "finished";
-  size?: BubbleSize;
+  variant?: BubbleVariant;
   disableClick?: boolean;
 }
 
@@ -95,17 +94,16 @@ function GlowAnimationOverlay({
 
 export function MindWidgetBubble({
   children,
-  className,
   level,
   progress = 0,
   onClick,
   queueStatus = "idle",
-  size = "default",
+  variant = "default",
   disableClick = false,
 }: MindWidgetBubbleProps): React.JSX.Element {
   const levelColors = getLevelShadowColors(level);
   const shadowString = generateSmallWidgetShadowString(levelColors);
-  const isCompact = size === "compact";
+  const isCompact = variant === "compact";
 
   const baseClassName = cn(
     "flex flex-col relative items-center justify-center overflow-hidden",
@@ -116,8 +114,11 @@ export function MindWidgetBubble({
           "bg-black border-white/20 dark:border-white/3",
           !disableClick && "cursor-pointer hover:scale-108",
         ]
-      : ["min-w-[52px] min-h-[40px] p-0.5", "hover:scale-104 cursor-pointer"],
-    className
+      : [
+          "min-w-[112px] min-h-[40px] p-0.5",
+          "z-10 relative",
+          "hover:scale-104 cursor-pointer",
+        ]
   );
 
   const boxShadow = isCompact

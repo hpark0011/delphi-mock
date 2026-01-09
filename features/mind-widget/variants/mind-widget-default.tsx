@@ -27,7 +27,7 @@ export function MindWidgetDefault({
   return (
     <MindWidgetWrapper className="gap-0.5">
       <MindWidgetBubble
-        className="min-w-[112px] z-10 relative"
+        variant="default"
         level={level}
         progress={progress}
         onClick={handleClick}
