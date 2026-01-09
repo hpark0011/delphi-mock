@@ -21,10 +21,6 @@ interface MindWidgetBubbleProps {
 // Shared positioning for overlay components
 const OVERLAY_BASE = "absolute inset-0";
 
-export function BaseGradientOverlay(): React.JSX.Element {
-  return <div className={cn(OVERLAY_BASE, "bg-black")} />;
-}
-
 export function GlassEffectHighlight(): React.JSX.Element {
   return (
     <div
@@ -67,7 +63,7 @@ export function LevelProgressFill({
 
   return (
     <div
-      className="absolute bottom-0 left-0 right-0 w-full transition-[height] duration-500 ease-out"
+      className='absolute bottom-0 left-0 right-0 w-full transition-[height] duration-500 ease-out'
       style={{
         height: `${fillPercent}%`,
         background: `linear-gradient(to top, ${lightColor.replace("1)", "0.6)")} 0%, ${lightColor.replace("1)", "0.1)")} 100%)`,
@@ -85,7 +81,10 @@ function GlowAnimationOverlay({
 }: GlowAnimationOverlayProps): React.JSX.Element {
   return (
     <div
-      className={cn(OVERLAY_BASE, "rounded-full mind-widget-bubble pointer-events-none")}
+      className={cn(
+        OVERLAY_BASE,
+        "rounded-full mind-widget-bubble pointer-events-none"
+      )}
       data-luminating={queueStatus === "active"}
       data-glowing={queueStatus === "finished"}
     />
@@ -116,7 +115,7 @@ export function MindWidgetBubble({
         ]
       : [
           "min-w-[112px] min-h-[40px] p-0.5",
-          "z-10 relative",
+          "z-10 relative bg-black",
           "hover:scale-104 cursor-pointer",
         ]
   );
@@ -128,12 +127,14 @@ export function MindWidgetBubble({
   return (
     <div
       className={baseClassName}
-      style={{
-        boxShadow,
-        "--pill-color-light": levelColors.light,
-        "--pill-color-medium": levelColors.medium,
-        "--pill-color-dark": levelColors.dark,
-      } as React.CSSProperties}
+      style={
+        {
+          boxShadow,
+          "--pill-color-light": levelColors.light,
+          "--pill-color-medium": levelColors.medium,
+          "--pill-color-dark": levelColors.dark,
+        } as React.CSSProperties
+      }
       onClick={onClick}
       data-luminating={isCompact ? queueStatus === "active" : undefined}
       data-glowing={isCompact ? queueStatus === "finished" : undefined}
@@ -143,7 +144,6 @@ export function MindWidgetBubble({
 
       {!isCompact && (
         <>
-          <BaseGradientOverlay />
           <GlassEffectHighlight />
           <LevelAccentShadow shadowString={shadowString} />
         </>

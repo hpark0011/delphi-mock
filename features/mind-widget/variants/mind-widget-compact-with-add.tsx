@@ -12,6 +12,7 @@ import {
   verticalSpringAnimation,
 } from "../animations";
 import type { MindWidgetCompactInternalProps } from "../types";
+import { AddToMindButton } from "../components/add-to-mind-button";
 
 const DIRECTION_CONFIG = {
   horizontal: {
@@ -26,7 +27,7 @@ const DIRECTION_CONFIG = {
   },
 } as const;
 
-export function MindWidgetCompact({
+export function MindWidgetCompactWithAdd({
   score,
   level,
   progress,
@@ -40,25 +41,28 @@ export function MindWidgetCompact({
 
   return (
     <MindWidgetWrapper variant={config.wrapperVariant}>
-      <MindWidgetBubble
-        variant='compact'
-        level={level}
-        progress={progress}
-        onClick={handleClick}
-        queueStatus={status}
-        disableClick={disableClick}
-      >
-        <div className='relative z-10'>
-          <div className='flex items-center justify-center gap-0.5'>
-            <BrainIcon className='size-4.5 text-sand-1/50 min-w-[16px] dark:text-sand-12/50' />
-            <MindWidgetScore
-              score={score}
-              className='text-text-primary-inverse dark:text-text-primary'
-              fontSize='text-[16px]'
-            />
+      <div className='relative flex items-center justify-center'>
+        <AddToMindButton onClick={handleClick} variant='circular' />
+        <MindWidgetBubble
+          variant='compact'
+          level={level}
+          progress={progress}
+          onClick={handleClick}
+          queueStatus={status}
+          disableClick={disableClick}
+        >
+          <div className='relative z-10'>
+            <div className='flex items-center justify-center gap-0.5'>
+              <BrainIcon className='size-4.5 text-sand-1/50 min-w-[16px] dark:text-sand-12/50' />
+              <MindWidgetScore
+                score={score}
+                className='text-text-primary-inverse dark:text-text-primary'
+                fontSize='text-[16px]'
+              />
+            </div>
           </div>
-        </div>
-      </MindWidgetBubble>
+        </MindWidgetBubble>
+      </div>
 
       <AnimatePresence>
         {shouldShowTrainingStatus && (

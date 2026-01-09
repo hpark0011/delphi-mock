@@ -13,8 +13,9 @@ import { MindWidgetWrapper } from "../components/mind-widget-wrapper";
 import { verticalSpringAnimation, infoFadeAnimation } from "../animations";
 import type { MindWidgetDefaultInternalProps } from "../types";
 import "../styles/mind-widget.styles.css";
+import { AddToMindButton } from "../components/add-to-mind-button";
 
-export function MindWidgetDefault({
+export function MindWidgetDefaultWithAdd({
   score,
   level,
   progress,
@@ -26,23 +27,26 @@ export function MindWidgetDefault({
 
   return (
     <MindWidgetWrapper variant='default'>
-      <MindWidgetBubble
-        variant='default'
-        level={level}
-        progress={progress}
-        onClick={handleClick}
-        queueStatus={status}
-      >
-        <div className='relative z-10 flex flex-col h-full gap-1 justify-center items-center p-1.5'>
-          <div className='flex items-center justify-center gap-0.5'>
-            <MindWidgetScore score={score} fontSize='text-2xl' />
+      <div className='relative flex items-center justify-center'>
+        <AddToMindButton onClick={handleClick} variant='circular' />
+        <MindWidgetBubble
+          variant='default'
+          level={level}
+          progress={progress}
+          onClick={handleClick}
+          queueStatus={status}
+        >
+          <div className='relative z-10 flex flex-col h-full gap-1 justify-center items-center p-1.5'>
+            <div className='flex items-center justify-center gap-0.5'>
+              <MindWidgetScore score={score} fontSize='text-2xl' />
+            </div>
+            <div className='w-full flex items-center justify-center pb-0.5 gap-0.5 ml-[-4px]'>
+              <BrainIcon className='size-4 text-sand-1/50 min-w-[16px] dark:text-sand-12/50' />
+              <MindWidgetLevel level={level} />
+            </div>
           </div>
-          <div className='w-full flex items-center justify-center pb-0.5 gap-0.5 ml-[-4px]'>
-            <BrainIcon className='size-4 text-sand-1/50 min-w-[16px] dark:text-sand-12/50' />
-            <MindWidgetLevel level={level} />
-          </div>
-        </div>
-      </MindWidgetBubble>
+        </MindWidgetBubble>
+      </div>
 
       {/* Training Status - below bubble */}
       <AnimatePresence mode='wait'>

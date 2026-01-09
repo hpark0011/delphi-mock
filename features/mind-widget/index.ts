@@ -6,7 +6,6 @@ export type { MindWidgetProps, MindWidgetVariant } from "./types";
 export { AddToMindButton } from "./components/add-to-mind-button";
 export { MindProfileButton } from "./components/mind-profile-button";
 export {
-  BaseGradientOverlay,
   GlassEffectHighlight,
   LevelAccentShadow,
   LevelProgressFill,
