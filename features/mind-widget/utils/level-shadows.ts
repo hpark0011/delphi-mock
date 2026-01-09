@@ -78,6 +78,14 @@ export function generateSmallWidgetShadowString(colors: LevelColors): string {
   return `inset_0_1px_8px_-2px_${colors.light},inset_0_-4px_6px_-2px_${colors.medium},inset_0_-13px_24px_-14px_${colors.dark},_0_0_0_0.5px_rgba(0,0,0,0.05),0_10px_20px_-5px_rgba(0,0,0,0.3),0_1px_1px_0_rgba(0,0,0,0.15),_inset_0_0_6px_0_rgba(255,255,255,0.1)`;
 }
 
+/**
+ * DropShadowConfig is a configuration object for the drop shadow.
+ * @param offset - The offset of the shadow.
+ * @param blur - The blur of the shadow.
+ * @param spread - The spread of the shadow.
+ * @param colorKey - The key of the color in the LevelColors object.
+ * @param opacity - The opacity of the shadow.
+ */
 interface DropShadowConfig {
   offset: number;
   blur: number;
@@ -116,7 +124,9 @@ export function generateDropShadow(
   colors: LevelColors,
   isSmall = false
 ): string {
-  const layers = isSmall ? SMALL_DROP_SHADOW_LAYERS : DEFAULT_DROP_SHADOW_LAYERS;
+  const layers = isSmall
+    ? SMALL_DROP_SHADOW_LAYERS
+    : DEFAULT_DROP_SHADOW_LAYERS;
   return buildDropShadowString(colors, layers);
 }
 
