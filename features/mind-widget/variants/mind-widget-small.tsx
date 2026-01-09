@@ -13,6 +13,7 @@ import { LevelProgressFill } from "../components/mind-widget-bubble";
 import { MindWidgetPill } from "../components/mind-widget-pill";
 import { MindWidgetScore } from "../components/mind-widget-score";
 import { MindWidgetTrainingStatus } from "../components/mind-widget-training-status";
+import { horizontalExpandAnimation } from "../animations";
 import { BrainIcon } from "@/delphi-ui/icons/Brain";
 
 const SMALL_WIDGET_VARIANTS = {
@@ -25,14 +26,6 @@ const SMALL_WIDGET_VARIANTS = {
 } as const;
 
 type SmallWidgetVariant = keyof typeof SMALL_WIDGET_VARIANTS;
-
-// Width expansion/collapse animation (matches onboarding style)
-const trainingStatusAnimation = {
-  initial: { width: 0, opacity: 0 },
-  animate: { width: "auto", opacity: 1 },
-  exit: { width: 0, opacity: 0 },
-  transition: { duration: 0.25, ease: "easeInOut" as const },
-};
 
 interface MindWidgetSmallProps {
   score?: number;
@@ -49,7 +42,8 @@ export function MindWidgetSmall({
   disableClick = false,
   variant = "default",
 }: MindWidgetSmallProps) {
-  const { status, isTrainingVisible, openAddKnowledge } = useMindWidgetState();
+  const { status, shouldShowTrainingStatus, openAddKnowledge } =
+    useMindWidgetState();
 
   const handleClick = () => {
     if (disableClick) return;
@@ -62,9 +56,6 @@ export function MindWidgetSmall({
   const dropShadow = generateDropShadow(levelColors);
 
   const variantStyles = SMALL_WIDGET_VARIANTS[variant];
-
-  // Only show training status when not idle and visibility is enabled
-  const shouldShowTrainingStatus = status !== "idle" && isTrainingVisible;
 
   return (
     <motion.div
@@ -119,7 +110,7 @@ export function MindWidgetSmall({
       </div>
       <AnimatePresence>
         {shouldShowTrainingStatus && (
-          <motion.div className='overflow-hidden' {...trainingStatusAnimation}>
+          <motion.div className="overflow-hidden" {...horizontalExpandAnimation}>
             <MindWidgetTrainingStatus size='small' variant={variant} />
           </motion.div>
         )}
