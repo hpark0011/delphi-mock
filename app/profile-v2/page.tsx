@@ -1,5 +1,5 @@
 import React from "react";
-import { ProfileView } from "@/app/profile/_view/profile-view";
+import { ProfileViewV2 } from "@/app/profile-v2/_view/profile-view-v2";
 import { ProfileBackgroundWrapper } from "@/app/profile/_components/profile-background-wrapper";
 import {
   mockProfile,
@@ -9,7 +9,7 @@ import {
 export default function ProfilePage() {
   return (
     <ProfileBackgroundWrapper>
-      <ProfileView
+      <ProfileViewV2
         profile={mockProfile}
         organizations={mockOrganizations}
         slug='hyunsol'

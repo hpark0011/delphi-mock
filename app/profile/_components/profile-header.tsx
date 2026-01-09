@@ -2,10 +2,8 @@
 
 import { useMindDialog } from "@/features/mind-dialog";
 import { useMindScore } from "@/features/mind-score";
-import {
-  MindWidget,
-  useScrollAwareTrainingVisibility,
-} from "@/features/mind-widget";
+import { useScrollAwareTrainingVisibility } from "@/features/mind-widget";
+import { MindWidgetSubtle } from "@/features/mind-widget/mind-widget-subtle";
 
 import { useScrollDirection } from "../_hooks";
 import { ProfileHeaderActions } from "./profile-header-actions";
@@ -32,7 +30,7 @@ export function ProfileHeader() {
         {/* Center column - MindWidget */}
         <div className='flex flex-col items-center justify-start overflow-visible'>
           <div className='relative z-10'>
-            <MindWidget score={current} variant="compact-vertical" />
+            <MindWidgetSubtle score={current} variant='compact-vertical' />
           </div>
         </div>
 

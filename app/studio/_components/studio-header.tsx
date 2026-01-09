@@ -1,8 +1,9 @@
 "use client";
 
-import { MindWidget, useScrollAwareTrainingVisibility } from "@/features/mind-widget";
-import { useMindScore } from "@/features/mind-score";
 import { useScrollDirection } from "@/app/profile/_hooks";
+import { useMindScore } from "@/features/mind-score";
+import { useScrollAwareTrainingVisibility } from "@/features/mind-widget";
+import { MindWidgetSubtle } from "@/features/mind-widget/mind-widget-subtle";
 import { cn } from "@/lib/utils";
 
 export function StudioHeader() {
@@ -19,7 +20,7 @@ export function StudioHeader() {
         "bg-linear-to-b from-background via-background/80 to-transparent dark:from-black dark:via-black/30"
       )}
     >
-      <MindWidget score={current} />
+      <MindWidgetSubtle score={current} />
     </div>
   );
 }
