@@ -12,31 +12,20 @@ import { MindWidgetScore } from "../components/mind-widget-score";
 import { MindWidgetTrainingStatus } from "../components/mind-widget-training-status";
 import { MindWidgetWrapper } from "../components/mind-widget-wrapper";
 import { verticalSpringAnimation, infoFadeAnimation } from "../animations";
-import type { MindWidgetInternalProps } from "../types";
+import type { MindWidgetDefaultInternalProps } from "../types";
 import "../styles/mind-widget.styles.css";
-
-type MindWidgetDefaultProps = Omit<
-  MindWidgetInternalProps,
-  "levelColors" | "shadowString" | "dropShadow"
->;
 
 export function MindWidgetDefault({
   score,
   level,
   progress,
-  disableClick,
   className,
   status,
   shouldShowTrainingStatus,
-  openAddKnowledge,
-}: MindWidgetDefaultProps) {
+  handleClick,
+}: MindWidgetDefaultInternalProps) {
   // Dialog state for mind level info
   const [isInfoDialogOpen, setIsInfoDialogOpen] = useState(false);
-
-  const handleClick = () => {
-    if (disableClick) return;
-    openAddKnowledge();
-  };
 
   return (
     <MindWidgetWrapper className={cn("gap-0.5", className)}>

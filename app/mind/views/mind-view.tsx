@@ -32,7 +32,7 @@ export default function MindView() {
         <VariantCard>
           <VariantsCardTitle>Compact: Mind dialog</VariantsCardTitle>
           <div className='flex flex-col items-center justify-center pt-2'>
-            <MindWidget score={current} variant="compact" />
+            <MindWidget score={current} variant='compact' />
           </div>
         </VariantCard>
       </VariantsGrid>
@@ -43,9 +43,9 @@ export default function MindView() {
             Compact Vertical: Profile, IM, Onboarding
           </VariantsCardTitle>
           <div className='relative w-full h-full'>
-            <div className='absolute top-0 inset-x-0 flex items-center justify-center pointer-events-none bg-gradient-to-b from-sand-1 to-transparent dark:from-black py-4'>
+            <div className='absolute top-0 inset-x-0 flex items-center justify-center pointer-events-none bg-gradient-to-b from-sand-1 to-transparent dark:from-black py-16'>
               <div className='pointer-events-auto'>
-                <MindWidget score={current} variant="compact-vertical" />
+                <MindWidget score={current} variant='compact-vertical' />
               </div>
             </div>
             <div

@@ -8,7 +8,10 @@ import { LevelProgressFill } from "../components/mind-widget-bubble";
 import { MindWidgetPill } from "../components/mind-widget-pill";
 import { MindWidgetScore } from "../components/mind-widget-score";
 import { MindWidgetTrainingStatus } from "../components/mind-widget-training-status";
-import { horizontalExpandAnimation } from "../animations";
+import {
+  horizontalExpandAnimation,
+  verticalSpringAnimation,
+} from "../animations";
 import type { MindWidgetCompactInternalProps } from "../types";
 
 const CONTAINER_STYLE_CLASSES = {
@@ -16,51 +19,57 @@ const CONTAINER_STYLE_CLASSES = {
   profile: "bg-sand-12/3 dark:bg-sand-3 backdrop-blur-lg",
 } as const;
 
+const DIRECTION_CONFIG = {
+  horizontal: {
+    containerClass: "flex gap-0 relative justify-start items-center rounded-full",
+    triggerClass: "flex items-center bg-sand-10/8 rounded-full transition-all duration-200 w-fit relative",
+    animation: horizontalExpandAnimation,
+    trainingVariant: "small" as const,
+    animationWrapper: "overflow-hidden",
+  },
+  vertical: {
+    containerClass: "flex-col gap-0.5 relative justify-center items-center rounded-full flex",
+    triggerClass: "flex items-center bg-sand-10/8 rounded-full transition-all duration-200 w-fit relative z-10",
+    animation: verticalSpringAnimation,
+    trainingVariant: "vertical" as const,
+    animationWrapper: "",
+  },
+} as const;
+
 export function MindWidgetCompact({
   score,
-  level,
   progress,
   disableClick,
   className,
   containerStyle,
+  direction,
   status,
   shouldShowTrainingStatus,
-  openAddKnowledge,
+  handleClick,
   levelColors,
   shadowString,
   dropShadow,
 }: MindWidgetCompactInternalProps) {
-  const handleClick = () => {
-    if (disableClick) return;
-    openAddKnowledge();
-  };
+  const config = DIRECTION_CONFIG[direction];
+  const isHorizontal = direction === "horizontal";
 
-  return (
-    <motion.div
-      layout
-      transition={{
-        layout: {
-          type: "spring",
-          stiffness: 300,
-          damping: 30,
-        },
-      }}
-      className={cn(
-        "flex gap-0 relative justify-start items-center rounded-full",
-        CONTAINER_STYLE_CLASSES[containerStyle],
-        className
-      )}
-    >
+  const containerClassName = cn(
+    config.containerClass,
+    isHorizontal && containerStyle && CONTAINER_STYLE_CLASSES[containerStyle],
+    className
+  );
+
+  const content = (
+    <>
       {/* Mindscore Trigger */}
       <div
         className={cn(
-          "flex items-center bg-sand-10/8 rounded-full transition-all duration-200 w-fit relative",
+          config.triggerClass,
           !disableClick && "hover:scale-108 cursor-pointer"
         )}
         onClick={handleClick}
         style={{ boxShadow: dropShadow }}
       >
-        {/* Mindscore Wrapper */}
         <MindWidgetPill
           onClick={handleClick}
           disableClick={disableClick}
@@ -69,7 +78,6 @@ export function MindWidgetCompact({
           status={status}
           size="small"
         >
-          {/* Mindscore Value */}
           <div className="relative z-10">
             <div className="flex items-center justify-center gap-0.5">
               <BrainIcon className="size-4.5 text-sand-1/50 min-w-[16px] dark:text-sand-12/50" />
@@ -80,17 +88,33 @@ export function MindWidgetCompact({
               />
             </div>
           </div>
-          {/* Progress fill */}
           <LevelProgressFill lightColor={levelColors.light} progress={progress} />
         </MindWidgetPill>
       </div>
+
       <AnimatePresence>
         {shouldShowTrainingStatus && (
-          <motion.div className="overflow-hidden" {...horizontalExpandAnimation}>
-            <MindWidgetTrainingStatus variant="small" />
+          <motion.div className={config.animationWrapper} {...config.animation}>
+            <MindWidgetTrainingStatus variant={config.trainingVariant} />
           </motion.div>
         )}
       </AnimatePresence>
-    </motion.div>
+    </>
   );
+
+  if (isHorizontal) {
+    return (
+      <motion.div
+        layout
+        transition={{
+          layout: { type: "spring", stiffness: 300, damping: 30 },
+        }}
+        className={containerClassName}
+      >
+        {content}
+      </motion.div>
+    );
+  }
+
+  return <div className={containerClassName}>{content}</div>;
 }

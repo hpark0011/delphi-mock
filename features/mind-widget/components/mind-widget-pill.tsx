@@ -2,22 +2,17 @@
 
 import React from "react";
 import { cn } from "@/lib/utils";
+import type { LevelColors } from "../utils/level-shadows";
+import type { TrainingStatus } from "../types";
 
 type MindWidgetSize = "small" | "default";
-type MindWidgetStatus = "active" | "finished" | "idle";
-
-interface LevelColors {
-  light: string;
-  medium: string;
-  dark: string;
-}
 
 interface MindWidgetPillProps {
   onClick?: () => void;
   disableClick?: boolean;
   shadowString: string;
   levelColors: LevelColors;
-  status: MindWidgetStatus;
+  status: TrainingStatus;
   size?: MindWidgetSize;
   children: React.ReactNode;
 }

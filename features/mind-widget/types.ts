@@ -9,6 +9,9 @@ export type MindWidgetContainerStyle = "default" | "profile";
 // Training status types
 export type TrainingStatus = "idle" | "active" | "finished";
 
+// Compact direction
+export type CompactDirection = "horizontal" | "vertical";
+
 // Public props for the unified MindWidget component
 export interface MindWidgetProps {
   /** Mind score value */
@@ -25,24 +28,30 @@ export interface MindWidgetProps {
   className?: string;
 }
 
-// Internal props passed to variant components
-export interface MindWidgetInternalProps {
+// Internal props passed to default variant
+export interface MindWidgetDefaultInternalProps {
   score: number;
   level: string;
   progress: number;
   disableClick: boolean;
   className?: string;
-  // State from useMindWidgetState
   status: TrainingStatus;
   shouldShowTrainingStatus: boolean;
-  openAddKnowledge: () => void;
-  // Colors from useLevelColors
+  handleClick: () => void;
+}
+
+// Internal props passed to compact variants
+export interface MindWidgetCompactInternalProps {
+  score: number;
+  progress: number;
+  disableClick: boolean;
+  className?: string;
+  containerStyle?: MindWidgetContainerStyle;
+  direction: CompactDirection;
+  status: TrainingStatus;
+  shouldShowTrainingStatus: boolean;
+  handleClick: () => void;
   levelColors: LevelColors;
   shadowString: string;
   dropShadow: string;
-}
-
-// Props for the compact variant with container style option
-export interface MindWidgetCompactInternalProps extends MindWidgetInternalProps {
-  containerStyle: MindWidgetContainerStyle;
 }

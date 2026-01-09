@@ -1,12 +1,11 @@
 "use client";
 
-import React from "react";
+import React, { useCallback } from "react";
 import { calculateLevel, calculateLevelProgress } from "@/features/mind-score";
 import { useMindWidgetState } from "./hooks/use-mind-widget-state";
 import { useLevelColors } from "./hooks/use-level-colors";
 import { MindWidgetDefault } from "./variants/mind-widget-default";
 import { MindWidgetCompact } from "./variants/mind-widget-compact";
-import { MindWidgetCompactVertical } from "./variants/mind-widget-compact-vertical";
 import type { MindWidgetProps } from "./types";
 
 /**
@@ -53,16 +52,21 @@ export function MindWidget({
   // Level-based colors and shadows
   const levelColors = useLevelColors(derivedLevel);
 
+  // Shared click handler
+  const handleClick = useCallback(() => {
+    if (disableClick) return;
+    openAddKnowledge();
+  }, [disableClick, openAddKnowledge]);
+
   // Common props for all variants
   const commonProps = {
     score,
-    level: derivedLevel,
     progress,
     disableClick,
     className,
     status,
     shouldShowTrainingStatus,
-    openAddKnowledge,
+    handleClick,
   };
 
   // Render appropriate variant
@@ -72,12 +76,19 @@ export function MindWidget({
         <MindWidgetCompact
           {...commonProps}
           {...levelColors}
+          direction="horizontal"
           containerStyle={containerStyle}
         />
       );
     case "compact-vertical":
-      return <MindWidgetCompactVertical {...commonProps} {...levelColors} />;
+      return (
+        <MindWidgetCompact
+          {...commonProps}
+          {...levelColors}
+          direction="vertical"
+        />
+      );
     default:
-      return <MindWidgetDefault {...commonProps} />;
+      return <MindWidgetDefault {...commonProps} level={derivedLevel} />;
   }
 }
