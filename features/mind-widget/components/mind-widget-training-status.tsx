@@ -18,17 +18,38 @@ function createBadgeHandlers(open: (options?: OpenDialogOptions) => void) {
 
 const TRAINING_STATUS_VARIANTS = {
   default: {
-    container: "bg-sand-3",
+    container: cn(
+      // Background
+      "bg-sand-3"
+    ),
   },
   profile: {
-    container: "bg-transparent",
+    container: cn(
+      // Background
+      "bg-transparent"
+    ),
   },
   vertical: {
-    container:
-      "bg-sand-3 pl-4 shadow-[inset_0_0.5px_1.5px_1px_rgba(255,255,255,0.8),_0_8px_16px_-4px_rgba(0,0,0,0.1)] dark:shadow-[inset_0_0.5px_1.5px_1px_rgba(255,255,255,0.1),_0_8px_16px_-4px_rgba(0,0,0,0.9)]",
+    container: cn(
+      // Background
+      "bg-sand-3",
+      // Spacing
+      "pl-4",
+      // Shadow / Effects
+      "shadow-[inset_0_0.5px_1.5px_1px_rgba(255,255,255,0.8),_0_8px_16px_-4px_rgba(0,0,0,0.1)]",
+      "dark:shadow-[inset_0_0.5px_1.5px_1px_rgba(255,255,255,0.1),_0_8px_16px_-4px_rgba(0,0,0,0.3)]"
+    ),
   },
   "vertical-profile": {
-    container: "bg-sand-12/3 dark:bg-sand-3 backdrop-blur-lg shadow-xs",
+    container: cn(
+      // Background
+      "bg-sand-12/3",
+      "dark:bg-sand-3",
+      // Effects
+      "backdrop-blur-lg",
+      // Shadow
+      "shadow-xs"
+    ),
   },
 } as const;
 
