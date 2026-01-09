@@ -120,9 +120,7 @@ export function MindWidgetBubble({
         ]
   );
 
-  const boxShadow = isCompact
-    ? shadowString.replace(/_/g, " ")
-    : generateDropShadow(levelColors);
+  const boxShadow = generateDropShadow(levelColors, isCompact);
 
   return (
     <div
@@ -141,15 +139,10 @@ export function MindWidgetBubble({
       data-size={isCompact ? "small" : undefined}
     >
       {children}
-
-      {!isCompact && (
-        <>
-          <GlassEffectHighlight />
-          <LevelAccentShadow shadowString={shadowString} />
-        </>
-      )}
+      <GlassEffectHighlight />
+      <LevelAccentShadow shadowString={shadowString} />
       <LevelProgressFill lightColor={levelColors.light} progress={progress} />
-      {!isCompact && <GlowAnimationOverlay queueStatus={queueStatus} />}
+      <GlowAnimationOverlay queueStatus={queueStatus} />
     </div>
   );
 }

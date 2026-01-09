@@ -45,9 +45,7 @@ interface OverlayProps {
 }
 
 function BaseGradientOverlay({ shape, className }: OverlayProps) {
-  return (
-    <div className={cn("absolute inset-0 bg-black", shape, className)} />
-  );
+  return <div className={cn("absolute inset-0 bg-black", shape, className)} />;
 }
 
 function GlassEffectHighlight({ shape, className }: OverlayProps) {
@@ -68,7 +66,11 @@ interface LevelAccentShadowProps extends OverlayProps {
   shadowString: string;
 }
 
-function LevelAccentShadow({ shadowString, shape, className }: LevelAccentShadowProps) {
+function LevelAccentShadow({
+  shadowString,
+  shape,
+  className,
+}: LevelAccentShadowProps) {
   return (
     <div
       className={cn("absolute inset-0", shape, className)}
@@ -100,21 +102,31 @@ export function AddToMindButton({
         config.sizing,
         className
       )}
-      style={{
-        boxShadow: levelDropShadow,
-        "--pill-color-light": levelColors.light,
-        "--pill-color-medium": levelColors.medium,
-        "--pill-color-dark": levelColors.dark,
-      } as React.CSSProperties}
-      aria-label="Add Content"
+      style={
+        {
+          boxShadow: levelDropShadow,
+          "--pill-color-light": levelColors.light,
+          "--pill-color-medium": levelColors.medium,
+          "--pill-color-dark": levelColors.dark,
+        } as React.CSSProperties
+      }
+      aria-label='Add Content'
     >
       <BaseGradientOverlay shape={config.shape} className={className} />
       <GlassEffectHighlight shape={config.shape} className={className} />
-      <LevelAccentShadow shadowString={shadowString} shape={config.shape} className={className} />
+      <LevelAccentShadow
+        shadowString={shadowString}
+        shape={config.shape}
+        className={className}
+      />
 
-      <PlusLargeIcon className={cn("relative z-10 text-white", config.iconSize)} />
+      <PlusLargeIcon
+        className={cn("relative z-10 text-white", config.iconSize)}
+      />
       {config.showLabel && (
-        <span className="relative z-10 text-white text-sm font-medium">Add</span>
+        <span className='relative z-10 text-white text-sm font-medium'>
+          Add
+        </span>
       )}
     </button>
   );
