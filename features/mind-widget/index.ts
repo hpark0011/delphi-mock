@@ -22,6 +22,7 @@ export { MindTrainingStatusLabel } from "./components/mind-training-status-label
 
 // Hooks
 export { useMindWidgetState } from "./hooks/use-mind-widget-state";
+export { useScrollAwareTrainingVisibility } from "./hooks/use-scroll-aware-training-visibility";
 
 // Utils
 export {
@@ -36,6 +37,11 @@ export {
 } from "./utils/level-shadows";
 
 export { CONTAINER_ANIMATION, SLIDE_ANIMATION } from "./utils/animations";
+export {
+  horizontalExpandAnimation,
+  infoFadeAnimation,
+  verticalSpringAnimation,
+} from "./animations";
 
 // Additional Components
 export { GlassInnerGlow } from "./components/glass-inner-glow";

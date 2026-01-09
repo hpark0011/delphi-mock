@@ -2,7 +2,7 @@
 
 import React from "react";
 import { cn } from "@/lib/utils";
-import { AnimatePresence } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { useMindWidgetState } from "../hooks/use-mind-widget-state";
 import {
   generateSmallWidgetShadowString,
@@ -13,6 +13,7 @@ import { LevelProgressFill } from "../components/mind-widget-bubble";
 import { MindWidgetPill } from "../components/mind-widget-pill";
 import { MindWidgetScore } from "../components/mind-widget-score";
 import { MindWidgetTrainingStatus } from "../components/mind-widget-training-status";
+import { horizontalExpandAnimation } from "../animations";
 import { BrainIcon } from "@/delphi-ui/icons/Brain";
 
 const SMALL_WIDGET_VARIANTS = {
@@ -41,7 +42,8 @@ export function MindWidgetSmall({
   disableClick = false,
   variant = "default",
 }: MindWidgetSmallProps) {
-  const { status, isTrainingVisible, openAddKnowledge } = useMindWidgetState();
+  const { status, shouldShowTrainingStatus, openAddKnowledge } =
+    useMindWidgetState();
 
   const handleClick = () => {
     if (disableClick) return;
@@ -56,7 +58,15 @@ export function MindWidgetSmall({
   const variantStyles = SMALL_WIDGET_VARIANTS[variant];
 
   return (
-    <div
+    <motion.div
+      layout
+      transition={{
+        layout: {
+          type: "spring",
+          stiffness: 300,
+          damping: 30,
+        },
+      }}
       className={cn(
         "flex gap-0 relative justify-start items-center rounded-full",
         variantStyles.container
@@ -99,10 +109,12 @@ export function MindWidgetSmall({
         </MindWidgetPill>
       </div>
       <AnimatePresence>
-        {isTrainingVisible && (
-          <MindWidgetTrainingStatus size='small' variant={variant} />
+        {shouldShowTrainingStatus && (
+          <motion.div className="overflow-hidden" {...horizontalExpandAnimation}>
+            <MindWidgetTrainingStatus size='small' variant={variant} />
+          </motion.div>
         )}
       </AnimatePresence>
-    </div>
+    </motion.div>
   );
 }

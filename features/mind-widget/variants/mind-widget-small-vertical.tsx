@@ -1,14 +1,14 @@
 "use client";
 
-import { ScrollRevealWrapper } from "@/components/ui/scroll-reveal-wrapper";
 import { BrainIcon } from "@/delphi-ui/icons/Brain";
 import { cn } from "@/lib/utils";
-import { AnimatePresence } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { LevelProgressFill } from "../components/mind-widget-bubble";
 import { MindWidgetPill } from "../components/mind-widget-pill";
 import { MindWidgetScore } from "../components/mind-widget-score";
 import { MindWidgetTrainingStatus } from "../components/mind-widget-training-status";
 import { useMindWidgetState } from "../hooks/use-mind-widget-state";
+import { verticalSpringAnimation } from "../animations";
 import {
   generateDropShadow,
   generateSmallWidgetShadowString,
@@ -20,7 +20,6 @@ interface MindWidgetSmallVerticalProps {
   level?: string;
   progress?: number;
   disableClick?: boolean;
-  isScrollingDown?: boolean;
 }
 
 export function MindWidgetSmallVertical({
@@ -28,9 +27,9 @@ export function MindWidgetSmallVertical({
   level = "Skilled",
   progress = 0,
   disableClick = false,
-  isScrollingDown = false,
 }: MindWidgetSmallVerticalProps) {
-  const { status, isTrainingVisible, openAddKnowledge } = useMindWidgetState();
+  const { status, shouldShowTrainingStatus, openAddKnowledge } =
+    useMindWidgetState();
 
   const handleClick = () => {
     if (disableClick) return;
@@ -84,13 +83,13 @@ export function MindWidgetSmallVertical({
           />
         </MindWidgetPill>
       </div>
-      <ScrollRevealWrapper isScrollingDown={isScrollingDown}>
-        <AnimatePresence>
-          {isTrainingVisible && (
+      <AnimatePresence>
+        {shouldShowTrainingStatus && (
+          <motion.div {...verticalSpringAnimation}>
             <MindWidgetTrainingStatus size='default' variant='vertical' />
-          )}
-        </AnimatePresence>
-      </ScrollRevealWrapper>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }

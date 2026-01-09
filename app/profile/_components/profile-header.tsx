@@ -2,7 +2,10 @@
 
 import { useMindDialog } from "@/features/mind-dialog";
 import { useMindScore } from "@/features/mind-score";
-import { MindWidgetSmallVertical } from "@/features/mind-widget";
+import {
+  MindWidgetSmallVertical,
+  useScrollAwareTrainingVisibility,
+} from "@/features/mind-widget";
 
 import { useScrollDirection } from "../_hooks";
 import { ProfileHeaderActions } from "./profile-header-actions";
@@ -12,6 +15,9 @@ export function ProfileHeader() {
   const { open: openMindDialog } = useMindDialog();
   const { current, level, levelProgress } = useMindScore();
   const isScrollingDown = useScrollDirection();
+
+  // Control training visibility based on scroll direction
+  useScrollAwareTrainingVisibility(isScrollingDown);
 
   const handleAddClick = () => {
     openMindDialog({ tab: "add-knowledge" });
@@ -30,7 +36,6 @@ export function ProfileHeader() {
               score={current}
               level={level}
               progress={levelProgress}
-              isScrollingDown={isScrollingDown}
             />
           </div>
         </div>

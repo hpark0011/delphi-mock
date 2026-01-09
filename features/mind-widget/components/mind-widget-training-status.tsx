@@ -24,7 +24,8 @@ const TRAINING_STATUS_VARIANTS = {
     container: "bg-transparent",
   },
   vertical: {
-    container: "bg-sand-4 shadow-lg pl-4",
+    container:
+      "bg-sand-3 pl-4 shadow-[inset_0_0.5px_1.5px_1px_rgba(255,255,255,0.8),_0_8px_16px_-4px_rgba(0,0,0,0.1)] dark:shadow-[inset_0_0.5px_1.5px_1px_rgba(255,255,255,0.1),_0_8px_16px_-4px_rgba(0,0,0,0.9)]",
   },
   "vertical-profile": {
     container: "bg-sand-12/3 dark:bg-sand-3 backdrop-blur-lg shadow-xs",
@@ -61,7 +62,7 @@ export function MindWidgetTrainingStatus({
   return (
     <motion.div
       className={cn(
-        "p-1 px-4 rounded-2xl min-h-[38px] flex items-center justify-center whitespace-nowrap",
+        "p-1 px-4 rounded-2xl min-h-[40px] flex items-center justify-center whitespace-nowrap h-10",
         variantStyles.container,
         size === "small" && "p-1 pl-3 pr-4"
       )}

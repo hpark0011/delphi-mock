@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { calculateLevelProgress } from "@/features/mind-score";
-import { AnimatePresence } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { MindLevelInfoDialog } from "../components/mind-level-info-dialog";
 import { MindWidgetBubble } from "../components/mind-widget-bubble";
 import { MindWidgetInfo } from "../components/mind-widget-info";
@@ -11,6 +11,7 @@ import { MindWidgetScore } from "../components/mind-widget-score";
 import { MindWidgetTrainingStatus } from "../components/mind-widget-training-status";
 import { MindWidgetWrapper } from "../components/mind-widget-wrapper";
 import { useMindWidgetState } from "../hooks/use-mind-widget-state";
+import { verticalSpringAnimation, infoFadeAnimation } from "../animations";
 import "../styles/mind-widget.styles.css";
 import { BrainIcon } from "@/delphi-ui/icons/Brain";
 import { cn } from "@/lib/utils";
@@ -24,7 +25,8 @@ export function MindWidget({
   score = 20,
   level = "Skilled",
 }: MindWidgetProps = {}) {
-  const { status, isTrainingVisible, openAddKnowledge } = useMindWidgetState();
+  const { status, shouldShowTrainingStatus, openAddKnowledge } =
+    useMindWidgetState();
 
   // Calculate progress toward next level
   const progress = calculateLevelProgress(score);
@@ -57,11 +59,15 @@ export function MindWidget({
       </MindWidgetBubble>
 
       {/* Training Status - below bubble */}
-      <AnimatePresence>
-        {isTrainingVisible ? (
-          <MindWidgetTrainingStatus />
+      <AnimatePresence mode="wait">
+        {shouldShowTrainingStatus ? (
+          <motion.div key="training-status" {...verticalSpringAnimation}>
+            <MindWidgetTrainingStatus />
+          </motion.div>
         ) : (
-          <MindWidgetInfo onClick={() => setIsInfoDialogOpen(true)} />
+          <motion.div key="info" {...infoFadeAnimation}>
+            <MindWidgetInfo onClick={() => setIsInfoDialogOpen(true)} />
+          </motion.div>
         )}
       </AnimatePresence>
 

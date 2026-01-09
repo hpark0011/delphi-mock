@@ -8,6 +8,7 @@ import {
   MindWidgetSmall,
   MindWidget,
   MindWidgetSmallVertical,
+  useScrollAwareTrainingVisibility,
 } from "@/features/mind-widget";
 import { useMindScore } from "@/features/mind-score";
 import { useContainerScrollDirection } from "@/hooks/use-container-scroll-direction";
@@ -16,6 +17,10 @@ export default function MindView() {
   const { current, level, levelProgress } = useMindScore();
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const isScrollingDown = useContainerScrollDirection(scrollContainerRef);
+
+  // Control training visibility based on scroll direction
+  useScrollAwareTrainingVisibility(isScrollingDown);
+
   return (
     <div className='h-full p-6 max-w-7xl mx-auto pl-[64px] space-y-6'>
       <VariantsGrid>
@@ -44,7 +49,6 @@ export default function MindView() {
                   score={current}
                   level={level}
                   progress={levelProgress}
-                  isScrollingDown={isScrollingDown}
                 />
               </div>
             </div>
