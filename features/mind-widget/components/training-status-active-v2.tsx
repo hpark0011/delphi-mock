@@ -61,13 +61,8 @@ export function TrainingStatusActive({
       </AnimatePresence>
       {(completedCount > 0 || failedCount > 0) && (
         <div className='ml-1'>
-          <TrainingResultBadges
-            completedCount={completedCount}
-            failedCount={failedCount}
-            onCompletedClick={onCompletedClick}
-            onFailedClick={onFailedClick}
-            disableTooltips
-          />
+          {completedCount > 0 && <div className='w-5 h-5 bg-green-500' />}
+          {failedCount > 0 && <div className='w-5 h-5 bg-orange-500' />}
         </div>
       )}
     </motion.div>
