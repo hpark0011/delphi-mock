@@ -38,6 +38,7 @@ export function ProfileHeader() {
         <ProfileHeaderActions
           showAddButton={true}
           onAddClick={handleAddClick}
+          profileLink="/profile-v2"
         />
       </nav>
     </header>
