@@ -173,7 +173,7 @@ export function MindWidgetBubble({
               // Compact border
               "border-white/20 dark:border-white/3",
               // Compact hover
-              !disableClick && "cursor-pointer hover:bg-black/84",
+              !disableClick && "cursor-pointer hover:scale-108",
             ]
           : [
               // Default sizing
