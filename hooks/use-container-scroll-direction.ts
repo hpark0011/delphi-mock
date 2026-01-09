@@ -14,7 +14,7 @@ export function useContainerScrollDirection(
   containerRef: RefObject<HTMLElement | null>,
   threshold = 5,
   resetThreshold = 50
-) {
+): boolean {
   const [isScrollingDown, setIsScrollingDown] = useState(false);
 
   useEffect(() => {
@@ -48,7 +48,7 @@ export function useContainerScrollDirection(
 
     container.addEventListener("scroll", handleScroll, { passive: true });
     return () => container.removeEventListener("scroll", handleScroll);
-  }, [containerRef, threshold, resetThreshold]);
+  }, [threshold, resetThreshold]);
 
   return isScrollingDown;
 }
