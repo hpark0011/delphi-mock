@@ -72,25 +72,6 @@ export function LevelProgressFill({
   );
 }
 
-interface GlowAnimationOverlayProps {
-  queueStatus: "idle" | "active" | "finished";
-}
-
-function GlowAnimationOverlay({
-  queueStatus,
-}: GlowAnimationOverlayProps): React.JSX.Element {
-  return (
-    <div
-      className={cn(
-        OVERLAY_BASE,
-        "rounded-full mind-widget-bubble pointer-events-none"
-      )}
-      data-luminating={queueStatus === "active"}
-      data-glowing={queueStatus === "finished"}
-    />
-  );
-}
-
 export function MindWidgetBubble({
   children,
   level,
@@ -134,15 +115,14 @@ export function MindWidgetBubble({
         } as React.CSSProperties
       }
       onClick={onClick}
-      data-luminating={isCompact ? queueStatus === "active" : undefined}
-      data-glowing={isCompact ? queueStatus === "finished" : undefined}
+      data-luminating={queueStatus === "active"}
+      data-glowing={queueStatus === "finished"}
       data-size={isCompact ? "small" : undefined}
     >
       {children}
       <GlassEffectHighlight />
       <LevelAccentShadow shadowString={shadowString} />
       <LevelProgressFill lightColor={levelColors.light} progress={progress} />
-      <GlowAnimationOverlay queueStatus={queueStatus} />
     </div>
   );
 }
