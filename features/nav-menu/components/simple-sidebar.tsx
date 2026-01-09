@@ -3,7 +3,7 @@
 import { DelphiLogo } from "@/components/delphi-logo";
 import { useMindDialog } from "@/features/mind-dialog";
 import { useMindScore } from "@/features/mind-score";
-import { MindWidget } from "@/features/mind-widget";
+import { MindWidgetSubtle } from "@/features/mind-widget/mind-widget-subtle";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { SidebarHamburgerMenu } from "./sidebar-hamburger-menu";
@@ -12,7 +12,7 @@ import { SidebarNavItems } from "./sidebar-nav-items";
 export function SimpleSidebar() {
   const pathname = usePathname();
   const { open: openMindDialog } = useMindDialog();
-  const { current, level } = useMindScore();
+  const { current } = useMindScore();
 
   const isStudioRoute = pathname === "/studio";
 
@@ -59,7 +59,7 @@ export function SimpleSidebar() {
         {/* MindWidget on studio route */}
         {isStudioRoute && (
           <div className='absolute top-2 left-1/2 -translate-x-1/2 overflow-visible'>
-            <MindWidget score={current} level={level} />
+            <MindWidgetSubtle score={current} />
           </div>
         )}
 

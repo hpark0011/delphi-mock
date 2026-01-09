@@ -78,14 +78,56 @@ export function generateSmallWidgetShadowString(colors: LevelColors): string {
   return `inset_0_1px_8px_-2px_${colors.light},inset_0_-4px_6px_-2px_${colors.medium},inset_0_-13px_24px_-14px_${colors.dark},_0_0_0_0.5px_rgba(0,0,0,0.05),0_10px_20px_-5px_rgba(0,0,0,0.3),0_1px_1px_0_rgba(0,0,0,0.15),_inset_0_0_6px_0_rgba(255,255,255,0.1)`;
 }
 
-export function generateDropShadow(colors: LevelColors): string {
-  const shadows = [
-    `0 3px 6px ${adjustRgbaOpacity(colors.light, 0.4)}`,
-    `0 8px 8px -4px ${adjustRgbaOpacity(colors.medium, 0.3)}`,
-    `0 16px 16px -8px ${adjustRgbaOpacity(colors.dark, 0.2)}`,
-    `0 24px 24px -12px ${adjustRgbaOpacity(colors.dark, 0.3)}`,
-  ];
-  return shadows.join(", ");
+/**
+ * DropShadowConfig is a configuration object for the drop shadow.
+ * @param offset - The offset of the shadow.
+ * @param blur - The blur of the shadow.
+ * @param spread - The spread of the shadow.
+ * @param colorKey - The key of the color in the LevelColors object.
+ * @param opacity - The opacity of the shadow.
+ */
+interface DropShadowConfig {
+  offset: number;
+  blur: number;
+  spread: number;
+  colorKey: keyof LevelColors;
+  opacity: number;
+}
+
+const SMALL_DROP_SHADOW_LAYERS: DropShadowConfig[] = [
+  { offset: 2, blur: 4, spread: 0, colorKey: "light", opacity: 0.3 },
+  { offset: 4, blur: 6, spread: -2, colorKey: "medium", opacity: 0.25 },
+  { offset: 8, blur: 10, spread: -4, colorKey: "dark", opacity: 0.15 },
+  { offset: 12, blur: 14, spread: -6, colorKey: "dark", opacity: 0.2 },
+];
+
+const DEFAULT_DROP_SHADOW_LAYERS: DropShadowConfig[] = [
+  { offset: 3, blur: 6, spread: 0, colorKey: "light", opacity: 0.4 },
+  { offset: 8, blur: 8, spread: -4, colorKey: "medium", opacity: 0.3 },
+  { offset: 16, blur: 16, spread: -8, colorKey: "dark", opacity: 0.2 },
+  { offset: 24, blur: 24, spread: -12, colorKey: "dark", opacity: 0.3 },
+];
+
+function buildDropShadowString(
+  colors: LevelColors,
+  layers: DropShadowConfig[]
+): string {
+  return layers
+    .map(({ offset, blur, spread, colorKey, opacity }) => {
+      const color = adjustRgbaOpacity(colors[colorKey], opacity);
+      return `0 ${offset}px ${blur}px ${spread}px ${color}`;
+    })
+    .join(", ");
+}
+
+export function generateDropShadow(
+  colors: LevelColors,
+  isSmall = false
+): string {
+  const layers = isSmall
+    ? SMALL_DROP_SHADOW_LAYERS
+    : DEFAULT_DROP_SHADOW_LAYERS;
+  return buildDropShadowString(colors, layers);
 }
 
 // SVG Shadow Colors (for SVG filters)

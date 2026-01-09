@@ -1,8 +1,11 @@
+// Primary unified export
+export { MindWidget } from "./mind-widget";
+export type { MindWidgetProps, MindWidgetVariant } from "./types";
+
 // Components
 export { AddToMindButton } from "./components/add-to-mind-button";
 export { MindProfileButton } from "./components/mind-profile-button";
 export {
-  BaseGradientOverlay,
   GlassEffectHighlight,
   LevelAccentShadow,
   LevelProgressFill,
@@ -12,9 +15,9 @@ export { MindWidgetLevel } from "./components/mind-widget-level";
 export { MindWidgetScore } from "./components/mind-widget-score";
 export { MindWidgetWrapper } from "./components/mind-widget-wrapper";
 export { TrainingResultBadges } from "./components/training-result-badges";
-export { MindWidget } from "./variants/mind-widget";
-export { MindWidgetSmall } from "./variants/mind-widget-small";
-export { MindWidgetSmallVertical } from "./variants/mind-widget-small-vertical";
+export { MindWidgetWithAdd } from "./mind-widget-with-add";
+export { MindWidgetDefaultSubtle } from "./variants/mind-widget-default-subtle";
+export { MindWidgetCompactSubtle } from "./variants/mind-widget-compact-subtle";
 
 // Training Status Components (atomic)
 export { MindTrainingStatusIcon } from "./components/mind-training-status-icon";

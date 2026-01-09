@@ -1,5 +1,5 @@
 import { CircleInfoIcon } from "@/delphi-ui/icons";
-import React from "react";
+import { cn } from "@/lib/utils";
 
 interface MindWidgetInfoProps {
   onClick?: () => void;
@@ -8,7 +8,14 @@ interface MindWidgetInfoProps {
 export function MindWidgetInfo({ onClick }: MindWidgetInfoProps) {
   return (
     <div
-      className='text-sm text-sand-10 dark:text-sand-11 flex items-center gap-[3px] -ml-[2px] group cursor-pointer h-10'
+      className={cn(
+        "flex",
+        "min-h-7 h-7",
+        "-ml-[2px]",
+        "items-center gap-[3px]",
+        "text-sm text-sand-10 dark:text-sand-11",
+        "group cursor-pointer"
+      )}
       onClick={onClick}
     >
       <CircleInfoIcon className='w-4.5 h-4.5 text-sand-8 group-hover:text-blue-500' />{" "}

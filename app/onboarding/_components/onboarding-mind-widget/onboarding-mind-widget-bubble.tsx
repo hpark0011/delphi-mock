@@ -3,7 +3,6 @@
 import { useWidgetConfig } from "@/app/onboarding/_context";
 import { cn } from "@/lib/utils";
 import {
-  BaseGradientOverlay,
   GlassEffectHighlight,
   LevelAccentShadow,
   LevelProgressFill,
@@ -65,7 +64,7 @@ export function OnboardingMindWidgetBubble({
       {children}
 
       {/* Visual overlay layers */}
-      <BaseGradientOverlay />
+      <div className="absolute inset-0 bg-black" />
       <GlassEffectHighlight />
       {shadowString && <LevelAccentShadow shadowString={shadowString} />}
       {lightColor && <LevelProgressFill lightColor={lightColor} progress={0} />}

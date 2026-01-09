@@ -2,14 +2,16 @@
 
 import { useMindDialog } from "@/features/mind-dialog";
 import { useMindScore } from "@/features/mind-score";
-import { useScrollAwareTrainingVisibility } from "@/features/mind-widget";
-import { MindWidgetSubtle } from "@/features/mind-widget/mind-widget-subtle";
+import {
+  MindWidgetWithAdd,
+  useScrollAwareTrainingVisibility,
+} from "@/features/mind-widget";
 
-import { useScrollDirection } from "../_hooks";
-import { ProfileHeaderActions } from "./profile-header-actions";
-import { ProfileNavLogo } from "./profile-nav-logo";
+import { useScrollDirection } from "@/app/profile/_hooks";
+import { ProfileHeaderActions } from "@/app/profile/_components/profile-header-actions";
+import { ProfileNavLogo } from "@/app/profile/_components/profile-nav-logo";
 
-export function ProfileHeader() {
+export function ProfileHeaderV2() {
   const { open: openMindDialog } = useMindDialog();
   const { current } = useMindScore();
   const isScrollingDown = useScrollDirection();
@@ -30,13 +32,13 @@ export function ProfileHeader() {
         {/* Center column - MindWidget */}
         <div className='flex flex-col items-center justify-start overflow-visible'>
           <div className='relative z-10'>
-            <MindWidgetSubtle score={current} variant='compact-vertical' />
+            <MindWidgetWithAdd score={current} variant='compact-vertical' />
           </div>
         </div>
 
         {/* Right column - Desktop add button + avatar */}
         <ProfileHeaderActions
-          showAddButton={true}
+          showAddButton={false}
           onAddClick={handleAddClick}
         />
       </nav>

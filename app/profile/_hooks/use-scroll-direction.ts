@@ -2,6 +2,13 @@
 
 import { useEffect, useState } from "react";
 
+/**
+ * Tracks scroll direction on the window.
+ * Returns true when scrolling down, false when scrolling up.
+ *
+ * @param threshold - Minimum scroll delta to trigger direction change (default: 5px)
+ * @param resetThreshold - Scroll position below which state resets to false (default: 50px)
+ */
 export function useScrollDirection(threshold = 5, resetThreshold = 50) {
   const [isScrollingDown, setIsScrollingDown] = useState(false);
 
