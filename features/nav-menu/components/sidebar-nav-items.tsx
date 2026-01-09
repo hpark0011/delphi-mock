@@ -8,7 +8,7 @@ import {
   ProfileIcon,
 } from "@/delphi-ui/icons";
 import { useTrainingQueue } from "@/features/mind-dialog";
-import { useTrainingState } from "@/hooks/use-training-state";
+import { isFinishedItemStatus } from "@/utils/training-status-helpers";
 import { SidebarAddButton } from "./sidebar-add-button";
 import { SidebarNavLink } from "./sidebar-nav-link";
 
@@ -28,9 +28,9 @@ export function SidebarNavItems({
   isActive,
   onAddClick,
 }: SidebarNavItemsProps) {
-  const { status } = useTrainingState();
-  const { markAsReviewed } = useTrainingQueue();
-  const hasNewTraining = status === "finished";
+  const { queue, markAsReviewed, hasUserReviewed } = useTrainingQueue();
+  const hasFinishedItems = queue.some((item) => isFinishedItemStatus(item.status));
+  const hasNewTraining = hasFinishedItems && !hasUserReviewed;
 
   const handleMindClick = () => {
     if (hasNewTraining) markAsReviewed();
