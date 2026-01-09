@@ -59,6 +59,7 @@ export function SidebarNavItems({
         isActive={isActive(navItems[2].href)}
         label={navItems[2].label}
         showNotification={hasNewTraining}
+        onClick={handleProfileClick}
       />
       <SidebarNavLink
         icon={navItems[3].icon}
