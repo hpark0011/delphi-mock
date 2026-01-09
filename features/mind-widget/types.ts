@@ -13,8 +13,6 @@ export type CompactDirection = "horizontal" | "vertical";
 export interface MindWidgetProps {
   /** Mind score value */
   score?: number;
-  /** Current level name (optional - will derive from score if not provided) */
-  level?: string;
   /** Visual variant */
   variant?: MindWidgetVariant;
   /** Disable click interaction */

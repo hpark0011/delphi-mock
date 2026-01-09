@@ -29,12 +29,11 @@ import type { MindWidgetProps } from "./types";
  */
 export function MindWidget({
   score = 20,
-  level,
   variant = "default",
   disableClick = false,
 }: MindWidgetProps) {
-  // Derive level from score if not provided
-  const derivedLevel = level ?? calculateLevel(score);
+  // Derive level from score
+  const level = calculateLevel(score);
 
   // Always calculate progress internally
   const progress = calculateLevelProgress(score);
@@ -44,7 +43,7 @@ export function MindWidget({
     useMindWidgetState();
 
   // Level-based colors and shadows
-  const levelColors = useLevelColors(derivedLevel);
+  const levelColors = useLevelColors(level);
 
   // Shared click handler
   const handleClick = useCallback(() => {
@@ -84,7 +83,7 @@ export function MindWidget({
       return (
         <MindWidgetDefault
           score={score}
-          level={derivedLevel}
+          level={level}
           progress={progress}
           status={status}
           shouldShowTrainingStatus={shouldShowTrainingStatus}
