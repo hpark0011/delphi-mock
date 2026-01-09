@@ -8,7 +8,7 @@ import { useEffect, useState, RefObject } from "react";
  *
  * @param containerRef - Ref to the scrollable container element
  * @param threshold - Minimum scroll delta to trigger direction change (default: 5px)
- * @param resetThreshold - Scroll position below which state resets to false (default: 50px)
+ * @param resetThreshold - Scroll position below which state resets to false (default: 50px). This is to prevent the "dead zone" effect where the scroll direction is not detected when the user is at the top of the page.
  */
 export function useContainerScrollDirection(
   containerRef: RefObject<HTMLElement | null>,
