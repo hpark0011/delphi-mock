@@ -86,7 +86,7 @@ export function MindWidgetSmallVertical({
       <AnimatePresence>
         {shouldShowTrainingStatus && (
           <motion.div {...verticalSpringAnimation}>
-            <MindWidgetTrainingStatus size='default' variant='vertical' />
+            <MindWidgetTrainingStatus variant='vertical' />
           </motion.div>
         )}
       </AnimatePresence>

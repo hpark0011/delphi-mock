@@ -111,7 +111,7 @@ export function MindWidgetSmall({
       <AnimatePresence>
         {shouldShowTrainingStatus && (
           <motion.div className="overflow-hidden" {...horizontalExpandAnimation}>
-            <MindWidgetTrainingStatus size='small' variant={variant} />
+            <MindWidgetTrainingStatus variant="small" />
           </motion.div>
         )}
       </AnimatePresence>

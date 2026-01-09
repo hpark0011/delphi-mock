@@ -20,35 +20,37 @@ const TRAINING_STATUS_VARIANTS = {
   default: {
     container: cn(
       // Background
-      "bg-sand-3"
-    ),
-  },
-  profile: {
-    container: cn(
-      // Background
-      "bg-transparent"
+      "bg-sand-3",
+      // Sizing
+      "min-h-7 h-7",
+      // Spacing
+      "px-3",
+      // Shadow / Effects
+      "shadow-[inset_0_0.5px_1.5px_1px_rgba(255,255,255,0.8),_0_8px_16px_-4px_rgba(0,0,0,0.1)]",
+      "dark:shadow-[inset_0_0.5px_1.5px_1px_rgba(255,255,255,0.1),_0_8px_16px_-4px_rgba(0,0,0,0.3)]"
     ),
   },
   vertical: {
     container: cn(
       // Background
       "bg-sand-3",
+      // Sizing
+      "min-h-7 h-7",
       // Spacing
-      "pl-4",
+      "px-3",
       // Shadow / Effects
       "shadow-[inset_0_0.5px_1.5px_1px_rgba(255,255,255,0.8),_0_8px_16px_-4px_rgba(0,0,0,0.1)]",
       "dark:shadow-[inset_0_0.5px_1.5px_1px_rgba(255,255,255,0.1),_0_8px_16px_-4px_rgba(0,0,0,0.3)]"
     ),
   },
-  "vertical-profile": {
+  small: {
     container: cn(
       // Background
-      "bg-sand-12/3",
-      "dark:bg-sand-3",
-      // Effects
-      "backdrop-blur-lg",
-      // Shadow
-      "shadow-xs"
+      "bg-sand-3",
+      // Sizing
+      "min-h-7 h-7",
+      // Spacing
+      "px-4 pl-3"
     ),
   },
 } as const;
@@ -56,12 +58,10 @@ const TRAINING_STATUS_VARIANTS = {
 type TrainingStatusVariant = keyof typeof TRAINING_STATUS_VARIANTS;
 
 interface MindWidgetTrainingStatusProps {
-  size?: "default" | "small";
   variant?: TrainingStatusVariant;
 }
 
 export function MindWidgetTrainingStatus({
-  size = "default",
   variant = "default",
 }: MindWidgetTrainingStatusProps) {
   const { open } = useMindDialog();
@@ -83,9 +83,8 @@ export function MindWidgetTrainingStatus({
   return (
     <motion.div
       className={cn(
-        "p-1 px-4 rounded-2xl min-h-[40px] flex items-center justify-center whitespace-nowrap h-10",
-        variantStyles.container,
-        size === "small" && "p-1 pl-3 pr-4"
+        "p-1 rounded-2xl flex items-center justify-center whitespace-nowrap h-10",
+        variantStyles.container
       )}
       initial={CONTAINER_ANIMATION.initial}
       animate={CONTAINER_ANIMATION.animate}
