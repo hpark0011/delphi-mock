@@ -22,17 +22,16 @@ export function TrainingStatusFinishedV2({
       transition={SLIDE_ANIMATION.transition}
       className='flex items-center gap-1'
     >
-      <span className='text-[15px] font-medium text-sand-10 dark:text-sand-11 hover:text-blue-500'>
+      <span className='text-[14px] font-medium text-sand-10 dark:text-sand-11 hover:text-blue-500'>
         Done!
       </span>
       {(completedCount > 0 || failedCount > 0) && (
-        <div className='ml-1 flex flex-col gap-0.5'>
-          {completedCount > 0 && (
-            <div className='size-1.5 bg-green-500/80 rounded-full' />
-          )}
-          {failedCount > 0 && (
-            <div className='size-1.5 bg-orange-500/80 rounded-full' />
-          )}
+        <div className='ml-[5px] flex flex-row items-center gap-1.5'>
+          <div
+            className={`size-2 rounded-full ${
+              failedCount > 0 ? "bg-orange-500/80" : "bg-green-500/80"
+            }`}
+          />
         </div>
       )}
     </motion.div>

@@ -55,13 +55,12 @@ export function TrainingStatusActiveV2({
         )}
       </AnimatePresence>
       {(completedCount > 0 || failedCount > 0) && (
-        <div className='ml-1 flex flex-col gap-0.5'>
-          {completedCount > 0 && (
-            <div className='size-1.5 bg-green-500/80 rounded-full' />
-          )}
-          {failedCount > 0 && (
-            <div className='size-1.5 bg-orange-500/80 rounded-full' />
-          )}
+        <div className='ml-[5px] flex flex-row items-center gap-1.5'>
+          <div
+            className={`size-2 rounded-full ${
+              failedCount > 0 ? "bg-orange-500/80" : "bg-green-500/80"
+            }`}
+          />
         </div>
       )}
     </motion.div>

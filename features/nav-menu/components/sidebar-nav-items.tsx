@@ -24,7 +24,10 @@ interface SidebarNavItemsProps {
   onAddClick: () => void;
 }
 
-export function SidebarNavItems({ isActive, onAddClick }: SidebarNavItemsProps) {
+export function SidebarNavItems({
+  isActive,
+  onAddClick,
+}: SidebarNavItemsProps) {
   const { status } = useTrainingState();
   const { markAsReviewed } = useTrainingQueue();
   const hasNewTraining = status === "finished";
